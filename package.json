@@ -1,6 +1,7 @@
 {
   "name": "Trivia",
-  "version": "1",
+  "version": "1.0.0",
+  "description": "huehueheuheu",
   "author": "jhonncerv <jhonncerv@gmail.com>",
   "homepage": "",
   "repository": {
@@ -27,7 +28,7 @@
     "axios": "^0.15.3",
     "bootstrap-sass": "^3.3.7",
     "jquery": "^3.1.1",
-    "laravel-mix": "^0.8.1",
+    "laravel-mix": "^0.8.9",
     "lodash": "^4.17.4",
     "vue": "^2.1.10"
   }
