@@ -35,4 +35,9 @@ return [
         'secret' => env('STRIPE_SECRET'),
     ],
 
+    'facebook' => [
+        'app_id' => '1693833144242455',
+        'app_secret' => '00eda492a9e04c5be62d4d0df631f701',
+    ]
+
 ];
