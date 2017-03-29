@@ -15,6 +15,9 @@ class CreateIntentosTable extends Migration
     {
         Schema::create('intentos', function (Blueprint $table) {
             $table->increments('id');
+            $table->string('attempt');
+            $table->integer('pregunta_id')->unsigned();
+            $table->foreign('pregunta_id')->references('id')->on('preguntas');
             $table->timestamps();
         });
     }

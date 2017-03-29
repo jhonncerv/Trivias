@@ -15,6 +15,13 @@ class CreateParticipantesTable extends Migration
     {
         Schema::create('participantes', function (Blueprint $table) {
             $table->increments('id');
+            $table->string('name');
+            $table->string('last_name');
+            $table->string('nice_name');
+            $table->string('email');
+            $table->string('photo');
+            $table->string('token_oauth');
+            $table->integer('points');
             $table->timestamps();
         });
     }

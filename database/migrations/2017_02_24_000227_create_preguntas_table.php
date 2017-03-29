@@ -15,6 +15,9 @@ class CreatePreguntasTable extends Migration
     {
         Schema::create('preguntas', function (Blueprint $table) {
             $table->increments('id');
+            $table->string('question');
+            $table->integer('trivia_id')->unsigned();
+            $table->foreign('trivia_id')->references('id')->on('trivias');
             $table->timestamps();
         });
     }
