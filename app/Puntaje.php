@@ -4,7 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Intentos extends Model
+class Puntaje extends Model
 {
     //
 }
