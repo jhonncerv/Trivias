@@ -17,7 +17,6 @@ class CiudadesTableSeeder extends Seeder
         $Cnow = Carbon::now();
         Carbon::setTestNow($Cnow);
 
-
         for ($i = 0; $i < 5; $i++) {
             $ciudad = new \App\Ciudad();
             $ciudad->name = $faker->country;

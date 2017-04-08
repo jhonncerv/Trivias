@@ -26,3 +26,4 @@ Route::get('/home', 'HomeController@index');
 Route::get('trivias', 'TriviaController@index');
 Route::get('preguntas', 'PreguntaController@index');
 Route::get('respuestas', 'RespuestaController@index');
+Route::get('participantes', 'ParticipanteController@index');
