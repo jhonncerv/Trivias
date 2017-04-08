@@ -14,10 +14,8 @@ class TriviasTableSeeder extends Seeder
     {
         $faker = Faker\Factory::create();
 
-
         $Cnow = Carbon::now();
         Carbon::setTestNow($Cnow);
-
 
         for ($i = 0; $i < 5; $i++) {
             $trivia = new \App\Trivia();

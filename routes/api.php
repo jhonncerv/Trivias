@@ -17,5 +17,5 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::get('trivias/{id}', 'TriviaController@todayGame');
+Route::get('ciudad/{id}', 'TriviaController@todayGame');
 Route::get('trivia/{id}/preguntas', 'TriviaController@todayGame');

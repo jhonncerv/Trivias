@@ -13,9 +13,15 @@ class CiudadesTableSeeder extends Seeder
     {
         $faker = Faker\Factory::create();
 
+        $Cnow = Carbon::now();
+        Carbon::setTestNow($Cnow);
+
+
         for ($i = 0; $i < 5; $i++) {
             $ciudad = new \App\Ciudad();
             $ciudad->name = $faker->country;
+            $ciudad->publish = new Carbon('yesterday');
+            $ciudad->expiration = new Carbon('next wednesday');
             $ciudad->save();
         }
     }
