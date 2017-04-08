@@ -22,3 +22,7 @@ Route::get('/home', 'HomeController@index');
 Auth::routes();
 
 Route::get('/home', 'HomeController@index');
+
+Route::get('trivias', 'TriviaController@index');
+Route::get('preguntas', 'PreguntaController@index');
+Route::get('respuestas', 'RespuestaController@index');
