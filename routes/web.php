@@ -19,12 +19,8 @@ Route::post('participante', 'SocialiteController@login');
 Route::get('login/social', 'SocialiteController@redirectToProvider');
 Route::get('login/social/callback', 'SocialiteController@handleProviderCallback');
 
-Auth::routes();
+//Auth::routes();
 // rutas para la api
-Route::get('/home', 'HomeController@index');
-
-Auth::routes();
-
 Route::get('/home', 'HomeController@index');
 
 Route::get('trivias', 'TriviaController@index');
