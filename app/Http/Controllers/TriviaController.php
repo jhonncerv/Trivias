@@ -23,4 +23,9 @@ class TriviaController extends Controller
     {
 
     }
+
+    public function stopGame($id)
+    {
+
+    }
 }

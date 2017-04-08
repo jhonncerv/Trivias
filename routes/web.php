@@ -15,6 +15,10 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::post('participante', 'SocialiteController@login');
+Route::get('login/facebook', 'SocialiteController@redirectToProvider');
+Route::get('login/facebook/callback', 'SocialiteController@handleProviderCallback');
+
 Auth::routes();
 // rutas para la api
 Route::get('/home', 'HomeController@index');

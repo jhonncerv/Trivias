@@ -15,6 +15,6 @@ class PostalController extends Controller
 
     public function postal()
     {
-        
+
     }
 }
