@@ -66,4 +66,5 @@ class TriviaController extends Controller
             ])
         ]);
     }
+
 }
