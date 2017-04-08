@@ -16,8 +16,8 @@ Route::get('/', function () {
 });
 
 Route::post('participante', 'SocialiteController@login');
-Route::get('login/facebook', 'SocialiteController@redirectToProvider');
-Route::get('login/facebook/callback', 'SocialiteController@handleProviderCallback');
+Route::get('login/social', 'SocialiteController@redirectToProvider');
+Route::get('login/social/callback', 'SocialiteController@handleProviderCallback');
 
 Auth::routes();
 // rutas para la api
