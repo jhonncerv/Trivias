@@ -25,7 +25,7 @@ class TriviasTableSeeder extends Seeder
             $trivia->punish_per_second = $faker->numberBetween($min = 1, $max = 10);
             $trivia->time_limit = (2 * 60 * 1000);
             $trivia->query_size = 4;
-            $trivia->availability = new Carbon('yesterday');
+            $trivia->publish = new Carbon('yesterday');
             $trivia->expiration = new Carbon('next wednesday');
             $trivia->save();
         }
