@@ -13,15 +13,15 @@ class UsersTableSeeder extends Seeder
     {
 
         $user = new \App\User();
-        $user->name = 'Jhonn';
         $user->email = 'jhonncerv@gmail.com';
         $user->password = bcrypt('qwe123');
+        $user->rol = 1;
         $user->save();
 
         $user = new \App\User();
-        $user->name = 'Admin';
         $user->email = 'admin@gmail.com';
         $user->password = bcrypt('qwe123');
+        $user->rol = 1;
         $user->save();
 
 

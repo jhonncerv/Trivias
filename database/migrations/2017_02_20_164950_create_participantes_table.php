@@ -22,6 +22,8 @@ class CreateParticipantesTable extends Migration
             $table->string('token_oauth');
             $table->string('facebook_id');
             $table->integer('points')->default(0);
+            $table->integer('user_id')->unsigned();
+            $table->foreign('user_id')->references('id')->on('users');
             $table->timestamps();
         });
     }
