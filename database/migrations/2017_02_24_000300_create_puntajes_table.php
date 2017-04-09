@@ -19,6 +19,7 @@ class CreatePuntajesTable extends Migration
             $table->integer('punish_factor')->default(0);
             $table->integer('query_score')->default(0);
             $table->integer('total_score')->default(0);
+            $table->timestamp('time_start')->nullable();
             $table->timestamp('time_finish')->nullable();
             $table->integer('participante_id')->unsigned();
             $table->foreign('participante_id')->references('id')->on('participantes');

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Ciudad;
+use App\Intento;
 use App\Participante;
 use App\Puntaje;
 use App\Trivia;
@@ -78,6 +79,19 @@ class TriviaController extends Controller
     {
 
         $puntaje = Puntaje::with('trivia.preguntas.respuestas')->where('available', 0)->where('time_finish', null)->get();
+
+        if($puntaje->isEmpty()){
+            return array(
+                'code' => 401,
+                'status' => 'unauthorized',
+                'message' => 'Aun no has iniciado ninguna trivia.');
+        }
+        if($puntaje[0]->time_start !== null){
+            return array(
+                'code' => 401,
+                'status' => 'unauthorized',
+                'message' => 'Termina la trivia antes de iniciar otra');
+        }
         $query = $puntaje[0]->trivia->query_size;
         $preguntas = $puntaje[0]->trivia->preguntas;
 
@@ -90,21 +104,43 @@ class TriviaController extends Controller
         $data = [];
 
         for($i = 0; $i < $query; $i++){
+            $id_preg = str_random(9);
+            $resp = [];
+            $t = -1;
+            $intento = new Intento([
+                'query_ord' => $id_preg,
+                'pregunta_id' => $preguntas[$numbers[$i]]->id,
+                'puntaje_id' => $puntaje[0]->id,
+            ]);
+
+            foreach ($preguntas[$numbers[$i]]->respuestas as $respuesta){
+                $t++;
+                $id_res = str_random(9);
+                $resp[$t] = array('id' => $id_res, 'option' => $respuesta->option);
+                if($respuesta->correct == 1){
+                    $intento->respuesta_id = $respuesta->id;
+                    $intento->correct_str = $id_res;
+                }
+            }
+
+            $intento->save();
+
             $data = array_add( $data, $i, [
-                'id' => str_random(9),
+                'id' => $id_preg,
                 'pregunta' => $preguntas[$numbers[$i]]->question,
-                'respuestas' => $preguntas[$numbers[$i]]->respuestas
+                'respuestas' => $resp
             ]);
         }
 
+        $puntaje[0]->time_start = Carbon::now();
+        $puntaje[0]->save();
 
-        return array([
+        return array(
             'code' => 200,
             'status' => 'success',
-            'data' => array([
+            'data' => array(
                 'preguntas' => $data
-            ])
-        ]);
+            ));
     }
 
     public function stopGame($id)

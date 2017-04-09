@@ -14,9 +14,9 @@ class CreateIntentosTable extends Migration
     public function up()
     {
         Schema::create('intentos', function (Blueprint $table) {
-            $table->integer('query_ord');
+            $table->string('query_ord');
             $table->string('correct_str');
-            $table->string('attempt_str');
+            $table->string('attempt_str')->nullable();
             $table->integer('respuesta_id')->unsigned();
             $table->foreign('respuesta_id')->references('id')->on('respuestas');
             $table->integer('pregunta_id')->unsigned();
@@ -24,6 +24,7 @@ class CreateIntentosTable extends Migration
             $table->integer('puntaje_id')->unsigned();
             $table->foreign('puntaje_id')->references('id')->on('puntajes');
             $table->unique(['respuesta_id', 'puntaje_id', 'pregunta_id']);
+            $table->timestamps();
         });
     }
 
