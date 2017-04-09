@@ -16,7 +16,6 @@ class CreateTriviasTable extends Migration
         Schema::create('trivias', function (Blueprint $table) {
             $table->increments('id');
             $table->string('game');
-            $table->string('description');
             $table->integer('points_per_anwser');
             $table->integer('time_limit');
             $table->integer('query_size');

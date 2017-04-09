@@ -28,8 +28,8 @@ Route::get('respuestas', 'RespuestaController@index');
 Route::get('participantes', 'ParticipanteController@index');
 
 Route::group(['middleware' => 'auth'], function () {
-    Route::post('trivia/start', 'TriviaController@startGame');
-    Route::post('trivia/stop', 'TriviaController@stopGame');
+    Route::post('start', 'TriviaController@startGame');
+    Route::post('save', 'TriviaController@stopGame');
     Route::post('dynamic', 'TriviaController@todayGame');
     Route::post('mi-puntaje', 'ParticipanteController@mipuntaje');
     Route::post('puntajes', 'ParticipanteController@puntajes');

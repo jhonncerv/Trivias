@@ -20,7 +20,6 @@ class TriviasTableSeeder extends Seeder
         for ($i = 0; $i < 4; $i++) {
             $trivia = new \App\Trivia();
             $trivia->game = $trivias[$i];
-            $trivia->description = $faker->sentence;
             $trivia->points_per_anwser = $faker->numberBetween($min = 1, $max = 10);
             $trivia->time_limit = ( 20 * 60 );
             $trivia->query_size = 4;

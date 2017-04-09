@@ -68,7 +68,7 @@ class TriviaController extends Controller
     public function startGame()
     {
 
-        $puntaje = Puntaje::with('trivia.preguntas.respuestas')
+        $puntaje = Puntaje::with('intentos.pregunta.respuestas', 'trivia.preguntas.respuestas')
                             ->where('available', 0)
                             ->where('participante_id', Auth::user()->participante[0]->id)
                             ->where('time_finish', null)->get();
@@ -80,11 +80,46 @@ class TriviaController extends Controller
                 'message' => 'Aun no has iniciado ninguna trivia.');
         }
         if($puntaje[0]->time_start !== null){
+
+            $intentos =  $puntaje[0]->intentos;
+            $data = [];
+            $t = -1;
+
             /* regersaa las mismas preguntas */
+            foreach ($intentos as $intento){
+                $t++;
+
+                $intento->query_ord = str_random(9);
+
+                $resp = [];
+                $r = -1;
+
+                foreach ($intento->pregunta->respuestas as $respuesta) {
+
+                    $r++;
+                    $id_res = str_random(9);
+                    $resp[$r] = array('id' => $id_res, 'option' => $respuesta->option);
+                    if($respuesta->correct == 1){
+                        $intento->correct_str = $id_res;
+                    }
+                }
+
+                $data = array_add( $data, $t, [
+                    'id' => $intento->query_ord,
+                    'pregunta' => $intento->pregunta->question,
+                    'respuestas' => $resp
+                ]);
+
+                $intento->save();
+
+            }
+
             return array(
-                'code' => 401,
-                'status' => 'error',
-                'message' => 'Termina la trivia antes de iniciar otra');
+                'code' => 200,
+                'status' => 'success',
+                'data' => array(
+                    'preguntas' => $data
+                ));
         }
 
         return $this->triviaConnect->startMeTrivia($puntaje[0]);
