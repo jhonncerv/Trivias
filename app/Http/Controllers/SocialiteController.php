@@ -13,7 +13,12 @@ class SocialiteController extends Controller
 
     public function index()
     {
-        return view('welcome');
+        $participante = array();
+
+        if ( Auth::check() ){
+            $participante = Participante::find(Auth::user()->participante);
+        }
+            return view('welcome')->with(compact('participante'));
     }
 
     /**

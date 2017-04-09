@@ -1,17 +1,11 @@
-<?php
-require_once "functions.php";
-template("head");
-?>
+<?php require_once "functions.php"; ?>
+@include('templates.head')
 <body class="<?=user_is_logged_in()?'has-menu app':'login'?>">
 <main class="main" role="document">
     @if(Auth::check())
-        @php
-            template("home");
-        @endphp
+        @include('templates.home')
     @else
-        @php
-            template("login");
-        @endphp
+        @include('templates.login')
     @endif
 </main>
 <div class="tw-loader">
@@ -22,6 +16,6 @@ template("head");
 </div>
 <script type='text/javascript' src='<?=main_js()?>'></script>
 </body>
-<?php
-template("footer");
-?>
+
+
+</html>
