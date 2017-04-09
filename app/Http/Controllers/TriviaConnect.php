@@ -27,6 +27,12 @@ class TriviaConnect
         $trivias = Trivia::all();
         $participa= Auth::user()->participante[0];
 
+        $response = array(
+            'code' => 401,
+            'status' => 'error',
+            'mesage' => 'Ya no quedan juegos disponibles'
+        );
+
         foreach ($trivias as $trivia){
             Puntaje::firstOrCreate([
                 'trivia_id' => $trivia->id,
@@ -34,7 +40,6 @@ class TriviaConnect
                 'participante_id' => $participa->id
             ]);
         }
-
 
         $puntaje = $participa->puntajes()->where('available', 1)->where('ciudad_id', $id)->get();
 
@@ -46,13 +51,9 @@ class TriviaConnect
                 'code' => 200,
                 'status' => 'success',
                 'data' => array(
-                    'trivia' => $puntaje->trivia
+                    'type' => $puntaje->trivia
                 ));
-
-        } else {
-            $response['mesage'] = 'Ya no quedan juegos disponibles';
         }
-
         return $response;
     }
 
@@ -131,8 +132,8 @@ class TriviaConnect
             foreach ($data as $dat){
 
                 if($intento->query_ord == $dat['id']){
-                    $intento->attempt_str = $dat['v'];
-                    if($intento->correct_str == $dat['v']){
+                    $intento->attempt_str = $dat['option'];
+                    if($intento->correct_str == $dat['option']){
                         $puntos++;
                     }
                     $intento->save();
@@ -152,8 +153,9 @@ class TriviaConnect
             'code' => 200,
             'status' => 'success',
             'data' => array(
-                'puntaje' => $puntaje->total_score,
-                'total' => $participa->points
+                'score_dynamic' => $puntaje->query_score,
+                'score_time' => $puntaje->total_score,
+                'score_new' => $participa->points
             )
         );
     }

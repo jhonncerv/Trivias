@@ -33,17 +33,22 @@ class TriviaController extends Controller
     {
         $now = Carbon::now('America/Mexico_City');
         $ciudad = Ciudad::find($id);
-        $puntajeStatus = Puntaje::where('available', 0)->where('time_finish', null)->where('participante_id', Auth::user()->participante[0]->id)->get();
+        $puntajeStatus = Puntaje::where('available', 0)
+            ->where('time_finish', null)
+            ->where('participante_id', Auth::user()->participante[0]->id)->get();
 
         $response = array(
             'code' => 401,
-            'status' => 'expirated'
+            'status' => 'error'
         );
 
         if($puntajeStatus->isNotEmpty()){
-            $response['data']['message'] = 'Termina tu otra trivia antes de pedir otro juego.';
+          /* Regresa la misma dinamic */
+            $response['message'] = 'Termina tu otra trivia antes de pedir otro juego.';
             return $response;
         }
+
+        /* compara que hayan pasado 5 mins desde el ultimo juego */
 
         if ($now->diffInDays(new Carbon($ciudad->publish,'America/Mexico_City')) <= 2) {
 
@@ -51,7 +56,7 @@ class TriviaController extends Controller
 
         }
 
-        $response['data']['message'] = 'No te desesperes pronto revelaremos la ciudad, por lo pronto sigue jugando las anteriores rutas. ';
+        $response['message'] = 'No te desesperes pronto revelaremos la ciudad, por lo pronto sigue jugando las anteriores rutas. ';
         return $response;
     }
 
@@ -66,13 +71,14 @@ class TriviaController extends Controller
         if($puntaje->isEmpty()){
             return array(
                 'code' => 401,
-                'status' => 'unauthorized',
+                'status' => 'error',
                 'message' => 'Aun no has iniciado ninguna trivia.');
         }
         if($puntaje[0]->time_start !== null){
+            /* regersaa las mismas preguntas */
             return array(
                 'code' => 401,
-                'status' => 'unauthorized',
+                'status' => 'error',
                 'message' => 'Termina la trivia antes de iniciar otra');
         }
 
@@ -93,7 +99,7 @@ class TriviaController extends Controller
         if($puntaje->isEmpty()){
             return array(
                 'code' => 401,
-                'status' => 'unauthorized',
+                'status' => 'error',
                 'message' => 'Aun no has iniciado ninguna trivia.');
         }
 

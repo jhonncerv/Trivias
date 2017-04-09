@@ -15,34 +15,5 @@
     </div>
 </div>
 <script type='text/javascript' src='<?=main_js()?>'></script>
-
-<script>
-
-    $data = {data:[{
-        "id": "tarUwqxYD",
-        "v": "RWipjf3Vb"
-    },{
-        "id": "DztiQO1Vs",
-        "v": "twwvB0aiK"
-    },{
-        "id": "WDToEgk5I",
-        "v": "W85yJldpv"
-    },{
-        "id": "BstSsR8E5",
-        "v": "x5J5Ox2hu"
-    }]};
-    $.ajax({
-        url:'/trivia/stop',
-        data: $data,
-        dataType: 'json',
-        method: 'post',
-        success: function (e) {
-            console.log(e);
-        }
-    })
-
-</script>
 </body>
-
-
 </html>
