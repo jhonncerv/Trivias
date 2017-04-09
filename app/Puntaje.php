@@ -19,4 +19,9 @@ class Puntaje extends Model
     public function trivia(){
         return $this->belongsTo('App\Trivia');
     }
+
+    public function intentos()
+    {
+        return $this->hasMany('App\Intento');
+    }
 }
