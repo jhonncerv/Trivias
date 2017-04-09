@@ -12,7 +12,7 @@ class UsersTableSeeder extends Seeder
     public function run()
     {
 
-        $user = new \App\User();
+       /* $user = new \App\User();
         $user->email = 'jhonncerv@gmail.com';
         //$user->password = bcrypt('qwe123');
         $user->rol = 1;
@@ -24,6 +24,6 @@ class UsersTableSeeder extends Seeder
         $user->rol = 1;
         $user->save();
 
-
+*/
     }
 }
