@@ -8,7 +8,6 @@
 
 namespace App\Http\Controllers;
 
-
 use App\Intento;
 use App\Puntaje;
 use App\Trivia;
@@ -130,7 +129,6 @@ class TriviaConnect
         $puntos = 0;
         foreach ($intentos as $intento) {
             foreach ($data as $dat){
-
                 if($intento->query_ord == $dat['id']){
                     $intento->attempt_str = $dat['option'];
                     if($intento->correct_str == $dat['option']){
