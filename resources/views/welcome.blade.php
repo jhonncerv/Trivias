@@ -7,6 +7,7 @@
     @else
         @include('templates.login')
     @endif
+    @include('templates.tw-message')
 </main>
 <div class="tw-loader">
     <div class="tw-loader__bg"></div>

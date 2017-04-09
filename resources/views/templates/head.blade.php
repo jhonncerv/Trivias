@@ -13,8 +13,8 @@
             appid:'120356661840963',
             scope:'',//'user_posts,user_friends',
             dynamic:'dynamic',
-            start:'api.php?endpoint=start',
-            save:'api.php?endpoint=save'
+            start:'start',
+            save:'save'
         };
     </script>
 </head>

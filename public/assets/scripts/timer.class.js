@@ -13,8 +13,8 @@
   Timer.prototype.off = function( event ){
     this.$events.off(event);
   };
-  Timer.prototype.getTimeRemaining = function( endtime ) {
-    var t = Math.max(0,new Date( endtime ) - Date.parse(new Date()));
+  Timer.prototype.getTimeRemaining = function( endtime, offset ) {
+    var t = Math.max(0,endtime - (Date.now() + offset));
     var seconds = Math.floor((t / 1000) % 60);
     var minutes = Math.floor((t / 1000 / 60) % 60);
     var hours = Math.floor((t / (1000 * 60 * 60)) % 24);
@@ -27,10 +27,11 @@
       'seconds': seconds
     };
   };
-  Timer.prototype.start = function( endtime ){
+  Timer.prototype.start = function( endtime, servertime ){
     var _this = this,
+        offset = servertime > 0 ? servertime - Date.now() : 0,
         tick = function( start ){
-          var t = _this.getTimeRemaining( endtime ),
+          var t = _this.getTimeRemaining( endtime, offset ),
               c = Math.floor(t.total / 1000);
           if (c >= 0 || start) {
             _this.$events.trigger(start === true ? "start" : "tick", [t.minutes +":"+ ('0' + t.seconds).slice(-2), 100 - Math.ceil(t.seconds * 100 / 60)]);

@@ -103,3 +103,23 @@ $shadow: 6px 6px 10px rgba(0, 0, 0, .2);
         }
     }
 }
+
+.tw-message{
+    &__card{
+        @extend %tw-card;
+    }
+    &__title{
+        position: relative;
+        height: 75px;
+        margin-bottom: 30px;
+        @include duotitle('small','center');
+    }
+    &__text{
+        color: color(secondary);
+        margin-bottom: 30px;
+    }
+    &__button{
+        padding-left: 2rem;
+        padding-right: 2rem;
+    }
+}

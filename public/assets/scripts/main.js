@@ -10,10 +10,6 @@
  * always reference jQuery with $, even when in .noConflict() mode.
  * ======================================================================== */
 
-function message( text ){
-  alert(text);
-}
-
 (function($) {
 
   var UTIL, Sage = {
@@ -40,10 +36,20 @@ function message( text ){
                 $img.replaceWith($svg);
             }, 'xml');
         });
+
+        $('.tw-message__button').click(function(){
+          $('.tw-message').fadeOut();
+        });
+        window.message = function( text ){
+          $('.tw-message__text').text(text);
+          $('.tw-message').fadeIn();
+        };
+
       }
     },
     'app': {
       init: function(){
+
         var dynamics = new window.dynamics(window.config.dynamic,window.config.start,window.config.save);
         
         dynamics.on('request.start',function(){
@@ -53,7 +59,7 @@ function message( text ){
           $(".tw-loader").stop().fadeOut("fast");
         });
         dynamics.on('error',function( event, message ){
-          message(message);
+          window.message(message);
         });
         $('[data-trigger-city]').click(function(){
           dynamics.request_dynamic({city:$(this).data('trigger-city')});
@@ -134,7 +140,7 @@ function message( text ){
             facebook = new FBLogin( window.config.login, window.config.appid, window.config.scope );
         
         facebook.on('fblogin.error', function( event, error ){
-          message(error);
+          window.message(error);
         });
 
         facebook.on('fblogin.done', function( event, response ){
@@ -147,7 +153,7 @@ function message( text ){
           if($('.login-page__tyc input').is(":checked")){
             facebook.connect();
           } else {
-            message("Debes aceptar los términos y condiciones para poder registrarte.");
+            window.message("Debes aceptar los términos y condiciones para poder registrarte.");
           }
         });
       }
