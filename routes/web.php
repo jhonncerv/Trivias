@@ -30,9 +30,9 @@ Route::get('respuestas', 'RespuestaController@index');
 Route::get('participantes', 'ParticipanteController@index');
 
 Route::group(['middleware' => 'auth'], function () {
-    Route::get('trivia/start', 'TriviaController@startGame');
+    Route::post('trivia/start', 'TriviaController@startGame');
     Route::post('trivia/stop', 'TriviaController@stopGame');
-    Route::get('ciudad/{id}', 'TriviaController@todayGame');
+    Route::post('ciudad/{id}', 'TriviaController@todayGame');
     Route::post('mi-puntaje', 'ParticipanteController@mipuntaje');
     Route::post('puntajes', 'ParticipanteController@puntajes');
     Route::post('postal', 'PostalController@postal');

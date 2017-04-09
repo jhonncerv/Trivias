@@ -71,7 +71,7 @@ class TriviaController extends Controller
 
         }
 
-        $response['data']['message'] = 'Ciudad no disponible.';
+        $response['data']['message'] = 'No te desesperes pronto revelaremos la ciudad, por lo pronto sigue jugando las anteriores rutas. ';
         return $response;
     }
 

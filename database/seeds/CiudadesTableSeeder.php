@@ -14,12 +14,14 @@ class CiudadesTableSeeder extends Seeder
     {
         $faker = Faker\Factory::create();
 
-        $Cnow = Carbon::now();
+        $Cnow = Carbon::now('America/Mexico_City');
         Carbon::setTestNow($Cnow);
+
+        $cities = array('MARRUECOS', 'ARGENTINA', 'INDIA', 'INGLATERRA, JAPON');
 
         for ($i = 0; $i < 5; $i++) {
             $ciudad = new \App\Ciudad();
-            $ciudad->name = $faker->country;
+            $ciudad->name = $cities[$i];
             $ciudad->publish = new Carbon('yesterday');
             $ciudad->expiration = new Carbon('next wednesday');
             $ciudad->save();

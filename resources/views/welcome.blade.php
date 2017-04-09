@@ -87,17 +87,17 @@
         <script>
 
             $data = {data:[{
-                "id": "0RAS1KUOd",
-                "v": "OAQuu8Ioc"
+                "id": "PHXcKMK9u",
+                "v": "72JXpzQRF"
             },{
-                "id": "ZWFhVn4a6",
-                "v": "D4C1R8nD5"
+                "id": "wbYPBfZSI",
+                "v": "NXWHjWRET"
             },{
-                "id": "eVyxrCwWw",
-                "v": "1bd1p1n62"
+                "id": "qAfOJhlK7",
+                "v": "tfO69dUtN"
             },{
-                "id": "OrY3hGFA4",
-                "v": "hNeOnLIyn"
+                "id": "xkpoq9iqq",
+                "v": "Tigsw5Mw4"
             }]};
             $.ajax({
                 url:'/trivia/stop',
