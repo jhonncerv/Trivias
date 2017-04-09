@@ -81,44 +81,11 @@ class TriviaController extends Controller
         }
         if($puntaje[0]->time_start !== null){
 
-            $intentos =  $puntaje[0]->intentos;
-            $data = [];
-            $t = -1;
-
-            /* regersaa las mismas preguntas */
-            foreach ($intentos as $intento){
-                $t++;
-
-                $intento->query_ord = str_random(9);
-
-                $resp = [];
-                $r = -1;
-
-                foreach ($intento->pregunta->respuestas as $respuesta) {
-
-                    $r++;
-                    $id_res = str_random(9);
-                    $resp[$r] = array('id' => $id_res, 'option' => $respuesta->option);
-                    if($respuesta->correct == 1){
-                        $intento->correct_str = $id_res;
-                    }
-                }
-
-                $data = array_add( $data, $t, [
-                    'id' => $intento->query_ord,
-                    'pregunta' => $intento->pregunta->question,
-                    'respuestas' => $resp
-                ]);
-
-                $intento->save();
-
-            }
-
             return array(
                 'code' => 200,
                 'status' => 'success',
                 'data' => array(
-                    'preguntas' => $data
+                    'preguntas' => $this->triviaConnect->continuMeTrivia($puntaje[0]->intentos)
                 ));
         }
 
