@@ -34,7 +34,7 @@ class TriviaController extends Controller
         $now = Carbon::now('America/Mexico_City');
         $ciudad = Ciudad::where('name', $request->city)->get();
 
-        $puntajeStatus = Puntaje::where('available', 0)
+        $puntajeStatus = Puntaje::with('trivia')->where('available', 0)
             ->where('time_finish', null)
             ->where('participante_id', Auth::user()->participante[0]->id)->get();
 
@@ -44,8 +44,12 @@ class TriviaController extends Controller
         );
 
         if($puntajeStatus->isNotEmpty()){
-          /* Regresa la misma dinamic */
-            $response['message'] = 'Termina tu otra trivia antes de pedir otro juego.';
+            $response = array(
+                'code' => 200,
+                'status' => 'success',
+                'data' => array(
+                    'type' => $puntajeStatus[0]->trivia->game
+                ));
             return $response;
         }
 
