@@ -51,7 +51,7 @@ class TriviaConnect
                 'code' => 200,
                 'status' => 'success',
                 'data' => array(
-                    'type' => $puntaje->trivia
+                    'type' => $puntaje->trivia->game
                 ));
         }
         return $response;
