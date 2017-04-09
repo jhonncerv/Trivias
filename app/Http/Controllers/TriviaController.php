@@ -32,7 +32,7 @@ class TriviaController extends Controller
     public function todayGame(Request $request)
     {
         $now = Carbon::now('America/Mexico_City');
-        $ciudad = Ciudad::where('name', $request->city);
+        $ciudad = Ciudad::where('name', $request->city)->get();
 
         $puntajeStatus = Puntaje::where('available', 0)
             ->where('time_finish', null)
@@ -49,11 +49,11 @@ class TriviaController extends Controller
             return $response;
         }
 
-        /* compara que hayan pasado 5 mins desde el ultimo juego */
+        /* todo: compara que hayan pasado 5 mins desde el ultimo juego */
 
-        if ($now->diffInDays(new Carbon($ciudad->publish,'America/Mexico_City')) <= 2) {
+        if ($now->diffInDays(new Carbon($ciudad[0]->publish,'America/Mexico_City')) <= 2) {
 
-            return $this->triviaConnect->giveMeTrivia($id);
+            return $this->triviaConnect->giveMeTrivia($ciudad[0]->id);
 
         }
 
@@ -109,4 +109,9 @@ class TriviaController extends Controller
 
     }
 
+    public function ciudades()
+    {
+        $ciudad = Ciudad::all();
+        return $ciudad;
+    }
 }

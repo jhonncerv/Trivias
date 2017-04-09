@@ -21,6 +21,7 @@ Auth::routes();
 // rutas para la api
 //Route::get('/home', 'HomeController@index');
 
+Route::get('ciudades', 'TriviaController@ciudades');
 Route::get('trivias', 'TriviaController@index');
 Route::get('preguntas', 'PreguntaController@index');
 Route::get('respuestas', 'RespuestaController@index');
