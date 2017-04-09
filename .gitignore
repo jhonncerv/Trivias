@@ -11,3 +11,4 @@ Homestead.yaml
 .env.php
 .env
 .vagrant
+composer.lock
