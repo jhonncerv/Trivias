@@ -13,11 +13,11 @@ class TriviasTableSeeder extends Seeder
     public function run()
     {
         $faker = Faker\Factory::create();
-
+        $trivias = array('twinder', 'siluetas','trivia', 'findings');
         $Cnow = Carbon::now();
         Carbon::setTestNow($Cnow);
 
-        for ($i = 0; $i < 5; $i++) {
+        for ($i = 0; $i < 4; $i++) {
             $trivia = new \App\Trivia();
             $trivia->game = $faker->word;
             $trivia->description = $faker->sentence;

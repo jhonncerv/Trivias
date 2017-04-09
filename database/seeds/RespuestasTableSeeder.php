@@ -14,7 +14,7 @@ class RespuestasTableSeeder extends Seeder
 
         $faker = Faker\Factory::create();
 
-        for ($d = 0; $d < 5; $d++){
+        for ($d = 0; $d < 4; $d++){
             for ($e = 1; $e <= 50; $e++) {
                 for ($i = 0; $i < 2; $i++) {
                     $respuesta = new \App\Respuesta();

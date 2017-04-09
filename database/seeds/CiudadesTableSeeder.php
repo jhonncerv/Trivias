@@ -17,7 +17,7 @@ class CiudadesTableSeeder extends Seeder
         $Cnow = Carbon::now('America/Mexico_City');
         Carbon::setTestNow($Cnow);
 
-        $cities = array('MARRUECOS', 'ARGENTINA', 'INDIA', 'INGLATERRA, JAPON');
+        $cities = array('MARRUECOS', 'ARGENTINA', 'INDIA', 'INGLATERRA', 'JAPON');
 
         for ($i = 0; $i < 5; $i++) {
             $ciudad = new \App\Ciudad();
