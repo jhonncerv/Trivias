@@ -10,7 +10,8 @@
 		<script>
 			window.config = {
 				login:'api.php?endpoint=login',
-				appid:'165366553600497',
+				//appid:'165366553600497',
+				appid:'1693833144242455',
 				scope:'user_posts,user_friends',
 				dynamic:'api.php?endpoint=dynamic',
 				start:'api.php?endpoint=start',
