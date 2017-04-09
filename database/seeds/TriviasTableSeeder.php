@@ -17,7 +17,7 @@ class TriviasTableSeeder extends Seeder
         $Cnow = Carbon::now();
         Carbon::setTestNow($Cnow);
 
-        for ($i = 0; $i < 4; $i++) {
+        for ($i = 0; $i < 3; $i++) {
             $trivia = new \App\Trivia();
             $trivia->game = $trivias[$i];
             $trivia->points_per_anwser = $faker->numberBetween($min = 1, $max = 10);

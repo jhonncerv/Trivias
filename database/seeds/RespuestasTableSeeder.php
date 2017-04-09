@@ -14,11 +14,11 @@ class RespuestasTableSeeder extends Seeder
 
         $faker = Faker\Factory::create();
 
-        for ($d = 0; $d < 4; $d++){
+        for ($d = 0; $d < 3; $d++){
             for ($e = 1; $e <= 50; $e++) {
-                for ($i = 0; $i < 2; $i++) {
+                for ($i = 0; $i < ( ($d > 0)?2:3 ); $i++) {
                     $respuesta = new \App\Respuesta();
-                    $respuesta->option = $d > 1 ? $faker->word : (!$i ? 'izquierda': 'derecha');
+                    $respuesta->option = $d > 0 ? $faker->word : (!$i ? 'izquierda': 'derecha');
                     $respuesta->correct = !$i;
                     $respuesta->pregunta_id = ($d * 50) + $e;
                     $respuesta->save();
