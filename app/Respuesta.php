@@ -15,4 +15,5 @@ class Respuesta extends Model
     protected $hidden = [
         'correct', 'pregunta_id', 'id', 'created_at', 'updated_at'
     ];
+
 }

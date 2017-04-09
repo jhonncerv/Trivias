@@ -15,14 +15,17 @@ class CreatePuntajesTable extends Migration
     {
         Schema::create('puntajes', function (Blueprint $table) {
             $table->increments('id');
+            $table->boolean('available')->default(1);
+            $table->integer('punish_factor')->default(0);
             $table->integer('query_score')->default(0);
-            $table->integer('punish_score')->default(0);
             $table->integer('total_score')->default(0);
             $table->timestamp('time_finish')->nullable();
             $table->integer('participante_id')->unsigned();
             $table->foreign('participante_id')->references('id')->on('participantes');
             $table->integer('trivia_id')->unsigned();
             $table->foreign('trivia_id')->references('id')->on('trivias');
+            $table->integer('ciudad_id')->unsigned();
+            $table->foreign('ciudad_id')->references('id')->on('ciudades');
             $table->timestamps();
         });
     }

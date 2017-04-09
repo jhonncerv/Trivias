@@ -4,8 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Ciudad;
 use App\Participante;
+use App\Puntaje;
 use App\Trivia;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class TriviaController extends Controller
 {
@@ -17,53 +20,102 @@ class TriviaController extends Controller
 
     public function todayGame($id)
     {
-        $trivia = Trivia::select('game', 'description')->where('id', $id)->get();
-        return $trivia;
+        $now = Carbon::now('America/Mexico_City');
+        $ciudad = Ciudad::find($id);
+        $trivia = Puntaje::where('available', 0)->where('time_finish', null)->get();
+
+        $response = array(
+            'code' => 401,
+            'status' => 'expirated'
+        );
+
+        if($trivia->isNotEmpty()){
+            $response['data']['message'] = 'Termina tu otra trivia antes de pedir otro juego.';
+            return $response;
+        }
+
+        if ($now->diffInDays(new Carbon($ciudad->publish)) <= 2) {
+
+            $trivias = Trivia::all();
+            $participa= Auth::user()->participante[0];
+
+            foreach ($trivias as $trivia){
+                Puntaje::firstOrCreate([
+                    'trivia_id' => $trivia->id,
+                    'ciudad_id' => $id,
+                    'participante_id' => $participa->id
+                ]);
+            }
+
+            /* Todo: validacion si te desconectas */
+
+            $puntaje = $participa->puntajes()->where('available', 1)->where('ciudad_id', $id)->get();
+
+            if($puntaje->isNotEmpty()){
+                $puntaje = $puntaje->random();
+                $puntaje->available = 0;
+                $puntaje->save();
+                $response = array(
+                    'code' => 200,
+                    'status' => 'success',
+                    'data' => array(
+                    'trivia' => $puntaje->trivia
+                ));
+
+            } else {
+                $response['mesage'] = 'Ya no quedan juegos disponibles';
+            }
+
+            return $response;
+
+        }
+
+        $response['data']['message'] = 'Ciudad no disponible.';
+        return $response;
     }
 
-    public function startGame(Request $request, $id)
+    public function startGame()
     {
-        $ciudad = Ciudad::findOrFail($id);
-        $participante = Participante::select(['facebook_id', 'token_oauth'])->where('facebook_id', $request->facebook_id);
 
-        $trivia = Trivia::find(2);
+        $puntaje = Puntaje::with('trivia.preguntas.respuestas')->where('available', 0)->where('time_finish', null)->get();
+        $query = $puntaje[0]->trivia->query_size;
+        $preguntas = $puntaje[0]->trivia->preguntas;
 
+        /* Todo: Pasar a trivia */
 
-        /* Pasar a trivia */
-
-        $numbers = range(0, 49);
+        $numbers = range(1, $preguntas->count());
         shuffle($numbers);
-        array_slice($numbers, 0, $trivia->query_size);
+        array_slice($numbers, 0, $query);
 
-        $preguntas = [];
+        $data = [];
 
-        for($i = 0; $i < $trivia->query_size; $i++){
-            $preguntas = array_add( $preguntas, $i, [
-                'id' => $i + 1,
-                'pregunta' => $trivia->preguntas[$numbers[$i]]->question,
-                'respuestas' => $trivia->preguntas[$numbers[$i]]->respuestas
+        for($i = 0; $i < $query; $i++){
+            $data = array_add( $data, $i, [
+                'id' => str_random(9),
+                'pregunta' => $preguntas[$numbers[$i]]->question,
+                'respuestas' => $preguntas[$numbers[$i]]->respuestas
             ]);
         }
 
-        /*++++ / Pasar a trivia */
 
         return array([
             'code' => 200,
             'status' => 'success',
             'data' => array([
-                'preguntas' => $preguntas
+                'preguntas' => $data
             ])
         ]);
     }
 
     public function stopGame($id)
     {
-        return array([
+        return array(
             'code' => 200,
             'status' => 'success',
-            'data' => array([
+            'data' => array(
 
-            ])
-        ]);
+            )
+        );
     }
+
 }
