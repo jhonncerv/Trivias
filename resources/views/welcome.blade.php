@@ -1,6 +1,6 @@
 <?php require_once "functions.php"; ?>
 @include('templates.head')
-<body class="<?=user_is_logged_in()?'has-menu app':'login'?>">
+<body class="{{ Auth::check() ? 'has-menu app' : 'login' }}">
 <main class="main" role="document">
     @if(Auth::check())
         @include('templates.home')

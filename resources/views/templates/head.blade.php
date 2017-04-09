@@ -12,9 +12,7 @@
             login:'login/participante',
             appid:'120356661840963',
             scope:'',//'user_posts,user_friends',
-            //appid:'165366553600497',
-            //appid:'1693833144242455',
-            dynamic:'api.php?endpoint=dynamic',
+            dynamic:'dynamic',
             start:'api.php?endpoint=start',
             save:'api.php?endpoint=save'
         };
