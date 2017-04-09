@@ -1,0 +1,23 @@
+@import "common/functions";
+@import "common/variables";
+
+// Automatically injected Bower dependencies via wiredep (never manually edit this block)
+// bower:scss
+@import "../../bower_components/bootstrap/scss/bootstrap.scss";
+@import "../../bower_components/font-awesome/scss/font-awesome.scss";
+// endbower
+
+@import "common/fonts";
+@import "common/global";
+@import "components/buttons";
+@import "components/others";
+@import "components/forms";
+@import "components/grid";
+@import "components/swipecards";
+@import "components/trivia";
+@import "layouts/header";
+@import "layouts/sidebar";
+@import "layouts/footer";
+@import "layouts/pages";
+@import "layouts/posts";
+@import "layouts/tinymce";

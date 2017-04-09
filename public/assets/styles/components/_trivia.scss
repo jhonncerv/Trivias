@@ -1,0 +1,62 @@
+.trivia{
+	margin: auto;
+    width: 100%;
+    max-width: 450px;
+    padding: 0 10px;
+    &__item{
+    	display: none;
+    	&__text{
+    		font-size: 2em;
+    		&--small{
+    			font-size: 1.5em;
+    		}
+    		line-height: 1.2em;
+    		margin-bottom: 15px;
+    	}
+    	&__image{
+			width: 300px;
+		    margin: 0 auto 20px auto;
+		    border: 4px solid color(border);
+    		img{
+    			width: 100%;
+    			height: auto;
+    		}
+    	}
+    	&__r{
+    		margin: auto;
+    		width: 300px;
+    		&__item{
+    			cursor: pointer;
+    			color: color(light);
+    			border-bottom: 1px dashed color(border);
+    			margin-bottom: 5px;
+				font-size: 1em;
+			    line-height: 1.3em;
+			    padding: 10px 0 10px 60px;
+			    text-align: left;
+				&:last-child{
+					border: none;
+				}
+				position: relative;
+				&:before{
+					content: '';
+					position: absolute;
+					top: 50%;
+					margin-top: -11px;
+					left: (60px - 12px) / 2;
+					width: 12px;
+					height: 12px;
+					border-radius: 12px;
+					border: 1px solid color(border);
+					background-color: color(off);
+					transition: background-color 200ms;
+				}
+				&--active{
+					&:before{
+						background-color: color(on);
+					}
+				}
+    		}
+    	}
+    }
+}

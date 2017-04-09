@@ -1,0 +1,46 @@
+html, body, .main{
+	width: 100%;
+	height: 100%;
+	color: color(text);
+	@include css(font--regular);
+	font-size: 16px;
+}
+
+%background{
+	background: color(background);
+	background: radial-gradient(circle at center, color(nero) 0%, color(bokara) 20%, color(background) 50%);
+	background-attachment: fixed;
+}
+body{
+	@extend %background;
+}
+
+.vertical-align{
+	@each $breakpoint in map-keys($grid-breakpoints) {
+		@include media-breakpoint-up($breakpoint) {
+			&--#{$breakpoint}{
+				display: flex;
+    			align-items: center;
+    			width: 100%;
+    			height: 100%;
+    			min-height: min-content;
+			}
+		}
+	}
+	&__item{
+		&--top{
+			align-self: flex-start;
+		}
+		&--bottom{
+			align-self: flex-end;
+		}
+	}
+}
+
+button, a{
+	text-decoration: none;
+	&:focus, &:active, &:hover {
+	    outline: 0;
+	    text-decoration: none;
+	}
+}

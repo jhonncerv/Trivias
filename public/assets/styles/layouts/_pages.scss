@@ -1,0 +1,366 @@
+%tw-card{
+	text-align: center;
+	padding: $padding-unit;
+	max-width: 445px;
+	margin-left: auto;
+    margin-right: auto;
+}
+@mixin duotitle( $size: 'big', $align: 'left', $color: color(shaft)){
+	width: 100%;
+    overflow: hidden;
+    position: relative;
+	span{
+		display: block;
+		width: 100%;
+		position: absolute;
+		&:first-child{
+			@include css(font--number);
+			@if $size == 'big'{
+				font-size: 5em;
+				@include media-breakpoint-up(sm) {
+					font-size: 6em;
+				}
+			} @else {
+				font-size: 4.5em;
+			}
+			color: $color;
+			line-height: 69px;
+			opacity: .8;
+			@if $align == 'left' {
+				text-align: left;
+				padding-left: 6%;
+				@include media-breakpoint-up(sm) {
+					padding-left: 10%;
+	    		}
+			}
+		}
+		&:last-child{
+			@include css(font--light);
+			text-transform: uppercase;
+			line-height: 75px;
+			@if $size == 'big'{
+			    letter-spacing: 6px;
+			    font-size: 1.2em;
+			} @else {
+				letter-spacing: 3px;
+			}
+		}
+		&.double-line{
+			line-height: 54px;
+			margin-top: 5px;
+			@include media-breakpoint-up(sm) {
+				margin-top: 10px;
+			}
+			+ span{
+				line-height: 138px;
+			}
+		}
+	}
+}
+%profile-img{
+	background-color: color(nero);
+	padding: 5px;
+	border-radius: 80px;
+	img{
+		width: 80px;
+		height: 80px;
+		display: block;
+		padding: 5px;
+		border: 1px solid color(border);
+		border-radius: 80px;
+	}
+}
+%light-title{
+	@include css(font--light);
+	letter-spacing: 3px;
+	text-transform: uppercase;
+	letter-spacing: 1px;
+}
+%number{
+	@include css(font--number);
+	color: color(light);
+}
+
+.login-page{
+	@extend %tw-card;
+	position: relative;
+	&__logo, &__welcome{
+		display: block;
+		margin: auto;
+	}
+	&__logo{
+		width: (382px / 2);
+		height: auto;
+		margin-bottom: 40px;
+	}
+	&__welcome{
+		height: 138px;
+		@include duotitle();
+	}
+	&__intro{
+		@include css(font--light);
+		color: color(secondary);
+	}
+	&__tyc{
+		font-size: .8em;
+		margin-bottom: $padding-unit;
+		margin-top: 45px;
+		a{
+			text-decoration: underline;
+		}
+	}
+	&__button{
+		margin-top: 30px;
+	}
+}
+
+.profile-photo{
+	height: 90px;
+	width: 250px;
+	margin: auto;
+	&__image{
+		@extend %profile-img;
+		float: left;
+		margin-right: $padding-unit;
+	}
+	&__name{
+		@include css(font--light);
+		text-transform: uppercase;
+		font-size: 1.1em;
+		line-height: 1.1em;
+	}
+	&__score{
+		@extend %number;
+		font-size: 3.5em;
+    	line-height: 0.9em;
+	}
+}
+
+.tw-app{
+	width: 100%;
+	height: 100%;
+	overflow: hidden;
+	position: relative;
+}
+
+.tw-map{
+	@extend .tw-app;
+	.tw-map__stage{
+		width: 920px;
+		position: absolute;
+		left: 50%;
+		margin-left: -450px;
+		max-height: 100%;
+		@include media-breakpoint-up(lg) {
+			width: 1100px;
+			margin-left: -550px;		
+		}
+		@include media-breakpoint-up(xl) {
+			width: 1200px;
+			margin-left: -600px;		
+		}
+		&__pins{
+			width: 100%;
+			position: relative;
+			max-height: 100%; //No funciona porque el padre no tiene altura definida
+			img{
+				display: block;
+				max-width: 100%;
+				height: auto;
+				max-height: 90%; //Lo mismo de antes
+				margin: auto;
+			}
+			&__item{
+				position: absolute;
+				width: 5%;
+	    		height: 15%;
+				background-image: url(#{$image_path}/pin.png);
+				background-size: 100%;
+				background-repeat: no-repeat;
+				cursor: pointer;
+				&--m{
+					left: 37.1%;
+					top: 21%;
+				}
+			}
+		}
+	}
+	.tw-map__ctrls{
+		width: 100%;
+		position: absolute;
+		bottom: 0;
+		left: 0;
+		text-align: center;
+		padding-bottom: $padding-unit;
+		&__dots{
+			width: 100%;
+			&__item{
+				display: inline-block;
+				position: relative;
+				width: 16px;
+				height: 16px;
+				border-radius: 16px;
+				border: 1px solid color(border);
+				margin: 0 15px;
+				cursor: pointer;
+				&--available{
+					&:before{
+						content: '';
+						position: absolute;
+						top: 50%;
+						height: 50%;
+						width: 10px;
+						height: 10px;
+						margin-left: -5px;
+						margin-top: -5px;
+						border-radius: 10px;
+						background: color(on);
+					}
+					&:after{
+						content: "";
+						position: absolute;
+						top: 50%;
+						width: 30px;
+						height: 1px;
+						border-top: 1px dotted color(border);
+						left: 16px;
+					}
+				}
+				&:last-child{
+					&:after{
+						content: none;
+					}
+				}
+			}
+		}
+		&__titles{
+			height: 75px;
+			margin-bottom: 25px;
+			position: relative;
+			&__item{
+				@include duotitle('small','center',color(nero));
+				position: absolute;
+				top: 0;
+				left: 50%;
+				margin-left: -100px;
+				width: 200px;
+				height: 100%;
+				overflow: hidden;
+				&:after{
+					content: "";
+					position: absolute;
+					bottom: 0;
+					left: 50%;
+					margin-left: -8px;
+					width: 16px;
+					height: 1px;
+					border-bottom: 1px solid color(border);
+				}
+				
+			}
+		}
+	}
+}
+
+.tw-modal{
+	position: absolute;
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 100%;
+	@extend %background;
+	@include z(modal);
+	display: none;
+	overflow:hidden;
+	overflow-y:auto;
+}
+.tw-dynamic{
+	&__preview{
+		@extend %tw-card;
+		&__title{
+			position: relative;
+			height: 75px;
+			margin-bottom: 30px;
+			@include duotitle('big','center');
+		}
+		p{
+			color: color(secondary);
+			margin-bottom: 30px;
+		}
+		.twn-form__button{
+			padding-left: 2rem;
+			padding-right: 2rem;
+		}
+	}
+	&__app{
+		display: none;
+		width: 100%;
+		text-align: center;
+		&__title{
+			@include css(font--number);
+			color: color(light);
+			font-size: 2.5em;
+			margin-bottom: 10px;
+		}
+		&__city{
+			@include duotitle('small','center');
+			height: 90px;
+			.tw-dynamic--siluetas &{
+				height: 80px;	
+			}
+		}
+	}
+	&__score{
+		@extend %tw-card;
+		display: none;
+		border-top: 1px solid color(border);
+		border-bottom: 1px solid color(border);
+		margin-bottom: 10px;
+		&__name{
+			@extend %light-title;
+			font-size: 1em;
+			letter-spacing: 3px;
+		}
+		&__image{
+			@extend %profile-img;
+			display: inline-block;
+		}
+		&__points{
+			margin-bottom: 15px;
+			&__item{
+				@extend %light-title;
+				font-size: .8em;
+				display: inline-block;
+				border: 1px solid color(border);
+				margin: 5px;
+				padding: 10px;
+				width: 130px;
+				span{
+					display: block;
+					@extend %number;
+					font-size: 2.4rem;
+				}
+			}
+		}
+		&__label{
+			@extend %light-title;
+			font-size: .9em;
+			display: inline-block;
+			border-bottom: 1px solid color(border);
+		}
+		&__new{
+			display: block;
+			@extend %number;
+			font-size: 4rem;
+			line-height: 4rem;
+			margin-bottom: 30px;
+		}
+		&__message{
+			color: color(light);
+			font-size:.9em;
+			margin-bottom: 10px;
+		}
+	}
+	&__start{}
+	&__close{}
+}

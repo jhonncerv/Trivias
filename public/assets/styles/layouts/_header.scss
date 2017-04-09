@@ -1,0 +1,42 @@
+body.has-menu{
+	padding-top: $header-height;
+}
+.main-header{
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	padding: $header-padding 0;
+	height: $header-height;
+	@include z(header);
+	&__logo{
+		display: block;
+		height: $logo-height;
+		width: auto;
+		margin: auto;
+	}
+	&__menu{
+		@include hamburguer();
+		position: absolute;
+		top: $header-padding;
+		right: $header-padding;
+		@media (max-width: 374px){
+			right: $header-padding / 2;
+		}
+	}
+}
+
+.profile-menu{
+	width: $profile-width;
+	position: absolute;
+	top: 0;
+    height: 100%;
+    padding-top: $header-height;
+	background: color(background);
+	@include z(menu);
+	left: -$profile-width;
+	transition: left 250ms ease-in-out;
+	.menu-visible &{
+		left: 0;
+	}
+}

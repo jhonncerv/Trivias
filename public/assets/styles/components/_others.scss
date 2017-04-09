@@ -1,0 +1,105 @@
+$circle-size: 66px;
+$inset-size: 48px;
+$shadow: 6px 6px 10px rgba(0, 0, 0, .2);
+.tw-timer {
+    background-color: color(shaft);
+    width: $circle-size;
+    height: $circle-size;
+    border-radius: 50%;
+    position: absolute;
+    display: none;
+
+    top: $header-padding;
+	right: $header-padding;
+	@media (max-width: 374px){
+		right: $header-padding / 2;
+	}
+
+    @include z(timer);
+    &__mask,
+    &__fill {
+        width: $circle-size;
+        height: $circle-size;
+        position: absolute;
+        border-radius: 50%;
+        transition: transform 1000ms;
+        -webkit-backface-visibility: hidden;
+    }
+    &__mask {
+        clip: rect(0px, $circle-size, $circle-size, $circle-size/2);
+    }
+    &__fill {
+        clip: rect(0px, $circle-size/2, $circle-size, 0px);
+        background-color: color(border);
+    }
+    &__shadow {
+        width: $circle-size;
+        height: $circle-size;
+        position: absolute;
+        border-radius: 50%;
+        box-shadow: $shadow inset;
+    }
+    &__inset {
+        width: $inset-size;
+        height: $inset-size;
+        position: absolute;
+        margin-left: ($circle-size - $inset-size)/2;
+        margin-top: ($circle-size - $inset-size)/2;
+        background-color: color(background);
+        border-radius: 50%;
+        box-shadow: $shadow;
+        @include css(font--number);
+		color: color(primary);
+		font-size: 1.2rem;
+		line-height: $inset-size;
+		text-align: center;
+    }
+    @for $i from 1 through 100 {
+	    &[data-progress="#{$i}"] {
+	        .tw-timer__mask.tw-timer__full, .tw-timer__fill {
+	            transform: rotate(180deg/100 * $i);
+	        }
+	    }
+	}
+}
+
+.tw-loader{
+    display: none;
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    @include z(loader);
+    &__bg{
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(#000,0.2);
+    }
+    &__body{
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        width: 50px;
+        height: 50px;
+        margin-top: -25px;
+        margin-left: -25px;
+        text-align: center;
+        .svg{
+            width: 100%;
+            height: 100%;
+            
+            stroke: color(primary);
+            fill: color(primary);
+            circle {
+                stroke: inherit !important;
+            }
+        }
+        .no-svg &:after{
+            content: "...";
+        }
+    }
+}

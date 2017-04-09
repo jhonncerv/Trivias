@@ -1,0 +1,30 @@
+{
+  "dependencies": {
+    "main.js": {
+      "files": [
+        "scripts/fblogin.class.js",
+        "scripts/timer.class.js",
+        "scripts/swipecards.class.js",
+        "scripts/transformelement.class.js",
+        "scripts/dynamics.class.js",
+        "scripts/main.js"
+      ],
+      "main": true
+    },
+    "main.css": {
+      "files": [
+        "styles/main.scss"
+      ],
+      "main": true
+    },
+    "jquery.js": {
+      "bower": ["jquery"]
+    },
+    "images": {
+      "files": ["images/**/*", "../bower_components/SVG-Loaders/svg-loaders/puff.svg"]
+    }
+  },
+  "config": {
+    "devUrl": "http://localhost:8888/twinings"
+  }
+}

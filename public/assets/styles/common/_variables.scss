@@ -1,0 +1,83 @@
+// Grid settings
+$main-sm-columns:   	12;
+$sidebar-sm-columns:	4;
+
+$font-path: 		"../fonts/";
+$image-path:		"../images/";
+
+// Colors
+$brand-colors:(
+	gold:			#d9c17b,
+	corn: 			#ba995b,
+	gray:			#110f0f
+);
+$secondary-colors:(
+	dark:			#101010,
+	light:			#ffffff,
+	nero: 			#1e1c1c,
+	shaft: 			#242222,
+	bokara: 		#1b1919,
+	//Social
+	facebook:		#3b5998,
+	twitter:		#55acee,
+	whatsapp:		#43d854,
+	googleplus:		#dc4e41,
+	google:			#ea4335,
+	instagram:		#3f729b,
+	spotify:		#2ebd59,
+	wordpress:		#21759b,
+	youtube:		#cd201f
+);
+$app-colors:(
+	primary: 		color(gold),
+	secondary: 		color(corn),
+	background: 	color(gray),
+	border:			color(corn),
+	on:				color(corn),
+	off: 			transparent,
+	text:			color(gold)
+);
+$brand-primary:     color(primary);
+
+// z-index
+$z-levels:(
+	header: 		990,
+	menu:         	980,
+	loader: 		972,
+	timer: 			971,
+	modal: 			970,
+	l1: 			10,
+	l2: 			20,
+	l3: 			30,
+	l4: 			40,
+	l5: 			50
+);
+
+// styles
+$csss:(
+    font--regular: (
+		font-family: 'AvenirRoman',
+		font-weight: 400
+    ),
+    font--light: (
+    	font-family: 'Avenir LT Std',
+		font-weight: 200
+    ),
+    font--number: (
+		font-family: 'BodoniSevITCBoo',
+		font-weight: bold
+    ),
+    ul: (
+		padding: 0,
+		list-style: none
+    ),
+    transition--bg: (
+		transition: background 250ms ease-out
+    )
+);
+
+$padding-unit: 		15px;
+$logo-height: 		44px;
+$header-padding: 	20px;
+$header-height:		$logo-height + $header-padding * 2;
+$profile-width: 	320px;

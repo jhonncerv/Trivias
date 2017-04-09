@@ -1,0 +1,97 @@
+@function map-get-warn( $list, $key ) {
+  @if map-has-key($list, $key) {
+    @return map-get($list, $key);
+  }
+  @warn "No se encontró: #{$key}";
+  @return $key;
+}
+@function color( $key ) {
+  @if map-has-key($brand-colors, $key) {
+    @return map-get($brand-colors, $key);
+  }
+  @elseif map-has-key($secondary-colors, $key){
+    @return map-get($secondary-colors, $key);
+  }
+  @elseif map-has-key($app-colors, $key){
+    @return map-get($app-colors, $key);
+  }
+  @warn "No se encontró: #{$key} en $brand-colors, $secondary-colors o $app-colors.";
+  @return $key;
+}
+@function color-list( $colors ) {
+  $colors-list:();
+  @each $color, $hex in $colors {
+    $colors-list: append($colors-list, $hex);
+  }  
+  @return $colors-list;
+}
+@mixin css( $key ) {
+  @if map-has-key($csss, $key) {
+    @each $property, $value in map-get($csss, $key) {
+      #{$property}: $value
+    }
+  }
+}
+@function z( $level ) {
+  @return map-get-warn($z-levels, $level);
+}
+@mixin z( $level ) {
+  z-index: z( $level );
+}
+
+@mixin hamburguer(){
+  width: 44px;
+  height: 44px;
+  overflow: hidden;
+  white-space: nowrap;
+  cursor: pointer;
+  span, span::before, span::after {
+    position: absolute;
+    display: inline-block;
+    height: 3px;
+      width: 24px;
+    background: $brand-primary;
+  }
+  span {
+    /* line in the center */
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    margin-top: -2px;
+    transition: all 200ms;
+  }
+  span::before, span::after {
+    /* other 2 lines */
+    content: '';
+    right: 0;
+    /* Force Hardware Acceleration in WebKit */
+    transform: translateZ(0);
+    backface-visibility: hidden;
+    transform-origin: 0% 50%;
+    transition: all 200ms;
+  }
+  span::before {
+    /* menu icon top line */
+    top: -6px;
+  }
+  span::after {
+    /* menu icon bottom line */
+    top: 6px;
+  }
+  .menu-visible &{
+    span {
+      /* hide line in the center */
+      background: rgba($brand-primary, 0);
+    }
+    span::before, span::after {
+      /* keep visible other 2 lines */
+      background: fade($brand-primary, 100%);
+    }
+    span::before {
+      transform: translateX(4px) translateY(-3px) rotate(45deg);
+    }
+    span::after {
+      transform: translateX(4px) translateY(2px) rotate(-45deg);
+    }
+  }
+}
