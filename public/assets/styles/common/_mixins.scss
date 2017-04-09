@@ -1,0 +1,140 @@
+%tw-card{
+	text-align: center;
+	padding: $padding-unit;
+	max-width: 445px;
+	min-width: 320px;
+	margin-left: auto;
+    margin-right: auto;
+}
+@mixin duotitle( $size: 'big', $align: 'left', $color: color(shaft)){
+	width: 100%;
+    overflow: hidden;
+    position: relative;
+	span{
+		display: block;
+		width: 100%;
+		position: absolute;
+		&:first-child{
+			@include css(font--number);
+			@if $size == 'big'{
+				font-size: 5em;
+				@include media-breakpoint-up(sm) {
+					font-size: 6em;
+				}
+			} @else {
+				font-size: 4.5em;
+			}
+			color: $color;
+			line-height: 69px;
+			opacity: .8;
+			@if $align == 'left' {
+				text-align: left;
+				padding-left: 6%;
+				@include media-breakpoint-up(sm) {
+					padding-left: 10%;
+	    		}
+			}
+		}
+		&:last-child{
+			@include css(font--light);
+			text-transform: uppercase;
+			line-height: 75px;
+			@if $size == 'big'{
+			    letter-spacing: 6px;
+			    font-size: 1.2em;
+			} @else {
+				letter-spacing: 3px;
+			}
+		}
+		&.double-line{
+			line-height: 54px;
+			margin-top: 5px;
+			@include media-breakpoint-up(sm) {
+				margin-top: 10px;
+			}
+			+ span{
+				line-height: 138px;
+			}
+		}
+	}
+}
+%profile-img{
+	background-color: color(nero);
+	padding: 5px;
+	border-radius: 80px;
+	img{
+		width: 80px;
+		height: 80px;
+		display: block;
+		padding: 5px;
+		border: 1px solid color(border);
+		border-radius: 80px;
+	}
+}
+%light-title{
+	@include css(font--light);
+	letter-spacing: 3px;
+	text-transform: uppercase;
+	letter-spacing: 1px;
+}
+%number{
+	@include css(font--number);
+	color: color(light);
+}
+
+@mixin hamburguer(){
+  width: 44px;
+  height: 44px;
+  overflow: hidden;
+  white-space: nowrap;
+  cursor: pointer;
+  span, span::before, span::after {
+    position: absolute;
+    display: inline-block;
+    height: 3px;
+      width: 24px;
+    background: $brand-primary;
+  }
+  span {
+    /* line in the center */
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    margin-top: -2px;
+    transition: all 200ms;
+  }
+  span::before, span::after {
+    /* other 2 lines */
+    content: '';
+    right: 0;
+    /* Force Hardware Acceleration in WebKit */
+    transform: translateZ(0);
+    backface-visibility: hidden;
+    transform-origin: 0% 50%;
+    transition: all 200ms;
+  }
+  span::before {
+    /* menu icon top line */
+    top: -6px;
+  }
+  span::after {
+    /* menu icon bottom line */
+    top: 6px;
+  }
+  .menu-visible &{
+    span {
+      /* hide line in the center */
+      background: rgba($brand-primary, 0);
+    }
+    span::before, span::after {
+      /* keep visible other 2 lines */
+      background: fade($brand-primary, 100%);
+    }
+    span::before {
+      transform: translateX(4px) translateY(-3px) rotate(45deg);
+    }
+    span::after {
+      transform: translateX(4px) translateY(2px) rotate(-45deg);
+    }
+  }
+}

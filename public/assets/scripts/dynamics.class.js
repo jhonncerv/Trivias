@@ -1,13 +1,13 @@
 ;(function ( $, Timer, SwipeCards, window, document, undefined ) {
 
   var config = {
-    qs_field:'q',
+    qs_field:'preguntas',
     q_id_field:'id',
-    q_value_field:'q',
-    as_field:'r',
+    q_value_field:'pregunta',
+    as_field:'respuestas',
     a_id_field:'id',
-    a_value_field:'v',
-    start_field:'starttime',
+    a_value_field:'option',
+    servertime_field:'servertime',
     endtime_field:'endtime'
   };
 
@@ -145,7 +145,7 @@
     this.initialize();
     var endtime = this.data.getKey(config.endtime_field);
     if(endtime){
-      this.timer.start(endtime);
+      this.timer.start(endtime, this.data.getKey(config.servertime_field));
     }
   };
   Dynamic.prototype.stop = function(){
