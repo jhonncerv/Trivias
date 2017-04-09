@@ -15,7 +15,7 @@ use App\Trivia;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 
-class TriviaConect
+class TriviaConnect
 {
 
     function __construct()

@@ -9,18 +9,18 @@ use App\Trivia;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use App\Http\Controllers\TriviaConect;
+use App\Http\Controllers\TriviaConnect;
 
 class TriviaController extends Controller
 {
 
-    private $triviaConect;
+    private $triviaConnect;
     /**
      * TriviaController constructor.
      */
-    function __construct(TriviaConect $triviaConect)
+    function __construct(TriviaConnect $triviaConnect)
     {
-        $this->triviaConect = $triviaConect;
+        $this->triviaConnect = $triviaConnect;
     }
 
     public function index()
@@ -47,7 +47,7 @@ class TriviaController extends Controller
 
         if ($now->diffInDays(new Carbon($ciudad->publish,'America/Mexico_City')) <= 2) {
 
-            return $this->triviaConect->giveMeTrivia($id);
+            return $this->triviaConnect->giveMeTrivia($id);
 
         }
 
@@ -76,7 +76,7 @@ class TriviaController extends Controller
                 'message' => 'Termina la trivia antes de iniciar otra');
         }
 
-        return $this->triviaConect->startMeTrivia($puntaje[0]);
+        return $this->triviaConnect->startMeTrivia($puntaje[0]);
 
     }
 
@@ -97,7 +97,7 @@ class TriviaController extends Controller
                 'message' => 'Aun no has iniciado ninguna trivia.');
         }
 
-        return $this->triviaConect->stopMeTrivia($participa, $puntaje[0], $request->data);
+        return $this->triviaConnect->stopMeTrivia($participa, $puntaje[0], $request->data);
 
 
     }
