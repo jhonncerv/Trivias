@@ -1,6 +1,6 @@
 <div class="tw-dynamic__score">
-    <div class="tw-dynamic__score__name">Hola <?=$_SESSION['first_name']?></div>
-    <div class="tw-dynamic__score__image"><img src="<?=$_SESSION['profile_pic']?>" /></div>
+    <div class="tw-dynamic__score__name">Hola {{ $participante->name }}</div>
+    <div class="tw-dynamic__score__image"><img src="{{ $participante->photo }}" /></div>
     <div class="tw-dynamic__score__points">
         <div class="tw-dynamic__score__points__item">
             Puntos por aciertos <span class="dy-score_time">200</span>
