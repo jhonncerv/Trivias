@@ -10,9 +10,8 @@
     <script>
         window.config = {
             login:'login/participante',
-            //appid:'165366553600497',
-            appid:'1693833144242455',
-            scope:'user_posts,user_friends',
+            appid:'120356661840963',
+            scope:'',//'user_posts,user_friends',
             dynamic:'api.php?endpoint=dynamic',
             start:'api.php?endpoint=start',
             save:'api.php?endpoint=save'
