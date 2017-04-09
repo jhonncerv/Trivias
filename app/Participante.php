@@ -15,4 +15,9 @@ class Participante extends Model
     protected $fillable = [
         'name', 'email', 'nickname', 'token_oauth', 'user_id'
     ];
+
+    public function puntajes()
+    {
+        return $this->hasMany('App\Puntaje');
+    }
 }

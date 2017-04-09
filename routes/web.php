@@ -18,7 +18,7 @@ Route::get('/', function () {
 Route::post('participante', 'SocialiteController@login');
 Route::get('login/social', 'SocialiteController@redirectToProvider');
 Route::get('login/social/callback', 'SocialiteController@handleProviderCallback');
-Route::get('social/loggued', 'SocialiteController@login');
+Route::get('social', 'SocialiteController@login');
 
 //Auth::routes();
 // rutas para la api
@@ -29,10 +29,11 @@ Route::get('preguntas', 'PreguntaController@index');
 Route::get('respuestas', 'RespuestaController@index');
 Route::get('participantes', 'ParticipanteController@index');
 
-Route::post('loggued', 'SocialiteController@login');
-Route::post('ciudad/{id}', 'TriviaController@todayGame');
-Route::post('ciudad/{id}/start', 'TriviaController@startGame');
-Route::post('ciudad/{id}/stop', 'TriviaController@stopGame');
-Route::post('mi-puntaje', 'ParticipanteController@mipuntaje');
-Route::post('puntajes', 'ParticipanteController@puntajes');
-Route::post('postal', 'PostalController@postal');
+Route::group(['middleware' => 'auth'], function () {
+    Route::get('trivia/start', 'TriviaController@startGame');
+    Route::get('trivia/stop', 'TriviaController@stopGame');
+    Route::get('ciudad/{id}', 'TriviaController@todayGame');
+    Route::post('mi-puntaje', 'ParticipanteController@mipuntaje');
+    Route::post('puntajes', 'ParticipanteController@puntajes');
+    Route::post('postal', 'PostalController@postal');
+});

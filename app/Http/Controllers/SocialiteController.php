@@ -51,16 +51,15 @@ class SocialiteController extends Controller
 
             Auth::login($usuario, true);
 
-            $responce = array([
+            $responce = array(
                 'code' => 200,
                 'status' => 'success',
-                'data' => array([
+                'data' => array(
                     'logued' => Auth::check(),
                     'guest' => Auth::guest(),
                     'facebook_id' => $participante->facebook_id,
                     'facebook_token' => $participante->token_oauth,
-                ])
-            ]);
+                ));
 
             return $responce;
         }
@@ -77,15 +76,14 @@ class SocialiteController extends Controller
         $token = $request->token;
         $user = Socialite::driver('facebook')->userFromToken($token);
 
-        $responce = array([
+        $responce = array(
             'code' => 200,
             'status' => 'success',
-            'data' => array([
+            'data' => array(
                 'facebook_id' => $user->id,
                 'name' => $user->name,
                 'photo' => $user->avatar
-            ])
-        ]);
+            ));
 
         return $responce;
 
