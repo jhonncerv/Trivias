@@ -13,7 +13,7 @@ class PreguntasTableSeeder extends Seeder
     {
         $faker = Faker\Factory::create();
 
-        for($ii = 1; $ii <= 4; $ii++){
+        for($ii = 1; $ii <= 3; $ii++){
             for($i = 0; $i < 50; $i++){
                 $pregunta = new \App\Pregunta();
                 $pregunta->question = $ii > 2 ? $faker->sentence : $faker->imageUrl;
