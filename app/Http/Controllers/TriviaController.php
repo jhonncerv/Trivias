@@ -29,10 +29,11 @@ class TriviaController extends Controller
         return $trivia;
     }
 
-    public function todayGame($id)
+    public function todayGame(Request $request)
     {
         $now = Carbon::now('America/Mexico_City');
-        $ciudad = Ciudad::find($id);
+        $ciudad = Ciudad::where('name', $request->city);
+
         $puntajeStatus = Puntaje::where('available', 0)
             ->where('time_finish', null)
             ->where('participante_id', Auth::user()->participante[0]->id)->get();
