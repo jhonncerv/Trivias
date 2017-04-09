@@ -11,18 +11,15 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-})->name('home');
-
-Route::post('participante', 'SocialiteController@login');
+Route::get('/', 'SocialiteController@index')->name('home');
+Route::get('/logout', 'SocialiteController@logout');
+Route::post('login/participante', 'SocialiteController@login');
 Route::get('login/social', 'SocialiteController@redirectToProvider');
 Route::get('login/social/callback', 'SocialiteController@handleProviderCallback');
-Route::get('social', 'SocialiteController@login');
 
-//Auth::routes();
+Auth::routes();
 // rutas para la api
-Route::get('/home', 'HomeController@index');
+//Route::get('/home', 'HomeController@index');
 
 Route::get('trivias', 'TriviaController@index');
 Route::get('preguntas', 'PreguntaController@index');

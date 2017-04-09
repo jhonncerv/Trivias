@@ -129,24 +129,29 @@ function message( text ){
     },
     'login': {
       init: function() {
+
         var FBLogin = window.fblogin,
             facebook = new FBLogin( window.config.login, window.config.appid, window.config.scope );
         
         facebook.on('fblogin.error', function( event, error ){
           message(error);
         });
+
         facebook.on('fblogin.done', function( event, response ){
           window.location = response.redirect || window.location.href;
         });
+
         $('.login-page__button').click(function( event ){
           event.preventDefault();
+
           if($('.login-page__tyc input').is(":checked")){
-            facebook.connect();  
+            facebook.connect();
           } else {
             message("Debes aceptar los términos y condiciones para poder registrarte.");
           }
         });
       }
+
     },
     'find': {
       init: function() {

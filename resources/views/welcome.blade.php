@@ -4,12 +4,15 @@ template("head");
 ?>
 <body class="<?=user_is_logged_in()?'has-menu app':'login'?>">
 <main class="main" role="document">
-    <?php
-    if(user_is_logged_in()){
-        template("home");
-    } else {
-        template("login");
-    } ?>
+    @if(Auth::check())
+        @php
+            template("home");
+        @endphp
+    @else
+        @php
+            template("login");
+        @endphp
+    @endif
 </main>
 <div class="tw-loader">
     <div class="tw-loader__bg"></div>

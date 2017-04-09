@@ -1,5 +1,4 @@
-<?php 
-
+<?php
 session_name('twinings');
 session_start();
 
@@ -29,5 +28,6 @@ function image_path( $name = '' ){
 }
 
 function user_is_logged_in(){
+    //unset($_SESSION["fbid"]);
 	return !empty($_SESSION["fbid"]);
 }

@@ -9,7 +9,7 @@
 		<script type='text/javascript' src='https://code.jquery.com/jquery-1.12.4.min.js'></script>
 		<script>
 			window.config = {
-				login:'api.php?endpoint=login',
+				login:'login/participante',
 				//appid:'165366553600497',
 				appid:'1693833144242455',
 				scope:'user_posts,user_friends',
