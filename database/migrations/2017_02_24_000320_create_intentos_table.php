@@ -14,6 +14,7 @@ class CreateIntentosTable extends Migration
     public function up()
     {
         Schema::create('intentos', function (Blueprint $table) {
+            $table->increments('id');
             $table->string('query_ord');
             $table->string('correct_str');
             $table->string('attempt_str')->nullable();

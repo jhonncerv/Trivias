@@ -23,7 +23,7 @@ class TriviaController extends Controller
     {
         $now = Carbon::now('America/Mexico_City');
         $ciudad = Ciudad::find($id);
-        $trivia = Puntaje::where('available', 0)->where('time_finish', null)->get();
+        $trivia = Puntaje::where('available', 0)->where('time_finish', null)->where('participante_id', Auth::user()->participante[0]->id)->get();
 
         $response = array(
             'code' => 401,
@@ -35,7 +35,7 @@ class TriviaController extends Controller
             return $response;
         }
 
-        if ($now->diffInDays(new Carbon($ciudad->publish)) <= 2) {
+        if ($now->diffInDays(new Carbon($ciudad->publish,'America/Mexico_City')) <= 2) {
 
             $trivias = Trivia::all();
             $participa= Auth::user()->participante[0];
@@ -78,7 +78,10 @@ class TriviaController extends Controller
     public function startGame()
     {
 
-        $puntaje = Puntaje::with('trivia.preguntas.respuestas')->where('available', 0)->where('time_finish', null)->get();
+        $puntaje = Puntaje::with('trivia.preguntas.respuestas')
+                            ->where('available', 0)
+                            ->where('participante_id', Auth::user()->participante[0]->id)
+                            ->where('time_finish', null)->get();
 
         if($puntaje->isEmpty()){
             return array(
@@ -132,7 +135,7 @@ class TriviaController extends Controller
             ]);
         }
 
-        $puntaje[0]->time_start = Carbon::now();
+        $puntaje[0]->time_start = Carbon::now('America/Mexico_City');
         $puntaje[0]->save();
 
         return array(
@@ -143,13 +146,61 @@ class TriviaController extends Controller
             ));
     }
 
-    public function stopGame($id)
+    public function stopGame(Request $request)
     {
+        $participa = Auth::user()->participante[0];
+        $puntaje = Puntaje::with('intentos', 'trivia')
+                ->where('available', 0)
+                ->where('participante_id', $participa->id)
+                ->where('time_finish', null)
+                ->where('time_start', '<>', null)
+                ->get();
+
+        if($puntaje->isEmpty()){
+            return array(
+                'code' => 401,
+                'status' => 'unauthorized',
+                'message' => 'Aun no has iniciado ninguna trivia.');
+        }
+        $datenow = Carbon::now('America/Mexico_City');
+        $puntaje[0]->time_finish = $datenow->toDateTimeString();
+        $inicio = new Carbon($puntaje[0]->time_start, 'America/Mexico_City');
+
+        $valor_pregunta = $puntaje[0]->trivia->points_per_anwser;
+        $factor = $puntaje[0]->trivia->time_limit - $inicio->diffInSeconds($datenow);
+        $porfac = $factor > 0 ? ($factor / $puntaje[0]->trivia->time_limit) : 0;
+
+
+        $intentos = $puntaje[0]->intentos;
+        $data = $request->data;
+        $puntos = 0;
+        foreach ($intentos as $intento) {
+            foreach ($data as $dat){
+
+                if($intento->query_ord == $dat['id']){
+                    $intento->attempt_str = $dat['v'];
+                    if($intento->correct_str == $dat['v']){
+                        $puntos++;
+                    }
+                    $intento->save();
+                }
+            }
+        }
+
+        $puntaje[0]->query_score = $puntos * $valor_pregunta;
+        $puntaje[0]->punish_factor = $porfac;
+        $puntaje[0]->total_score = $puntos * $valor_pregunta * $porfac;
+
+        $participa->points = $participa->points + $puntaje[0]->total_score;
+        $participa->save();
+
+        $puntaje[0]->save();
         return array(
             'code' => 200,
             'status' => 'success',
             'data' => array(
-
+                'puntaje' => $puntaje[0]->total_score,
+                'total' => $participa->points
             )
         );
     }

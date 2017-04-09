@@ -14,6 +14,7 @@ class Intento extends Model
     protected $fillable = [
         'query_ord', 'correct_str', 'pregunta_id', 'puntaje_id', 'attempt_str'
     ];
+
     /**
      * The attributes that should be hidden for arrays.
      *

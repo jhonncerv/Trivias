@@ -83,5 +83,32 @@
                 </div>
             </div>
         </div>
+        <script type="text/javascript" src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+        <script>
+
+            $data = {data:[{
+                "id": "0RAS1KUOd",
+                "v": "OAQuu8Ioc"
+            },{
+                "id": "ZWFhVn4a6",
+                "v": "D4C1R8nD5"
+            },{
+                "id": "eVyxrCwWw",
+                "v": "1bd1p1n62"
+            },{
+                "id": "OrY3hGFA4",
+                "v": "hNeOnLIyn"
+            }]};
+            $.ajax({
+                url:'/trivia/stop',
+                data: $data,
+                dataType: 'json',
+                method: 'post',
+                success: function (e) {
+                    console.log(e);
+                }
+                })
+
+        </script>
     </body>
 </html>

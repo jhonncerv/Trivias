@@ -21,9 +21,9 @@ class TriviasTableSeeder extends Seeder
             $trivia = new \App\Trivia();
             $trivia->game = $faker->word;
             $trivia->description = $faker->sentence;
-            $trivia->points_per_anwser = $faker->numberBetween($min = 10, $max = 100);
-            $trivia->punish_per_second = $faker->numberBetween($min = 1, $max = 10);
-            $trivia->time_limit = (2 * 60 * 1000);
+            $trivia->points_per_anwser = $faker->numberBetween($min = 1, $max = 10);
+            //$trivia->punish_per_second = $faker->numberBetween($min = 1, $max = 10);
+            $trivia->time_limit = ( 20 * 60 );
             $trivia->query_size = 4;
             $trivia->publish = new Carbon('yesterday');
             $trivia->expiration = new Carbon('next wednesday');

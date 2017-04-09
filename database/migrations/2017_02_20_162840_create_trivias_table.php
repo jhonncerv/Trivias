@@ -18,7 +18,7 @@ class CreateTriviasTable extends Migration
             $table->string('game');
             $table->string('description');
             $table->integer('points_per_anwser');
-            $table->integer('punish_per_second');
+            //$table->integer('punish_per_second');
             $table->integer('time_limit');
             $table->integer('query_size');
             $table->timestamp('publish')->nullable();
