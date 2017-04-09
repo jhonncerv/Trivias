@@ -81,10 +81,9 @@ class SocialiteController extends Controller
 
 
         if (Auth::check() || $request->accessToken == '') {
-
             return array(
                 'code' => 422,
-                'status' => 'unprocessed',
+                'status' => 'error',
                 'message' => 'Ya estas loggeado.');
         }
 
@@ -108,28 +107,15 @@ class SocialiteController extends Controller
 
         Auth::login($usuario, true);
 
-        return json_encode(array(
-            'code' => 200,
-            'status' => 'success',
-            'data' => array(
-                'facebook_id' => $participante->facebook_id,
-                'nickname' => $participante->nickname,
-                'name' => $participante->name,
-                'photo' => $participante->photo,
-                'score' => $participante->points,
-                'game' => 0
-            )));
+        return json_encode(array('status' => 'success'));
 
     }
 
     public function logout(Request $request)
     {
         Auth::guard()->logout();
-
         $request->session()->flush();
-
         $request->session()->regenerate();
-
         return redirect('/');
     }
 
