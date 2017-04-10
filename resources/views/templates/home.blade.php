@@ -5,4 +5,5 @@
     @include('templates.tw-twinder')
     @include('templates.tw-trivia')
     @include('templates.tw-siluetas')
+    @include('templates.tw-finding')
 </div>

@@ -1,4 +1,4 @@
-;(function ( $, Timer, SwipeCards, window, document, undefined ) {
+;(function ( $, Timer, SwipeCards, ZoomPanel, window, document, undefined ) {
 
   var config = {
     qs_field:'preguntas',
@@ -278,7 +278,34 @@
     $element_item.fadeIn("fast", callback);
   };
   
-  
+  function Finding( dynamics, $element, $button, class__image, class__lens, class__marks, class__marks__item ) { 
+    Dynamic.call(this, dynamics);
+    var _this = this;
+    this.type = "finding";
+    this.$element = $element;
+    this.$bg = this.$element.push($element.find("." + class__image));
+    this.zoompanel = new ZoomPanel($element, class__image, class__lens, class__marks, class__marks__item);
+    $button.click(function(){
+      _this.stop_n_save();
+    });
+  }
+  Finding.prototype = Object.create(Dynamic.prototype);
+  Finding.prototype.constructor = Finding;
+  Finding.prototype.getZoomPanel = function(){
+    return this.zoompanel;
+  };
+  Finding.prototype.serialize = function(){ 
+    return this.zoompanel.serialize(800,800);
+  };
+  Finding.prototype.initialize = function(){
+    this.zoompanel.clear();
+    this.data.reset();
+    var question, $c;
+    while( (question = this.data.nextQuestion()) ){
+      this.zoompanel.setTotalMarks(question.getAnswerLength());
+      this.$bg.css('background-image','url('+ question.getValue() +')');
+    }
+  };
 
   function Dynamics( dynamic, start, save ){
     this.$events = $({});
@@ -293,6 +320,7 @@
     this.twinder = false;
     this.trivia = false;
     this.siluetas = false;
+    this.finding = false;
   }
   Dynamics.prototype.on = function( event, fn ){
     this.$events.on(event, fn);
@@ -394,7 +422,11 @@
     this.siluetas = new Siluetas( this, $element, class_item, class_item_image, class_item_r, class_item_r_item, class_item_r_item_active );
     return this.siluetas;
   };
+  Dynamics.prototype.initFinding = function( $element, $button, class__image, class__lens, class__marks, class__marks__item ){
+    this.finding = new Finding( this, $element, $button, class__image, class__lens, class__marks, class__marks__item );
+    return this.finding;
+  };
 
   window.dynamics = Dynamics;
     
-})( jQuery, window.timer, window.swipecards, window, document );
+})( jQuery, window.timer, window.swipecards, window.zoompanel, window, document );
