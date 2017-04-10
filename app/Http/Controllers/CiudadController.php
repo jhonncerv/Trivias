@@ -33,4 +33,9 @@ class CiudadController extends Controller
         return view('tyco');
     }
 
+    public function mecanica()
+    {
+        return view('mecanica');
+    }
+
 }
