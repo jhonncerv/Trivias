@@ -11,7 +11,6 @@ class PreguntasTableSeeder extends Seeder
      */
     public function run()
     {
-        $faker = Faker\Factory::create();
 
         for($ii = 1; $ii <= 3; $ii++){
             if($ii == 2){
@@ -39,7 +38,7 @@ class PreguntasTableSeeder extends Seeder
 
                 $preguntas = array(
                     'Oficialmente cómo es conocido Marruecos:',
-                    'El ritual del té están descritos en lod diarios y libros de este importante escritor: ',
+                    'El ritual del té están descritos en los diarios y libros de este importante escritor: ',
                     'Como es un país musulman, Marruecos representa sus hospitales con una:',
                     '¿Cómo se llaman los gorros típicos rojos que usan los marroquis? ',
                     'En Marruecos besarse y otros tipos de actos de amor están prohibidos al publico, se receban para la intimidad del hogar:',
@@ -53,6 +52,67 @@ class PreguntasTableSeeder extends Seeder
                     $pregunta->trivia_id = $ii;
                     $pregunta->save();
 
+                }
+            } else if($ii == 1) {
+
+
+
+                $imagenes = array(
+                    'fake/Anise.png',
+                    'fake/Artichoke.png',
+                    'fake/Cardamomo.png',
+                    'fake/Cinnamon.png',
+                    'fake/Clavo.png',
+                    'fake/Coriander.png',
+                    'fake/Cumin.png',
+                    'fake/Curcuma.png',
+                    'fake/Cuscus.png',
+                    'fake/datil.png',
+                    'fake/FlorAzafran.png',
+                    'fake/Ginger.png',
+                    'fake/Jamaica.png',
+                    'fake/Mint.png',
+                    'fake/Mrouzia.png',
+                    'fake/Nuts.png',
+                    'fake/Olivas.png',
+                    'fake/Pastela.png',
+                    'fake/Pepper.png',
+                    'fake/Sesame.png',
+                    'reales/Blackurrant.png',
+                    'reales/CamomilleHoneyVainilla.png',
+                    'reales/CamomilleSpearmint.png',
+                    'reales/EarlGrey.png',
+                    'reales/EnglishBreakfast.png',
+                    'reales/FourRedFruits.png',
+                    'reales/GreenTeaCranberry.png',
+                    'reales/GreenTeaEarlyGrey.png',
+                    'reales/GreenTeaJasmine.png',
+                    'reales/GreenTeaJasmine2.png',
+                    'reales/GreenTeaLemon.png',
+                    'reales/GreenTeaMint.png',
+                    'reales/LadyGrey.png',
+                    'reales/LemonGinger.png',
+                    'reales/LemonTwist.png',
+                    'reales/OrangeAndCinnamon.png',
+                    'reales/PeachPassionfruit.png',
+                    'reales/PureCamomille.png',
+                    'reales/PureGreenTea.png',
+                    'reales/PureGreenTea2.png',
+                    'reales/PurePeppermint.png',
+                    'reales/StrawberryMango.png',
+                    'reales/SummerGarden.png',
+                    'reales/VoyageIndianChai.png',
+                    'reales/WildBerry.png',
+                    );
+
+                //shuffle($imagenes);
+                for($i=0;$i<count($imagenes);$i++){
+
+                    $pregunta = new \App\Pregunta();
+                    $pregunta->question = $imagenes[$i];
+                    $pregunta->caption = null;
+                    $pregunta->trivia_id = $ii;
+                    $pregunta->save();
                 }
             } else {
 
