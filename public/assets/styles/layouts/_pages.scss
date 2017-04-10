@@ -1,3 +1,56 @@
+.tw-page{
+	position: relative;
+	padding: 20px 0;
+	text-align: center;
+	&__logo, &__title{
+		display: block;
+		margin: auto;
+	}
+	&__logo{
+		img{
+			width: (382px / 2);
+			height: auto;
+		}
+		
+		margin-bottom: 40px;
+	}
+	&__title{
+		height: 130px;
+		text-align: center;
+		@include duotitle('small','center');
+	}
+	&__intro{
+		@include css(font--light);
+		color: color(secondary);
+	}
+	&__body{
+		margin-bottom: $padding-unit;
+		a{
+			text-decoration: underline;
+			display: inline-block;
+		}
+		h1{
+			font-size: 1.8em;
+			text-align: center;
+		}
+		h2{
+			font-size: 1.4em;
+			text-align: left;
+		}
+		h3{
+			font-size: 1.1em;
+			text-align: left;
+		}
+		p, ul, li{
+			margin-bottom: 15px;
+			text-align: justify;
+		}
+	}
+	&__return{
+		margin: auto;
+	}
+}
+
 .login-page{
 	@extend %tw-card;
 	position: relative;
@@ -24,6 +77,8 @@
 		margin-top: 45px;
 		a{
 			text-decoration: underline;
+			display: inline-block;
+    		cursor: pointer;
 		}
 	}
 	&__button{
@@ -204,7 +259,7 @@
 			color: color(secondary);
 			margin-bottom: 30px;
 		}
-		.twn-form__button{
+		.tw-form__button{
 			padding-left: 2rem;
 			padding-right: 2rem;
 		}

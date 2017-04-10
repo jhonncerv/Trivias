@@ -5,7 +5,7 @@
                 <span>Trivia</span> <span>Trivia</span>
             </div>
             <p>¿Qué tanto sabes? Contesta la pregunta lo antes posible. Sigue adelante.</p>
-            <button class="twn-form__button tw-dynamic__start">Jugar</button>
+            <button class="tw-form__button tw-dynamic__start">Jugar</button>
         </div>
         <div class="tw-dynamic__app">
             <div class="tw-dynamic__app__title">Trivia</div>

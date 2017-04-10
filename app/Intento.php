@@ -21,7 +21,7 @@ class Intento extends Model
      * @var array
      */
     protected $hidden = [
-        //'id', 'attempt_str', 'respuesta_id', 'pregunta_id', 'puntaje_id', 'created_at', 'updated_at', 'correct_str'
+        'id', 'attempt_str', 'respuesta_id', 'pregunta_id', 'puntaje_id', 'created_at', 'updated_at', 'correct_str'
     ];
 
     public function pregunta(){

@@ -18,5 +18,5 @@
     <div class="tw-dynamic__score__message">
         En 5min estará disponible un nuevo juego.
     </div>
-    <button class="twn-form__button tw-dynamic__close">Aceptar</button>
+    <button class="tw-form__button tw-dynamic__close">Aceptar</button>
 </div>

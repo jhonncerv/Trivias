@@ -5,7 +5,7 @@
                 <span>Twinings</span> <span>Té de altura</span>
             </div>
             <p class="tw-message__text">mensaje</p>
-            <button class="twn-form__button tw-message__button">Aceptar</button>
+            <button class="tw-form__button tw-message__button">Aceptar</button>
         </div>
     </div>
 </div>

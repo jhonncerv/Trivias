@@ -12,18 +12,32 @@ class RespuestasTableSeeder extends Seeder
     public function run()
     {
 
-        $faker = Faker\Factory::create();
+        //$faker = Faker\Factory::create();
+        //$faker->word
 
-        for ($d = 0; $d < 3; $d++){
-            for ($e = 1; $e <= 50; $e++) {
-                for ($i = 0; $i < ( ($d > 0)?2:3 ); $i++) {
+        $rep = array(
+            ['Mezquita Hassan','Al Hikmah','La Torre Eiffel '],
+            ['Marruecos','El Rabat','Estonia'],
+            ['Desierto del Sahara','Desierto de Erg Chebbi','Duna de Pyla'],
+            ['Ave Ibis Eremita','Cocodrilo','Garza Cocol '],
+            ['Tagine','Plato de cerámica','Arte orbe'],
+        );
+
+        $res = array(1,2,2,1,1);
+
+
+        for($preg = 21; $preg <= 25; $preg++){
+
+            for ($i = 0; $i < 3 ; $i++) {
+
                     $respuesta = new \App\Respuesta();
-                    $respuesta->option = $d > 0 ? $faker->word : (!$i ? 'izquierda': 'derecha');
-                    $respuesta->correct = !$i;
-                    $respuesta->pregunta_id = ($d * 50) + $e;
+                    $respuesta->option = $rep[$preg-21][$i];
+                    $respuesta->correct = $i == ( $res[$preg-21] - 1 ) ? 1 : 0;
+                    $respuesta->pregunta_id = $preg;
                     $respuesta->save();
+
                 }
             }
-        }
+
     }
 }

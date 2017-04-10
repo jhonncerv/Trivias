@@ -5,7 +5,7 @@
                 <span>Siluetas</span> <span>Siluetas</span>
             </div>
             <p>Adivina el lugar antes de que se forme por completo su silueta para ganar más puntos. Sigue adelante.</p>
-            <button class="twn-form__button tw-dynamic__start">Jugar</button>
+            <button class="tw-form__button tw-dynamic__start">Jugar</button>
         </div>
         <div class="tw-dynamic__app">
             <div class="tw-dynamic__app__title">Siluetas</div>

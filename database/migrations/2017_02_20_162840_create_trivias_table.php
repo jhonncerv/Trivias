@@ -16,11 +16,11 @@ class CreateTriviasTable extends Migration
         Schema::create('trivias', function (Blueprint $table) {
             $table->increments('id');
             $table->string('game');
+            $table->boolean('available');
             $table->integer('points_per_anwser');
             $table->integer('time_limit');
             $table->integer('query_size');
             $table->timestamp('publish')->nullable();
-            $table->timestamp('expiration')->nullable();
             $table->timestamps();
         });
     }

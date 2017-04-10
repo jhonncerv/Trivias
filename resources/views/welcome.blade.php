@@ -8,6 +8,7 @@
         @include('templates.login')
     @endif
     @include('templates.tw-message')
+    @include('templates.tw-popup')
 </main>
 <div class="tw-loader">
     <div class="tw-loader__bg"></div>

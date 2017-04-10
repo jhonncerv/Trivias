@@ -11,8 +11,9 @@
 |
 */
 
-Route::get('/', 'SocialiteController@index')->name('home');
-Route::get('/tyco', 'SocialiteController@tyco')->name('tyco');
+Route::get('/', 'CiudadController@index')->name('home');
+Route::get('/tyco', 'CiudadController@tyco')->name('tyco');
+
 Route::get('/logout', 'SocialiteController@logout');
 Route::post('login/participante', 'SocialiteController@login');
 Route::get('login/social', 'SocialiteController@redirectToProvider');
@@ -22,7 +23,7 @@ Auth::routes();
 // rutas para la api
 //Route::get('/home', 'HomeController@index');
 
-Route::get('ciudades', 'TriviaController@ciudades');
+Route::get('ciudades', 'CiudadController@ciudades');
 Route::get('trivias', 'TriviaController@index');
 Route::get('preguntas', 'PreguntaController@index');
 Route::get('respuestas', 'RespuestaController@index');

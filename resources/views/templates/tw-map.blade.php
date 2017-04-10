@@ -11,6 +11,13 @@
                 <span>01</span> <span>Marruecos</span>
             </div>
         </div>
-        <div class="tw-map__ctrls__dots"><div class="tw-map__ctrls__dots__item tw-map__ctrls__dots__item--available" data-trigger-city="MARRUECOS"></div><div class="tw-map__ctrls__dots__item"></div><div class="tw-map__ctrls__dots__item"></div><div class="tw-map__ctrls__dots__item"></div><div class="tw-map__ctrls__dots__item"></div></div>
+        <div class="tw-map__ctrls__dots">
+            @foreach($ciudades as $ciudad)
+                @if($ciudad->available == 0)
+                    @continue
+                @endif
+            <div class="tw-map__ctrls__dots__item {{ $ciudad->is_publish ? 'tw-map__ctrls__dots__item--available':'' }}" data-trigger-city="{{ $ciudad->name }}"></div>
+            @endforeach
+        </div>
     </div>
 </div>

@@ -31,8 +31,6 @@ class TriviaController extends Controller
 
     public function todayGame(Request $request)
     {
-        $now = Carbon::now('America/Mexico_City');
-        $ciudad = Ciudad::where('name', $request->city)->get();
 
         $puntajeStatus = Puntaje::with('trivia')->where('available', 0)
             ->where('time_finish', null)
@@ -43,7 +41,7 @@ class TriviaController extends Controller
             'status' => 'error'
         );
 
-        if($puntajeStatus->isNotEmpty()){
+       if($puntajeStatus->isNotEmpty()){
             $response = array(
                 'code' => 200,
                 'status' => 'success',
@@ -53,15 +51,27 @@ class TriviaController extends Controller
             return $response;
         }
 
-        /* todo: compara que hayan pasado 5 mins desde el ultimo juego */
-
-        if ($now->diffInDays(new Carbon($ciudad[0]->publish,'America/Mexico_City')) <= 2) {
+        $ciudad = Ciudad::where('name', $request->city)->get();
+        if ($ciudad[0]->is_publish == 1) {
 
             return $this->triviaConnect->giveMeTrivia($ciudad[0]->id);
 
         }
 
-        $response['message'] = 'No te desesperes pronto revelaremos la ciudad, por lo pronto sigue jugando las anteriores rutas. ';
+        $fecha_publica = new Carbon($ciudad[0]->publish, 'America/Mexico_City');
+        $ahora = Carbon::now('America/Mexico_City');
+        $dias = $ahora->diffInDays($fecha_publica);
+        $horas = $ahora->diffInHours($fecha_publica);
+        $minutos = $ahora->diffInMinutes($fecha_publica);
+
+        /* todo: Mensaje más amigable */
+
+        $message = 'Esta ciudad estará disponible en ';
+        $message .= ($dias > 0) ? $dias.($dias == 1 ? ' día, ' :' días, ') : '';
+        $message .= ($horas > 0) ? $horas.' hora'. ( $horas === 1 ? '':'s') .', ' : '';
+        $message .= ($minutos > 0) ? $minutos.' minuto'.( $minutos == 1 ? '': 's') : '';
+
+        $response['message'] = $message.'.';
         return $response;
     }
 
@@ -85,7 +95,7 @@ class TriviaController extends Controller
                 'code' => 200,
                 'status' => 'success',
                 'data' => array(
-                    'preguntas' => $this->triviaConnect->continuMeTrivia($puntaje[0]->intentos)
+                    'preguntas' => $this->triviaConnect->continuMeTrivia($puntaje[0]->intentos, $puntaje[0]->trivia->id)
                 ));
         }
 
@@ -95,6 +105,13 @@ class TriviaController extends Controller
 
     public function stopGame(Request $request)
     {
+        if(empty($request->data)){
+            return array(
+                'code' => 401,
+                'status' => 'error',
+                'message' => 'Aun no has iniciado ninguna trivia.');
+
+        }
         $participa = Auth::user()->participante[0];
         $puntaje = Puntaje::with('intentos', 'trivia')
                 ->where('available', 0)
@@ -115,9 +132,4 @@ class TriviaController extends Controller
 
     }
 
-    public function ciudades()
-    {
-        $ciudad = Ciudad::all();
-        return $ciudad;
-    }
 }
