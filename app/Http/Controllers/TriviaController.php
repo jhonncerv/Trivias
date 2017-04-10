@@ -41,7 +41,7 @@ class TriviaController extends Controller
             'status' => 'error'
         );
 
-        if($puntajeStatus->isNotEmpty()){
+       if($puntajeStatus->isNotEmpty()){
             $response = array(
                 'code' => 200,
                 'status' => 'success',

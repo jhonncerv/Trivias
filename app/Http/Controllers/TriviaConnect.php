@@ -28,16 +28,23 @@ class TriviaConnect
 
         $response = array(
             'code' => 401,
-            'status' => 'error',
-            'mesage' => 'Ya no quedan juegos disponibles'
+            'status' => 'error'
         );
 
         foreach ($trivias as $trivia){
-            Puntaje::firstOrCreate([
+            $tiempo_puntaje = Puntaje::firstOrCreate([
                 'trivia_id' => $trivia->id,
                 'ciudad_id' => $id,
                 'participante_id' => $participa->id
-            ]);
+            ])->time_finish;
+            if($tiempo_puntaje !== null){
+                $diff = new Carbon($tiempo_puntaje, 'America/Mexico_City');
+                if($diff->diffInMinutes(Carbon::now('America/Mexico_City')) < 5){
+                    $response['mesage'] = 'No te desesperes en 5 minutos podras seguir jugando.';
+                    return $response;
+                }
+            }
+            return $tiempo_puntaje;
         }
 
         $puntaje = $participa->puntajes()->where('available', 1)->where('ciudad_id', $id)->get();
@@ -53,6 +60,7 @@ class TriviaConnect
                     'type' => $puntaje->trivia->game
                 ));
         }
+        $response['mesage'] = 'Ya no quedan juegos disponibles.';
         return $response;
     }
 
