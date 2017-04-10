@@ -12,11 +12,34 @@ class RespuestasTableSeeder extends Seeder
     public function run()
     {
 
-        //$faker = Faker\Factory::create();
-        //$faker->word
 
         $rep = array(
-            ['Mezquita Hassan','Al Hikmah','La Torre Eiffel '],
+            ['República Soberana de Marruecos','Estado de Marruecos','Reino de Marruecos'],
+            ['Cervantes de Saavedra','Paulo Cohelo ','Paul Bowles'],
+            ['Cruz Roja','Medialuna luminosa','Un corazón'],
+            ['Gorro de Fez','Balmoral','Beanie'],
+            ['Cierto','Falso','No sé']
+        );
+
+        $res = array(3,3,2,1,1);
+
+
+        for($preg = 0; $preg <= 4; $preg++){
+
+            for ($i = 0; $i < 3 ; $i++) {
+
+                $respuesta = new \App\Respuesta();
+                $respuesta->option = $rep[$preg][$i];
+                $respuesta->correct = $i == ( $res[$preg] -1 ) ? 1 : 0;
+                $respuesta->pregunta_id = $preg+1;
+                $respuesta->save();
+
+            }
+        }
+
+
+        $rep = array(
+            ['Mezquita Hassan','Al Hikmah','La Torre Eiffel'],
             ['Marruecos','El Rabat','Estonia'],
             ['Desierto del Sahara','Desierto de Erg Chebbi','Duna de Pyla'],
             ['Ave Ibis Eremita','Cocodrilo','Garza Cocol '],
@@ -26,18 +49,18 @@ class RespuestasTableSeeder extends Seeder
         $res = array(1,2,2,1,1);
 
 
-        for($preg = 21; $preg <= 25; $preg++){
+        for($preg = 6; $preg <= 10; $preg++){
 
             for ($i = 0; $i < 3 ; $i++) {
 
                     $respuesta = new \App\Respuesta();
-                    $respuesta->option = $rep[$preg-21][$i];
-                    $respuesta->correct = $i == ( $res[$preg-21] - 1 ) ? 1 : 0;
+                    $respuesta->option = $rep[$preg-6][$i];
+                    $respuesta->correct = $i == ( $res[$preg-6] - 1 ) ? 1 : 0;
                     $respuesta->pregunta_id = $preg;
                     $respuesta->save();
 
-                }
             }
+        }
 
     }
 }

@@ -35,16 +35,35 @@ class PreguntasTableSeeder extends Seeder
                     $pregunta->save();
                 }
 
+            } else if($ii == 3) {
+
+                $preguntas = array(
+                    'Oficialmente cómo es conocido Marruecos:',
+                    'El ritual del té están descritos en lod diarios y libros de este importante escritor: ',
+                    'Como es un país musulman, Marruecos representa sus hospitales con una:',
+                    '¿Cómo se llaman los gorros típicos rojos que usan los marroquis? ',
+                    'En Marruecos besarse y otros tipos de actos de amor están prohibidos al publico, se receban para la intimidad del hogar:',
+                );
+
+                for($i=0;$i<5;$i++){
+
+                    $pregunta = new \App\Pregunta();
+                    $pregunta->question = $preguntas[$i];
+                    $pregunta->caption = null;
+                    $pregunta->trivia_id = $ii;
+                    $pregunta->save();
+
+                }
             } else {
 
-                for($i = 0; $i < 20; $i++){
+             /*   for($i = 0; $i < 20; $i++){
                     $pregunta = new \App\Pregunta();
                     $pregunta->question = $ii > 2 ? $faker->sentence : $faker->imageUrl;
                     $pregunta->caption = null;
                     $pregunta->trivia_id = $ii;
                     $pregunta->save();
                 }
-
+*/
             }
 
         }
