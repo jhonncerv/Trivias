@@ -46,7 +46,7 @@ class TriviaConnect
                 $tim = $diff->diffInMinutes(Carbon::now('America/Mexico_City'));
 
                 if( $tim < 5){
-                    $response['mesage'] = 'No te desesperes, el siguiente juego estará disponible en ' . $tim . ' minutos.';
+                    $response['message'] = 'No te desesperes, el siguiente juego estará disponible en ' . (5 -$tim) . ' minutos.';
                     return $response;
                 }
 
@@ -83,7 +83,6 @@ class TriviaConnect
 
         $query = $puntaje->trivia->query_size;
         $preguntas = $puntaje->trivia->preguntas;
-
         $numbers = range(1, $preguntas->count());
         shuffle($numbers);
         array_slice($numbers, 0, $query);
@@ -111,6 +110,10 @@ class TriviaConnect
                     $intento->respuesta_id = $respuesta->id;
                     $intento->correct_str = $id_res;
                 }
+            }
+
+            if($intento->correct_str == null){
+                return $intento;
             }
 
             $intento->save();
