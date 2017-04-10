@@ -63,8 +63,8 @@
 		margin-bottom: 40px;
 	}
 	&__welcome{
-		height: 138px;
-		@include duotitle();
+		height: 100px;
+		@include duotitle('small','center');
 	}
 	&__intro{
 		@include css(font--light);
