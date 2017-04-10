@@ -6,7 +6,7 @@
         </div>
         <p class="login-page__intro">Aquí inicia la aventura que te llevará a explorar las rutas del té. Podrás ganarte un viaje a la capital del té: Londres.</p>
         <div class="tw-form__checkbox login-page__tyc">
-            <input tabindex="1" type="checkbox" name="tyc" id="tyc" value="1"> <label for="tyc">He leído y acepto los <a href="#" target="_blank">términos y condiciones</a>.</label>
+            <input tabindex="1" type="checkbox" name="tyc" id="tyc" value="1"> <label for="tyc">He leído y acepto los <a class="tw-popup-trigger" href="tyco" target="_blank">términos y condiciones</a>.</label>
         </div>
         <a href="." class="tw-form__button tw-form__button--fb login-page__button"><i class="fa fa-facebook" aria-hidden="true"></i> Inicia con <b>Facebook</b></a>
     </div>

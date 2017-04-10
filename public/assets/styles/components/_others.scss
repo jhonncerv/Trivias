@@ -123,3 +123,66 @@ $shadow: 6px 6px 10px rgba(0, 0, 0, .2);
         padding-right: 2rem;
     }
 }
+
+.tw-close{
+  position: relative;
+  display: inline-block;
+  width: 40px;
+  height: 40px;
+  overflow: hidden;
+  &:hover {
+    &::before, &::after {
+      background: color(corn);
+    }
+  }
+
+  &::before, &::after {
+    content: '';
+    position: absolute;
+    height: 2px;
+    width: 100%;
+    top: 50%;
+    left: 0;
+    margin-top: -1px;
+    background: color(gold);
+  }
+  &::before {
+    transform: rotate(45deg);
+  }
+  &::after {
+    transform: rotate(-45deg);
+  }
+  &--big {
+    transform: scale(3);
+  }
+  &--hairline {
+    &::before, &::after {
+      height: 1px;
+    }
+  }
+  &--thick {
+    &::before, &::after {
+      height: 4px;
+      margin-top: -2px;
+    }
+  }
+  &--black {
+    &::before, &::after {
+      height: 8px;
+      margin-top: -4px;
+    }
+  }
+}
+
+.tw-popup{
+    position: relative;
+    &__close{
+        position: absolute;
+        top: 21px;
+        right: 12px;
+        z-index: 1;
+    }
+    &__main{
+        width: 100%;
+    }
+}
