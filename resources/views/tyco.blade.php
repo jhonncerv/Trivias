@@ -12,6 +12,11 @@
             <p class="login-page__intro">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad aut doloremque, doloribus eius, eveniet excepturi fuga illo illum, ipsa iusto possimus rem sed veritatis? Ad labore odio placeat tempora velit.</p>
             <p class="login-page__intro">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad aut doloremque, doloribus eius, eveniet excepturi fuga illo illum, ipsa iusto possimus rem sed veritatis? Ad labore odio placeat tempora velit.</p>
             <p class="login-page__intro">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad aut doloremque, doloribus eius, eveniet excepturi fuga illo illum, ipsa iusto possimus rem sed veritatis? Ad labore odio placeat tempora velit.</p>
+            <p class="login-page__intro">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad aut doloremque, doloribus eius, eveniet excepturi fuga illo illum, ipsa iusto possimus rem sed veritatis? Ad labore odio placeat tempora velit.</p>
+            <p class="login-page__intro">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad aut doloremque, doloribus eius, eveniet excepturi fuga illo illum, ipsa iusto possimus rem sed veritatis? Ad labore odio placeat tempora velit.</p>
+            <p class="login-page__intro">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad aut doloremque, doloribus eius, eveniet excepturi fuga illo illum, ipsa iusto possimus rem sed veritatis? Ad labore odio placeat tempora velit.</p>
+            <p class="login-page__intro">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad aut doloremque, doloribus eius, eveniet excepturi fuga illo illum, ipsa iusto possimus rem sed veritatis? Ad labore odio placeat tempora velit.</p>
+            <p class="login-page__intro">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad aut doloremque, doloribus eius, eveniet excepturi fuga illo illum, ipsa iusto possimus rem sed veritatis? Ad labore odio placeat tempora velit.</p>
         </div>
     </div>
 </main>

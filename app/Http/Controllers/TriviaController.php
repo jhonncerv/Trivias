@@ -115,9 +115,4 @@ class TriviaController extends Controller
 
     }
 
-    public function ciudades()
-    {
-        $ciudad = Ciudad::all();
-        return $ciudad;
-    }
 }

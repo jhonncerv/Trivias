@@ -12,7 +12,6 @@ class CiudadesTableSeeder extends Seeder
      */
     public function run()
     {
-        $faker = Faker\Factory::create();
 
         $Cnow = Carbon::now('America/Mexico_City');
         Carbon::setTestNow($Cnow);
@@ -22,8 +21,8 @@ class CiudadesTableSeeder extends Seeder
         for ($i = 0; $i < 5; $i++) {
             $ciudad = new \App\Ciudad();
             $ciudad->name = $cities[$i];
+            $ciudad->available = 1;
             $ciudad->publish = new Carbon('yesterday');
-            $ciudad->expiration = new Carbon('next wednesday');
             $ciudad->save();
         }
     }

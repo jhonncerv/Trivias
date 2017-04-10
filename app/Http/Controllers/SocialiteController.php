@@ -11,16 +11,6 @@ use Laravel\Socialite\Facades\Socialite;
 class SocialiteController extends Controller
 {
 
-    public function index()
-    {
-        $participante = array();
-
-        if ( Auth::check() ){
-            $participante = Participante::find(Auth::user()->participante);
-        }
-            return view('welcome')->with(compact('participante'));
-    }
-
     /**
      * Redirect the user to the GitHub authentication page.
      *
@@ -117,11 +107,6 @@ class SocialiteController extends Controller
         $request->session()->flush();
         $request->session()->regenerate();
         return redirect('/');
-    }
-
-    public function tyco()
-    {
-        return view('tyco');
     }
 
 }
