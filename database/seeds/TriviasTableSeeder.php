@@ -22,7 +22,7 @@ class TriviasTableSeeder extends Seeder
             $trivia = new \App\Trivia();
             $trivia->game = $trivias[$i];
             $trivia->points_per_anwser = $puntos[$i];
-            $trivia->available = $i == 3 ? 0 : 1;
+            $trivia->available = 1;
             if( $i == 0 ){
                 $time = 5;
             } else if( $i == 1) {
