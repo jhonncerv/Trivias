@@ -68,7 +68,7 @@ class RespuestasTableSeeder extends Seeder
             for ($i = 0; $i < 2 ; $i++) {
 
                 $respuesta = new \App\Respuesta();
-                $respuesta->option =  $i < 1 ? 'izquiera' : 'derecha';
+                $respuesta->option =  $i < 1 ? 'left' : 'right';
                 $respuesta->correct = ($preg > 20 ) ?  (( $i < 1) ? 0:1) : (($i > 0)?0:1);
                 $respuesta->pregunta_id = $preg;
                 $respuesta->save();
