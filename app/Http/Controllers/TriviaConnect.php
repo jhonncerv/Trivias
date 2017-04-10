@@ -46,7 +46,7 @@ class TriviaConnect
                 $tim = $diff->diffInMinutes(Carbon::now('America/Mexico_City'));
 
                 if( $tim < 5){
-                    $response['mesage'] = 'No te desesperes, el siguiente juego estará disponible en ' . $tim . ' minutos.';
+                    $response['message'] = 'No te desesperes, el siguiente juego estará disponible en ' . $tim . ' minutos.';
                     return $response;
                 }
 
