@@ -153,6 +153,10 @@
 
         var siluetas = dynamics.initSiluetas( $('.tw-dynamic--siluetas .trivia'), 'trivia__item', 'trivia__item__image', 'trivia__item__r', 'trivia__item__r__item', 'trivia__item__r__item--active' );
         attachTimerEvents(siluetas.getTimer());
+
+        var finding = dynamics.initFinding( $('.tw-dynamic--finding .zoompanel'), $('.tw-dynamic--finding .finding__button'), 'zoompanel__image', 'zoompanel__lens', 'zoompanel__marks', 'zoompanel__marks__item' );
+        attachTimerEvents(finding.getTimer());
+
       }
     },
     'login': {
