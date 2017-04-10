@@ -62,13 +62,15 @@ class TriviaConnect
             $response = array(
                 'code' => 200,
                 'status' => 'success',
+                'startime' => round( microtime(true) * 1000 ),
+                'endtime' => round( microtime(true) * 1000 ) + 2 * 60 * 1000,
                 'data' => array(
                     'type' => $puntaje->trivia->game
                 ));
             return $response;
         }
 
-        $response['mesage'] = 'Ya no quedan juegos disponibles.';
+        $response['message'] = 'Ya no quedan juegos disponibles.';
         return $response;
     }
 
@@ -127,7 +129,7 @@ class TriviaConnect
                 $contents = Storage::get($preguntas[$numbers[$i] - 1]->question);
                 //$imagedata = file_get_contents($file);
                 $base64 = base64_encode($contents);
-                $pre_data['pregunta'] = $base64;
+                $pre_data['pregunta'] = 'data:image/gif;base64,'.$base64;
                 $pre_data['caption'] = $preguntas[$numbers[$i] - 1]->caption;
             }
 
@@ -233,7 +235,7 @@ class TriviaConnect
                 $contents = Storage::get($intento->pregunta->question);
                 //$imagedata = file_get_contents($file);
                 $base64 = base64_encode($contents);
-                $pre_data['pregunta'] = $base64;
+                $pre_data['pregunta'] = 'data:image/gif;base64,'.$base64;
                 $pre_data['caption'] = $intento->pregunta->caption;
             }
 
