@@ -13,7 +13,7 @@ class TriviasTableSeeder extends Seeder
     public function run()
     {
         $faker = Faker\Factory::create();
-        $trivias = array('twinder', 'siluetas','trivia', 'findings');
+        $trivias = array('twinder', 'siluetas','trivia', 'finding');
         $puntos = array(40, 30, 20, 50);
         $Cnow = Carbon::now();
         Carbon::setTestNow($Cnow);
