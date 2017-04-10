@@ -23,8 +23,7 @@
             var $img = $(this);
             var imgID = $img.attr('id');
             var imgClass = $img.attr('class');
-            var imgURL = $img.attr('src');
-            $.get(imgURL, function(data) {
+            $.get($img.attr('src'), function(data) {
                 var $svg = $(data).find('svg');
                 if(typeof imgID !== 'undefined') {
                     $svg = $svg.attr('id', imgID);
@@ -37,6 +36,14 @@
             }, 'xml');
         });
 
+        window.loader = function( show ){
+          if(show){
+            $(".tw-loader").stop().fadeIn("fast");  
+          } else {
+            $(".tw-loader").stop().fadeOut("fast");
+          }
+        };
+
         $('.tw-message__button').click(function(){
           $('.tw-message').fadeOut();
         });
@@ -44,6 +51,21 @@
           $('.tw-message__text').text(text);
           $('.tw-message').fadeIn();
         };
+
+        function closePopup( event ){
+          event.preventDefault();
+          $( ".tw-popup" ).fadeOut();
+        }
+        $(".tw-popup__close").click(closePopup);
+        $(".tw-popup-trigger").click(function( event ){
+          event.preventDefault();
+          window.loader(true);
+          $( ".tw-popup__main" ).load( $(this).attr("href") + " .tw-page", function(){
+            window.loader(false);
+            $( ".tw-popup__main .tw-page__return, .tw-popup__main .tw-page__logo" ).click(closePopup);
+            $( ".tw-popup" ).fadeIn();
+          });
+        });
 
       }
     },
@@ -53,10 +75,10 @@
         var dynamics = new window.dynamics(window.config.dynamic,window.config.start,window.config.save);
         
         dynamics.on('request.start',function(){
-          $(".tw-loader").stop().fadeIn("fast");
+          window.loader(true);
         });
         dynamics.on('request.end',function(){
-          $(".tw-loader").stop().fadeOut("fast");
+          window.loader(false);
         });
         dynamics.on('error',function( event, message ){
           window.message(message);
