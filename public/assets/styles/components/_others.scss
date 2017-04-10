@@ -176,6 +176,7 @@ $shadow: 6px 6px 10px rgba(0, 0, 0, .2);
 
 .tw-popup{
     position: relative;
+    z-index: z(popup) !important;
     &__close{
         position: absolute;
         top: 21px;

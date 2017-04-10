@@ -41,9 +41,10 @@ $brand-primary:     color(primary);
 
 // z-index
 $z-levels:(
+	loader: 		992,
+	popup: 			991,
 	header: 		990,
 	menu:         	980,
-	loader: 		972,
 	timer: 			971,
 	modal: 			970,
 	l1: 			10,

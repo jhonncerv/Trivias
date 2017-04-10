@@ -1,6 +1,4 @@
 <?php
-session_name('twinings');
-session_start();
 
 function get_template_directory_uri(){
 	return '.';
@@ -25,9 +23,4 @@ function template( $name ){
 
 function image_path( $name = '' ){
 	return './dist/images/' . $name;
-}
-
-function user_is_logged_in(){
-    //unset($_SESSION["fbid"]);
-	return !empty($_SESSION["fbid"]);
 }
