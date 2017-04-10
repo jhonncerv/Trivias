@@ -119,4 +119,9 @@ class SocialiteController extends Controller
         return redirect('/');
     }
 
+    public function tyco()
+    {
+        return view('tyco');
+    }
+
 }

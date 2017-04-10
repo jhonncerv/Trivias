@@ -12,6 +12,7 @@
 */
 
 Route::get('/', 'SocialiteController@index')->name('home');
+Route::get('/tyco', 'SocialiteController@tyco')->name('tyco');
 Route::get('/logout', 'SocialiteController@logout');
 Route::post('login/participante', 'SocialiteController@login');
 Route::get('login/social', 'SocialiteController@redirectToProvider');
