@@ -12,8 +12,7 @@ class CiudadesTableSeeder extends Seeder
      */
     public function run()
     {
-
-
+        
         $cities = array('MARRUECOS', 'ARGENTINA', 'INDIA', 'INGLATERRA', 'JAPON');
         $ayer = new Carbon('tomorrow', 'America/Mexico_City');
 
