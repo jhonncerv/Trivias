@@ -125,10 +125,16 @@ class TriviaConnect
                 'respuestas' => $resp
             ];
 
-            if($puntaje->trivia->id == 2)
+            if($puntaje->trivia->id == 1)
             {
                 $contents = Storage::get($preguntas[$numbers[$i] - 1]->question);
                 //$imagedata = file_get_contents($file);
+                $base64 = base64_encode($contents);
+                $pre_data['pregunta'] = 'data:image/gif;base64,'.$base64;
+            }
+            if($puntaje->trivia->id == 2)
+            {
+                $contents = Storage::get($preguntas[$numbers[$i] - 1]->question);
                 $base64 = base64_encode($contents);
                 $pre_data['pregunta'] = 'data:image/gif;base64,'.$base64;
                 $pre_data['caption'] = $preguntas[$numbers[$i] - 1]->caption;
