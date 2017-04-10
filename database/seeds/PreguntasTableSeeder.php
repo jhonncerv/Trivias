@@ -114,18 +114,16 @@ class PreguntasTableSeeder extends Seeder
                     $pregunta->trivia_id = $ii;
                     $pregunta->save();
                 }
-            } else {
-
-             /*   for($i = 0; $i < 20; $i++){
-                    $pregunta = new \App\Pregunta();
-                    $pregunta->question = $ii > 2 ? $faker->sentence : $faker->imageUrl;
-                    $pregunta->caption = null;
-                    $pregunta->trivia_id = $ii;
-                    $pregunta->save();
-                }
-*/
             }
 
         }
+
+        $ii = 4;
+
+        $pregunta = new \App\Pregunta();
+        $pregunta->question = 'finding/FindMarruecos.png';
+        $pregunta->caption = null;
+        $pregunta->trivia_id = $ii;
+        $pregunta->save();
     }
 }

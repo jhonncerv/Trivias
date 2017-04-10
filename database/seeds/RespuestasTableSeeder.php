@@ -12,6 +12,18 @@ class RespuestasTableSeeder extends Seeder
     public function run()
     {
 
+        for($preg = 1; $preg <= 45; $preg++){
+
+            for ($i = 0; $i < 2 ; $i++) {
+
+                $respuesta = new \App\Respuesta();
+                $respuesta->option =  $i < 1 ? 'left' : 'right';
+                $respuesta->correct = ($preg > 20 ) ?  (( $i < 1) ? 0:1) : (($i > 0)?0:1);
+                $respuesta->pregunta_id = $preg;
+                $respuesta->save();
+
+            }
+        }
 
         $rep = array(
             ['Mezquita Hassan','Al Hikmah','La Torre Eiffel'],
@@ -61,19 +73,21 @@ class RespuestasTableSeeder extends Seeder
             }
         }
 
+        $res = array(
+            '800,200',
+            '70,1260',
+            '1240,1290'
+        );
+        $preg = 56;
 
+        for ($i = 0; $i < 3 ; $i++) {
 
-        for($preg = 1; $preg <= 45; $preg++){
+            $respuesta = new \App\Respuesta();
+            $respuesta->option = $res[$i];
+            $respuesta->correct = 1;
+            $respuesta->pregunta_id = $preg;
+            $respuesta->save();
 
-            for ($i = 0; $i < 2 ; $i++) {
-
-                $respuesta = new \App\Respuesta();
-                $respuesta->option =  $i < 1 ? 'left' : 'right';
-                $respuesta->correct = ($preg > 20 ) ?  (( $i < 1) ? 0:1) : (($i > 0)?0:1);
-                $respuesta->pregunta_id = $preg;
-                $respuesta->save();
-
-            }
         }
 
     }
