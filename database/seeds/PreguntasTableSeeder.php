@@ -18,10 +18,10 @@ class PreguntasTableSeeder extends Seeder
 
                 $imagenes = array('Desierto.gif', 'IbisEremita.gif', 'Mezquita-Hassan.gif', 'Rabat.gif', 'Tajin.gif');
                 $caption = array(
-                    'Éste es el templo más alto del mundo y se encuentra en Marruecos:',
-                    'Es la capital del Reino de Marruecos:',
                     'Este lugar es hermoso para recorrerlo en camello:',
                     'Es una de las especies más amenazadas del mundo:',
+                    'Éste es el templo más alto del mundo y se encuentra en Marruecos:',
+                    'Es la capital del Reino de Marruecos:',
                     'Es un utencilio clásico para los alimentos de los marroquis:'
                 );
 
