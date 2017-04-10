@@ -31,7 +31,6 @@ class TriviaController extends Controller
 
     public function todayGame(Request $request)
     {
-        $now = Carbon::now('America/Mexico_City');
 
         $puntajeStatus = Puntaje::with('trivia')->where('available', 0)
             ->where('time_finish', null)
@@ -55,20 +54,24 @@ class TriviaController extends Controller
         /* todo: compara que hayan pasado 5 mins desde el ultimo juego */
         $ciudad = Ciudad::where('name', $request->city)->get();
 
-        if ($ciudad->is_publish) {
+        if ($ciudad[0]->is_publish) {
 
             return $this->triviaConnect->giveMeTrivia($ciudad[0]->id);
 
         }
-        $fecha_publica = new Carbon($ciudad->publish, 'America/Mexico_City');
+
+        $fecha_publica = new Carbon($ciudad[0]->publish, 'America/Mexico_City');
         $ahora = Carbon::now('America/Mexico_City');
         $dias = $ahora->diffInDays($fecha_publica);
         $horas = $ahora->diffInHours($fecha_publica);
         $minutos = $ahora->diffInMinutes($fecha_publica);
+
+        /* todo: Mensaje más amigable */
+
         $message = 'Esta ciudad estará disponible en ';
-        $message .= ($dias > 0) ? $dias.' días, ' : '';
-        $message .= ($horas > 0) ? $horas.' horas, ' : '';
-        $message .= ($minutos > 0) ? $minutos.' minutos' : '';
+        $message .= ($dias > 0) ? $dias.($dias == 1 ? ' día, ' :' días, ') : '';
+        $message .= ($horas > 0) ? $horas.' hora'. ( $horas === 1 ? '':'s') .', ' : '';
+        $message .= ($minutos > 0) ? $minutos.' minuto'.( $minutos == 1 ? '': 's') : '';
 
         $response['message'] = $message.'.';
         return $response;
