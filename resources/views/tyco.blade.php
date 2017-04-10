@@ -45,7 +45,7 @@
                     <li>Participantes: Podrán participar personas que residan dentro de la República Mexicana, en caso de ser menor de edad, deberán tener autorización de sus padres, tutores o custodios mediante la comprobación de identificación oficial.</li>
                 </ul>
             </div>
-            <a href="/" class="twn-form__button tw-page__return">Regresar</a>
+            <a href="/" class="tw-form__button tw-page__return">Regresar</a>
         </div>
     </main>
     <script type='text/javascript' src='<?=main_js()?>'></script>

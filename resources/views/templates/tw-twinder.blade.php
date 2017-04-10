@@ -5,7 +5,7 @@
                 <span>Twinder</span> <span>Twinder</span>
             </div>
             <p>Si eres un verdadero tea lover sabrás cuál sabor es correcto y cuál no. Suma puntos y sigue adelante.</p>
-            <button class="twn-form__button tw-dynamic__start">Jugar</button>
+            <button class="tw-form__button tw-dynamic__start">Jugar</button>
         </div>
         <div class="tw-dynamic__app">
             <div class="tw-dynamic__app__title">Twinder</div>
