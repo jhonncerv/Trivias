@@ -141,7 +141,7 @@ class TriviaConnect
 
         $puntaje->query_score = $puntos * $valor_pregunta;
         $puntaje->punish_factor = $porfac;
-        $puntaje->total_score = $puntos * $valor_pregunta * $porfac;
+        $puntaje->total_score = floor($puntos * $valor_pregunta * $porfac);
 
         $participa->points = $participa->points + $puntaje->total_score;
         $participa->save();
