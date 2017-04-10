@@ -46,7 +46,7 @@ class TriviaConnect
                 $tim = $diff->diffInMinutes(Carbon::now('America/Mexico_City'));
 
                 if( $tim < 5){
-                    $response['message'] = 'No te desesperes, el siguiente juego estará disponible en ' . (5 -$tim) . ' minutos.';
+                    $response['message'] = 'No te desesperes, el siguiente juego estará disponible en ' . (5 -$tim) . ' minuto'.($tim == 4 ? '':'s').'.';
                     return $response;
                 }
 
@@ -110,7 +110,7 @@ class TriviaConnect
                     $resp[$t] = array('id' => $id_res);
                     if($respuesta->correct == 1){
                         $intento->respuesta_id = $respuesta->id;
-                        $intento->correct_str = $respuesta->optio;
+                        $intento->correct_str = $respuesta->option;
                     }
                     $intento->save();
 
@@ -255,24 +255,34 @@ class TriviaConnect
             $resp = [];
             $r = -1;
 
-            foreach ($intento->pregunta->respuestas as $respuesta) {
+            if($trivia_id == 4){
 
-                $r++;
-                $id_res = str_random(9);
-                $resp[$r] = array('id' => $id_res, 'option' => $respuesta->option);
-                if($respuesta->correct == 1){
-                    $intento->correct_str = $id_res;
+                foreach ($intento->pregunta->respuestas as $respuesta){
+
+                    $r++;
+                    $id_res = str_random(9);
+                    $resp[$r] = array('id' => $id_res);
+                    if($respuesta->correct == 1){
+                        $intento->correct_str = $respuesta->option;
+                    }
+                    $intento->save();
+
                 }
+
+            } else {
+
+                foreach ($intento->pregunta->respuestas as $respuesta) {
+
+                    $r++;
+                    $id_res = str_random(9);
+                    $resp[$r] = array('id' => $id_res, 'option' => $respuesta->option);
+                    if($respuesta->correct == 1){
+                        $intento->correct_str = $id_res;
+                    }
+                }
+
+                $intento->save();
             }
-
-            $data = array_add( $data, $t, [
-                'id' => $intento->query_ord,
-                'pregunta' => $intento->pregunta->question,
-                'respuestas' => $resp
-            ]);
-
-            $intento->save();
-
 
 
             $pre_data = [
@@ -281,16 +291,29 @@ class TriviaConnect
                 'respuestas' => $resp
             ];
 
-            if($trivia_id == 2)
+            if($trivia_id == 1)
             {
                 $contents = Storage::get($intento->pregunta->question);
                 //$imagedata = file_get_contents($file);
                 $base64 = base64_encode($contents);
+                $pre_data['pregunta'] = 'data:image/png;base64,'.$base64;
+            } else if($trivia_id == 2)
+            {
+                $contents = Storage::get($intento->pregunta->question);
+                $base64 = base64_encode($contents);
                 $pre_data['pregunta'] = 'data:image/gif;base64,'.$base64;
                 $pre_data['caption'] = $intento->pregunta->caption;
+            } else if($trivia_id == 4){
+
+                $contents = Storage::get($intento->pregunta->question);
+                $base64 = base64_encode($contents);
+                $pre_data['pregunta'] = 'data:image/png;base64,'.$base64;
             }
 
+
             $data = array_add( $data, $t, $pre_data);
+
+
 
         }
         return $data;
