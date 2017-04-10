@@ -116,7 +116,6 @@ class TriviaConnect
             $intento->save();
 
 
-
             $pre_data = [
                 'id' => $id_preg,
                 'pregunta' => $preguntas[$numbers[$i] - 1]->question,
@@ -191,7 +190,7 @@ class TriviaConnect
         );
     }
 
-    public function continuMeTrivia($intentos)
+    public function continuMeTrivia($intentos, $trivia_id)
     {
         $data = [];
         $t = -1;
@@ -220,6 +219,26 @@ class TriviaConnect
             ]);
 
             $intento->save();
+
+
+
+            $pre_data = [
+                'id' => $intento->query_ord,
+                'pregunta' => $intento->pregunta->question,
+                'respuestas' => $resp
+            ];
+
+            if($trivia_id == 2)
+            {
+                return 1;
+                $contents = Storage::get($intento->pregunta->question);
+                //$imagedata = file_get_contents($file);
+                $base64 = base64_encode($contents);
+                $pre_data['pregunta'] = $base64;
+                $pre_data['caption'] = $intento->pregunta->caption;
+            }
+
+            $data = array_add( $data, $t, $pre_data);
 
         }
         return $data;

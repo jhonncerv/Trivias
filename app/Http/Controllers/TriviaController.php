@@ -95,7 +95,7 @@ class TriviaController extends Controller
                 'code' => 200,
                 'status' => 'success',
                 'data' => array(
-                    'preguntas' => $this->triviaConnect->continuMeTrivia($puntaje[0]->intentos)
+                    'preguntas' => $this->triviaConnect->continuMeTrivia($puntaje[0]->intentos, $puntaje[0]->trivia->id)
                 ));
         }
 
@@ -105,6 +105,13 @@ class TriviaController extends Controller
 
     public function stopGame(Request $request)
     {
+        if(empty($request->data)){
+            return array(
+                'code' => 401,
+                'status' => 'error',
+                'message' => 'Aun no has iniciado ninguna trivia.');
+
+        }
         $participa = Auth::user()->participante[0];
         $puntaje = Puntaje::with('intentos', 'trivia')
                 ->where('available', 0)
