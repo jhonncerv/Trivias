@@ -13,7 +13,7 @@ class Trivia extends Model
      * @var array
      */
     protected $hidden = [
-        'id', 'created_at', 'updated_at', 'punish_per_second', 'points_per_anwser', 'time_limit', 'query_size', 'publish', 'expiration'
+        'id', 'created_at', 'updated_at', 'punish_per_second', 'points_per_anwser', 'time_limit', 'query_size', 'publish', 'expiration', 'available'
     ];
 
     public function preguntas()

@@ -13,6 +13,7 @@ use App\Puntaje;
 use App\Trivia;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class TriviaConnect
 {
@@ -23,28 +24,33 @@ class TriviaConnect
 
     public function giveMeTrivia($id)
     {
-        $trivias = Trivia::all();
+        $trivias = Trivia::where('available', 1)->get();
         $participa= Auth::user()->participante[0];
-
         $response = array(
             'code' => 401,
             'status' => 'error'
         );
 
+
         foreach ($trivias as $trivia){
+
             $tiempo_puntaje = Puntaje::firstOrCreate([
                 'trivia_id' => $trivia->id,
                 'ciudad_id' => $id,
                 'participante_id' => $participa->id
             ])->time_finish;
+
             if($tiempo_puntaje !== null){
+
                 $diff = new Carbon($tiempo_puntaje, 'America/Mexico_City');
-                if($diff->diffInMinutes(Carbon::now('America/Mexico_City')) < 5){
-                    $response['mesage'] = 'No te desesperes en 5 minutos podras seguir jugando.';
+                $tim = $diff->diffInMinutes(Carbon::now('America/Mexico_City'));
+
+                if( $tim < 5){
+                    $response['mesage'] = 'No te desesperes, el siguiente juego estará disponible en ' . $tim . ' minutos.';
                     return $response;
                 }
+
             }
-            return $tiempo_puntaje;
         }
 
         $puntaje = $participa->puntajes()->where('available', 1)->where('ciudad_id', $id)->get();
@@ -59,7 +65,9 @@ class TriviaConnect
                 'data' => array(
                     'type' => $puntaje->trivia->game
                 ));
+            return $response;
         }
+
         $response['mesage'] = 'Ya no quedan juegos disponibles.';
         return $response;
     }
@@ -83,19 +91,22 @@ class TriviaConnect
         $data = [];
 
         for($i = 0; $i < $query; $i++){
+
             $id_preg = str_random(9);
             $resp = [];
             $t = -1;
             $intento = new Intento([
                 'query_ord' => $id_preg,
-                'pregunta_id' => $preguntas[$numbers[$i]]->id,
+                'pregunta_id' => $preguntas[$numbers[$i] - 1]->id,
                 'puntaje_id' => $puntaje->id,
             ]);
 
-            foreach ($preguntas[$numbers[$i]]->respuestas as $respuesta){
+            foreach ($preguntas[$numbers[$i] - 1]->respuestas as $respuesta){
                 $t++;
                 $id_res = str_random(9);
+
                 $resp[$t] = array('id' => $id_res, 'option' => $respuesta->option);
+
                 if($respuesta->correct == 1){
                     $intento->respuesta_id = $respuesta->id;
                     $intento->correct_str = $id_res;
@@ -104,11 +115,25 @@ class TriviaConnect
 
             $intento->save();
 
-            $data = array_add( $data, $i, [
+
+
+            $pre_data = [
                 'id' => $id_preg,
-                'pregunta' => $preguntas[$numbers[$i]]->question,
+                'pregunta' => $preguntas[$numbers[$i] - 1]->question,
                 'respuestas' => $resp
-            ]);
+            ];
+
+            if($puntaje->trivia->id == 2)
+            {
+                $contents = Storage::get($preguntas[$numbers[$i] - 1]->question);
+                //$imagedata = file_get_contents($file);
+                $base64 = base64_encode($contents);
+                $pre_data['pregunta'] = $base64;
+                $pre_data['caption'] = $preguntas[$numbers[$i] - 1]->caption;
+            }
+
+            $data = array_add( $data, $i, $pre_data);
+
         }
 
         $puntaje->time_start = Carbon::now('America/Mexico_City');

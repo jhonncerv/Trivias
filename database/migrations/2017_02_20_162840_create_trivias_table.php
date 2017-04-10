@@ -21,7 +21,6 @@ class CreateTriviasTable extends Migration
             $table->integer('time_limit');
             $table->integer('query_size');
             $table->timestamp('publish')->nullable();
-            $table->timestamp('expiration')->nullable();
             $table->timestamps();
         });
     }

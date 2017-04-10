@@ -51,10 +51,8 @@ class TriviaController extends Controller
             return $response;
         }
 
-        /* todo: compara que hayan pasado 5 mins desde el ultimo juego */
         $ciudad = Ciudad::where('name', $request->city)->get();
-
-        if ($ciudad[0]->is_publish) {
+        if ($ciudad[0]->is_publish == 1) {
 
             return $this->triviaConnect->giveMeTrivia($ciudad[0]->id);
 
