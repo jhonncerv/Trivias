@@ -19,8 +19,8 @@ class CiudadesTableSeeder extends Seeder
         for ($i = 0; $i < 5; $i++) {
             $ciudad = new \App\Ciudad();
             $ciudad->name = $cities[$i];
-            $ciudad->available = $i >3 ? 0 : 1;
-            $ciudad->publish = $i >3 ? $ayer : $ayer->addDays($i - 3);
+            $ciudad->available = $i > 0 ? 0 : 1;
+            $ciudad->publish = $i > 0 ? $ayer : $ayer->addDays($i - 3);
             $ciudad->save();
         }
     }
