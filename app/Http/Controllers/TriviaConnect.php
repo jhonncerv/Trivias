@@ -230,7 +230,6 @@ class TriviaConnect
 
             if($trivia_id == 2)
             {
-                return 1;
                 $contents = Storage::get($intento->pregunta->question);
                 //$imagedata = file_get_contents($file);
                 $base64 = base64_encode($contents);
