@@ -140,10 +140,10 @@ class TriviaConnect
 
         return array(
             'code' => 200,
-            'startime' => round( microtime(true) * 1000 ),
-            'endtime' => round( microtime(true) * 1000 ) + 2 * 60 * 1000,
             'status' => 'success',
             'data' => array(
+                'servertime' => round( microtime(true) * 1000 ),
+                'endtime' => round( microtime(true) * 1000 ) + 2 * 60 * 1000,
                 'preguntas' => $data
             ));
     }
