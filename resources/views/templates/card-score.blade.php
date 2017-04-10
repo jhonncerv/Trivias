@@ -3,10 +3,10 @@
     <div class="tw-dynamic__score__image"><img src="{{ $participante->photo }}" /></div>
     <div class="tw-dynamic__score__points">
         <div class="tw-dynamic__score__points__item">
-            Puntos por aciertos <span class="dy-score_time">200</span>
+            Puntos por aciertos <span class="dy-score_dynamic">200</span>
         </div>
         <div class="tw-dynamic__score__points__item">
-            Puntos por tiempo <span class="dy-score_dynamic">900</span>
+            Puntos por tiempo <span class="dy-score_time">900</span>
         </div>
     </div>
     <div class="tw-dynamic__score__label">
