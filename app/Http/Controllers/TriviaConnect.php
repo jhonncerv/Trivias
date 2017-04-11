@@ -49,8 +49,8 @@ class TriviaConnect
                     $response['message'] = 'No te desesperes, el siguiente juego estará disponible en ' . (5 -$tim) . ' minuto'.($tim == 4 ? '':'s').'.';
                     return $response;
                 }
-
             }
+
         }
 
         $puntaje = $participa->puntajes()->where('available', 1)->where('ciudad_id', $id)->get();
@@ -174,8 +174,8 @@ class TriviaConnect
             'code' => 200,
             'status' => 'success',
             'data' => array(
-                'servertime' => $vartimenow->timestamp,
-                'endtime' => $vartimenow->addSeconds($puntaje->trivia->time_limit)->timestamp,
+                'servertime' => $vartimenow->timestamp*1000,
+                'endtime' => $vartimenow->addSeconds($puntaje->trivia->time_limit)->timestamp*1000,
                 'preguntas' => $data
             ));
     }
