@@ -19,7 +19,7 @@ class PostalController extends Controller
 
     public function postea(Request $request)
     {
-        if(Auth::guest() || ($request->post_id !== 'twitter' && $request->post_id !== 'facebook') || !$request->has('postal_id')){
+        if(Auth::guest()){
             return array(
                 'code' => 401,
                 'status' => 'error',
@@ -27,21 +27,18 @@ class PostalController extends Controller
             );
         }
 
-        $participante = Auth::user()->participante[0];
-        $shares = $participante->shares;
-        foreach ($shares as $share){
-            if($share->postal_id == $request->post_id){
-                return array(
-                    'code' => 401,
-                    'status' => 'error',
-                    'message' => 'Ya haz posteado esta postal.'
-                );
-            }
+        if(!$request->has('postal_id')){
+            return array(
+                'code' => 401,
+                'status' => 'error',
+                'message' => 'Hacker es malo :('
+            );
         }
 
+        $participante = Auth::user()->participante[0];
+
         $postal = Postal::findOrFail($request->postal_id);
-        $share_exist = Share::where('fb_post_id', $request->post_id)
-            ->where('postal_id', $postal->id)
+        $share_exist = Share::where('postal_id', $postal->id)
             ->where('participante_id', $participante->id)->get();
 
         if($share_exist->isNotEmpty()){
