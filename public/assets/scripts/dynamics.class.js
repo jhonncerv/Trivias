@@ -283,7 +283,7 @@
     var _this = this;
     this.type = "finding";
     this.$element = $element;
-    this.$bg = this.$element.push($element.find("." + class__image));
+    this.class__image = class__image;
     this.zoompanel = new ZoomPanel($element, class__image, class__lens, class__marks, class__marks__item);
     $button.click(function(){
       _this.stop_n_save();
@@ -303,7 +303,8 @@
     var question, $c;
     while( (question = this.data.nextQuestion()) ){
       this.zoompanel.setTotalMarks(question.getAnswerLength());
-      this.$bg.css('background-image','url('+ question.getValue() +')');
+      this.$element.css('background-image','url('+ question.getValue() +')');
+      this.$element.find("." + this.class__image).css('background-image','url('+ question.getValue() +')');
     }
   };
 
@@ -369,7 +370,7 @@
     switch(endpoint){
       case 'dynamic':
         this.current_dynamic = false;
-        if(data.type === "twinder" || data.type === "trivia" || data.type === "siluetas"){
+        if(data.type === "twinder" || data.type === "trivia" || data.type === "siluetas" || data.type === "finding"){
           this.current_dynamic = this[data.type];
         }
         this._trigger_(endpoint);

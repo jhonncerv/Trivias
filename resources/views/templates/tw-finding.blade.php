@@ -19,7 +19,7 @@
                 <div class="zoompanel__image"></div>
                 <div class="zoompanel__lens"></div>
             </div>
-            <button class="tw-form__button finding__button">Aceptar</button>
+            <button class="tw-form__button finding__button" style="margin-top: 30px">Aceptar</button>
         </div>
         @include('templates.card-score')
     </div>
