@@ -6,12 +6,14 @@ use App\Ciudad;
 use App\Participante;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
 
 class CiudadController extends Controller
 {
 
     public function index()
     {
+        Session::flush();
         $participante = array();
         $ciudades = array();
 
