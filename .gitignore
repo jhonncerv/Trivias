@@ -12,3 +12,5 @@ Homestead.yaml
 .env
 .vagrant
 composer.lock
+
+*.DS_Store
