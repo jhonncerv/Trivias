@@ -4,7 +4,7 @@
         <div class="login-page__welcome">
             <span>Bienvenidos</span> <span>Té de altura</span>
         </div>
-        <p class="login-page__intro">Aquí inicia la aventura que te llevará a explorar las rutas del té. Podrás ganarte un viaje a la capital del té: Londres.</p>
+        <p class="login-page__intro">Aquí inicia la ruta que te llevará a ganarte un viaje a la capital del té: Londres</p>
         <div class="tw-form__checkbox login-page__tyc">
             <input tabindex="1" type="checkbox" name="tyc" id="tyc" value="1"> <label for="tyc">He leído y acepto los <a class="tw-popup-trigger" href="tyco" target="_blank">términos y condiciones</a>.</label>
         </div>
