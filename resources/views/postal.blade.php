@@ -15,11 +15,11 @@
                         <div class="col-12 col-sm-6 col-md-4">
                             <div class="tw-postal">
                                 <figure class="tw-postal__image">
-                                    <a href="{{route('postal',$postal->name)}}"><img class="img-fluid" src="{{ $postal->url }}" alt="{{ $postal->name }}"></a>
+                                    <a href="{{route('postal',$postal[0]->name)}}"><img class="img-fluid" src="{{ $postal[0]->url }}" alt="{{ $postal[0]->name }}"></a>
                                 </figure>
                                 <div class="tw-postal__share">
-                                    <a href="{{route('postal',$postal->name)}}" class="tw" data-id="{{ $postal->id }}" target="_blank"><i class="fa fa-twitter"></i></a>
-                                    <a href="{{route('postal',$postal->name)}}" class="fb" data-id="{{ $postal->id }}" target="_blank"><i class="fa fa-facebook"></i></a>
+                                    <a href="{{route('postal',$postal[0]->name)}}" class="tw" data-id="{{ $postal[0]->id }}" target="_blank"><i class="fa fa-twitter"></i></a>
+                                    <a href="{{route('postal',$postal[0]->name)}}" class="fb" data-id="{{ $postal[0]->id }}" target="_blank"><i class="fa fa-facebook"></i></a>
                                 </div>
                             </div>
                         </div>
