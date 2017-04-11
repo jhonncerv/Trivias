@@ -21,7 +21,7 @@ class PostalController extends Controller
             return array(
                 'code' => 401,
                 'status' => 'error',
-                'message' => 'Debes estar logueado para acumular puntos.'
+                'message' => 'Regístrate <a href="/">aquí</a> y comienza a acumular puntos.'
             );
         }
 
@@ -57,5 +57,14 @@ class PostalController extends Controller
                 'points_new' => $participante->points
             )
         );
+    }
+
+    public function postal($id)
+    {
+        $postal = Postal::where('name', $id)->get();
+        if($postal->isEmpty()){
+            return redirect()->route('home');
+        }
+        return view('postal', compact('postal'));
     }
 }
