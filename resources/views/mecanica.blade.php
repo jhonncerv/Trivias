@@ -15,11 +15,11 @@
                 <p><strong>Té de altura</strong></p>
                 <p>La dinámica se realizará a través de la página de Facebook (<a href="https://www.facebook.com/TwiningsMexico/" target="_blank">https://www.facebook.com/TwiningsMexico/</a>) de la siguiente manera:</p>
                 <ul>
-                    <li>Se publicará un video a las 17:00 h de anuncio de la dinámica, durante un período de 7 días naturales.</li>
+                    <li>Se publicará un video de anuncio de la dinámica, durante un período de 10 días naturales.</li>
                     <li>El participante debe dar clic al post de la Ruta en Facebook.</li>
                     <li>Llegarán a la página y podrán registrarse o ver las bases para conocer la dinámica. El registro será con su perfil de FB.</li>
                     <li>Una vez terminado el registro, serán redireccionados a la página principal.</li>
-                    <li>Cada día, a partir de las 17:00 h, habrá 5 dinámicas relacionadas con la ruta del té, que publicaremos en Facebook.</li>
+                    <li>Cada dos días, se publicará en Facebook 5 dinámicas relacionadas con la ruta del té.</li>
                     <li>Cada vez que termine una dinámica, un cronómetro te avisará cuánto falta para que empiece la siguiente.</li>
                     <li>No podrás continuar con la dinámica siguiente hasta que este tiempo termine.</li>
                     <li>No podrás adelantar las dinámicas antes de que empiece cada una de ellas, sin embargo, podrás regresar al sitio cuando quieras y/o puedas para seguir adelante.</li>
