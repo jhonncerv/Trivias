@@ -27,7 +27,7 @@ class PostalController extends Controller
             );
         }
 
-        if(!$request->has('postal_id')){
+        if(!$request->has('data')){
             return array(
                 'code' => 401,
                 'status' => 'error',
@@ -37,7 +37,7 @@ class PostalController extends Controller
 
         $participante = Auth::user()->participante[0];
 
-        $postal = Postal::findOrFail($request->postal_id);
+        $postal = Postal::findOrFail($request->data['postal_id']);
         $share_exist = Share::where('postal_id', $postal->id)
             ->where('participante_id', $participante->id)->get();
 
@@ -51,7 +51,7 @@ class PostalController extends Controller
         }
 
         Share::Create([
-            'fb_post_id'=> $request->post_id,
+            'fb_post_id'=> 'facebook',
             'postal_id' => $postal->id,
             'participante_id' => $participante->id,
             'points' => $postal->points
