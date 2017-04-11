@@ -20,7 +20,7 @@ class CiudadesTableSeeder extends Seeder
             $ciudad = new \App\Ciudad();
             $ciudad->name = $cities[$i];
             $ciudad->available = $i > 0 ? 0 : 1;
-            $ciudad->publish = $ayer->addDays($i );
+            $ciudad->publish = $ayer->addDays( $i - 1);
             $ciudad->save();
         }
     }
