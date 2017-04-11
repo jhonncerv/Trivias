@@ -33,7 +33,7 @@ class RespuestasTableSeeder extends Seeder
             ['Tagine','Plato de cerámica','Arte orbe'],
         );
 
-        $res = array(1,2,2,1,1);
+        $res = array(1,1,1,2,1);
 
 
         for($preg = 46; $preg <= 50; $preg++){
@@ -50,11 +50,31 @@ class RespuestasTableSeeder extends Seeder
         }
 
         $rep = array(
-            ['República Soberana de Marruecos','Estado de Marruecos','Reino de Marruecos'],
-            ['Cervantes de Saavedra','Paulo Cohelo ','Paul Bowles'],
-            ['Cruz Roja','Medialuna luminosa','Un corazón'],
-            ['Gorro de Fez','Balmoral','Beanie'],
-            ['Cierto','Falso','No sé']
+            [
+                'República Soberana de Marruecos',
+                'Estado de Marruecos',
+                'Reino de Marruecoss'
+            ],
+            [
+                'Cervantes',
+                'Paulo Cohelo ',
+                'Paul Bowles'
+            ],
+            [
+                'Cruz Roja',
+                'Medialuna luminosa',
+                'Un corazón'
+            ],
+            [
+                'Gorro de Fez',
+                'Balmoral',
+                'Beanie'
+            ],
+            [
+                'Cierto',
+                'Falso',
+                'No sé'
+            ]
         );
 
         $res = array(3,3,2,1,1);
