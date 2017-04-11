@@ -185,13 +185,22 @@
       }
 
     },
-    'find': {
+    'postal_page': {
       init: function() {
-        var TransformElement = window.transformelement,
-            $element = $('.transform-element'),
-            $bounds = $('.transform-element-bounds'),
-            panel = new TransformElement( $element, $bounds );
-        $element.find('img').on('dragstart', function(event) { event.preventDefault(); });
+
+        window.requiereFB( window.config.appid );
+
+        $(".tw-postal__share a.fb:not(.shinit)").addClass(".shinit").click(function(){
+          FB.ui({
+            app_id: window.config.appid,
+            method: 'share',
+            href: $(this).attr("href"),
+            hashtag: '#TéDeAltura',
+          }, function(response){
+            console.log(response);
+          });
+        });
+        
       }
     }
   };
