@@ -16,6 +16,7 @@ Route::get('/tyco', 'CiudadController@tyco')->name('tyco');
 Route::get('/mecanica', 'CiudadController@mecanica')->name('mecanica');
 Route::get('/postales', 'PostalController@index')->name('postales');
 Route::get('/postales/{id}', 'PostalController@postal')->name('postal');
+Route::post('/postales/share', 'PostalController@postea');
 
 Route::get('/logout', 'SocialiteController@logout');
 Route::post('login/participante', 'SocialiteController@login');
@@ -32,5 +33,4 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('dynamic', 'TriviaController@todayGame');
     Route::post('mi-puntaje', 'ParticipanteController@mipuntaje');
     Route::post('puntajes', 'ParticipanteController@puntajes');
-    Route::post('share', 'PostalController@postea');
 });
