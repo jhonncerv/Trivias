@@ -11,7 +11,9 @@ class PostalController extends Controller
 {
     public function index()
     {
-        $postales = Postal::all();
+        $postales = Postal::with('ciudad')->get()->reject(function ($postal) {
+            return $postal->ciudad->is_publish == 0;
+        });
         return view('postales', compact('postales'));
     }
 
