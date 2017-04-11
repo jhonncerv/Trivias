@@ -46,7 +46,7 @@ class PostalesTableSeeder extends Seeder
                 $postal = new \App\Postal();
                 $postal->name = strtolower($ciudad[$i-1]).'-'.$j;
                 $postal->url = $pre.$ciudad[$i-1].'0'.$j.'.png';
-                $postal->points = 20;
+                $postal->points = 10;
                 $postal->ciudad_id = $i;
                 $postal->save();
             }

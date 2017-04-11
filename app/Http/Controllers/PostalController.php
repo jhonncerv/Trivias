@@ -17,7 +17,7 @@ class PostalController extends Controller
 
     public function postea(Request $request)
     {
-        if(Auth::guest()){
+        if(Auth::guest() || ($request->post_id !== 'twitter' && $request->post_id !== 'facebook') || !$request->has('postal_id')){
             return array(
                 'code' => 401,
                 'status' => 'error',
