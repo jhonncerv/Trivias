@@ -27,6 +27,7 @@ class CreatePuntajesTable extends Migration
             $table->foreign('trivia_id')->references('id')->on('trivias');
             $table->integer('ciudad_id')->unsigned();
             $table->foreign('ciudad_id')->references('id')->on('ciudades');
+            $table->unique(['participante_id', 'trivia_id', 'ciudad_id']);
             $table->timestamps();
         });
     }
