@@ -8,6 +8,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Ciudad;
 use App\Intento;
 use App\Puntaje;
 use App\Trivia;
@@ -234,22 +235,26 @@ class TriviaConnect
         $puntajeStatus = Puntaje::where('available', 1)
             ->where('participante_id', $participa->id)->where('ciudad_id', $puntaje->ciudad_id)->get();
 
-        $mensaje = '';
-        /* Todo: desHardcodear el numero de ciudades restantes
+        /* Todo: desHardcodear el numero de ciudades restantes */
 
-        if($puntajeStatus->isEmpty() && $puntaje->ciudad_id > 4){
+        if($puntajeStatus->isEmpty() && $puntaje->ciudad_id < 5){
+
+            $mensaje = '¡Felicidades! Has logrado terminar esta ruta, ';
 
             $ciudad = Ciudad::where('name', $puntaje->ciudad_id + 1 )->first();
-            $mensaje = '¡Felicidades! Has logrado terminar Marruecos, regresa mañana para avanzar a la siguiente ruta y seguir sumando puntos.';
-            $message = 'Esta ciudad estará disponible en ';
-            $mensaje = $this->messageNextCity($ciudad->publish);
+            if($ciudad->is_publish == 1){
+                $mensaje .= 'Avanza a la siguiente ruta.';
+            } else {
+                $mensaje .= 'Esta ciudad estará disponible en ';
+                $mensaje .= $this->messageNextCity($ciudad->publish);
+            }
 
-        } elseif( $puntajeStatus->isEmpty() && $puntaje->ciudad_id == 4){
+        } elseif( $puntajeStatus->isEmpty() && $puntaje->ciudad_id == 5){
             $mensaje = "¡Felicidades! Inglaterra es la ruta que elegimos para que hagas el viaje de tus sueños.";
 
         } else {
             $mensaje = 'No te desesperes, el siguiente juego estará disponible en 15 minutos.';
-        }*/
+        }
 
         return array(
             'code' => 200,

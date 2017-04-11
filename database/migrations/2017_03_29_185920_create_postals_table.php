@@ -17,6 +17,7 @@ class CreatePostalsTable extends Migration
             $table->increments('id');
             $table->string('name');
             $table->string('url');
+            $table->string('meta');
             $table->integer('points');
             $table->integer('ciudad_id')->unsigned();
             $table->foreign('ciudad_id')->references('id')->on('ciudades');
