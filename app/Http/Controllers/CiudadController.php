@@ -13,7 +13,7 @@ class CiudadController extends Controller
 
     public function index()
     {
-        Session::flush();
+        //Session::flush();
         $participante = array();
         $ciudades = array();
 
