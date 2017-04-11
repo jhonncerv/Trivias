@@ -231,36 +231,37 @@ class TriviaConnect
         $participa->save();
         $puntaje->save();
 
+        /*
+                $puntajeStatus = Puntaje::where('available', 1)
+                    ->where('participante_id', $participa->id)->where('ciudad_id', $puntaje->ciudad_id)->();
 
-        $puntajeStatus = Puntaje::where('available', 1)
-            ->where('participante_id', $participa->id)->where('ciudad_id', $puntaje->ciudad_id)->get();
+                /* Todo: desHardcodear el numero de ciudades restantes
 
-        /* Todo: desHardcodear el numero de ciudades restantes */
+                if($puntajeStatus->isEmpty() && $puntaje->ciudad_id < 5){
 
-        if($puntajeStatus->isEmpty() && $puntaje->ciudad_id < 5){
+                    $mensaje = '¡Felicidades! Has logrado terminar esta ruta, ';
 
-            $mensaje = '¡Felicidades! Has logrado terminar esta ruta, ';
+                    $ciudad = Ciudad::where('name', $puntaje->ciudad_id + 1 )->first();
 
-            $ciudad = Ciudad::where('name', $puntaje->ciudad_id + 1 )->first();
-            if($ciudad->is_publish == 1){
-                $mensaje .= 'Avanza a la siguiente ruta.';
-            } else {
-                $mensaje .= 'Esta ciudad estará disponible en ';
-                $mensaje .= $this->messageNextCity($ciudad->publish);
-            }
+                    if($ciudad->is_publish == 1){
+                        $mensaje .= 'Avanza a la siguiente ruta.';
+                    } else {
+                        $mensaje .= 'Esta ciudad estará disponible en ';
+                        $mensaje .= $this->messageNextCity($ciudad->publish);
+                    }
 
-        } elseif( $puntajeStatus->isEmpty() && $puntaje->ciudad_id == 5){
-            $mensaje = "¡Felicidades! Inglaterra es la ruta que elegimos para que hagas el viaje de tus sueños.";
+                } elseif( $puntajeStatus->isEmpty() && $puntaje->ciudad_id == 5){
+                    $mensaje = "¡Felicidades! Inglaterra es la ruta que elegimos para que hagas el viaje de tus sueños.";
 
-        } else {
-            $mensaje = 'No te desesperes, el siguiente juego estará disponible en 15 minutos.';
-        }
+                } else {
+                    $mensaje = 'No te desesperes, el siguiente juego estará disponible en 15 minutos.';
+                } */
 
         return array(
             'code' => 200,
             'status' => 'success',
             'data' => array(
-                'message' => $mensaje,
+                'message' => 'No te desesperes, el siguiente juego estará disponible en 15 minutos.',
                 'score_dynamic' => $puntaje->query_score,
                 'score_time' => $puntaje->punish_factor,
                 'score_new' => $participa->points
