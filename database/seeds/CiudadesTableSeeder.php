@@ -12,15 +12,14 @@ class CiudadesTableSeeder extends Seeder
      */
     public function run()
     {
-
-        $cities = array('MARRUECOS', 'ARGENTINA', 'INDIA', 'INGLATERRA', 'JAPON');
+        $cities = array('MARRUECOS', 'JAPON', 'INDIA', 'ARGENTINA', 'INGLATERRA');
         $ayer = new Carbon('America/Mexico_City');
 
         for ($i = 0; $i < 5; $i++) {
             $ciudad = new \App\Ciudad();
             $ciudad->name = $cities[$i];
-            $ciudad->available = $i > 0 ? 0 : 1;
-            $ciudad->publish = $ayer->subHours(6)->addDays( $i - 1);
+            $ciudad->available = 1;
+            $ciudad->publish = $ayer->subHours(6)->addDays($i);
             $ciudad->save();
         }
     }

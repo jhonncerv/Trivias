@@ -63,10 +63,10 @@ class TriviaController extends Controller
 
         $message = 'Esta ciudad estará disponible en ';
         $dias = $ahora->diffInDays($fecha_publica);
-
-        $horas = $ahora->subDays($dias)->diffInHours($fecha_publica);
-
-        $minutos = $ahora->subHours($horas)->subDays($dias)->diffInMinutes($fecha_publica);
+        $sindias = $fecha_publica->subDays($dias);
+        $horas = $ahora->diffInHours($sindias);
+        $sinhoras  = $sindias->subHours($horas);
+        $minutos = $ahora->diffInMinutes($sinhoras);
 
         /* todo: Mensaje más amigable */
 

@@ -20,4 +20,9 @@ class Participante extends Model
     {
         return $this->hasMany('App\Puntaje');
     }
+
+    public function shares()
+    {
+        return $this->hasMany('App\Share');
+    }
 }

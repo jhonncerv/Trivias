@@ -31,5 +31,5 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('dynamic', 'TriviaController@todayGame');
     Route::post('mi-puntaje', 'ParticipanteController@mipuntaje');
     Route::post('puntajes', 'ParticipanteController@puntajes');
-    Route::post('postal', 'PostalController@postal');
+    Route::post('share', 'PostalController@postea');
 });
