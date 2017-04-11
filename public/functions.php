@@ -1,10 +1,10 @@
 <?php
 
 function get_template_directory_uri(){
-	return '.';
+	return "//" . $_SERVER['HTTP_HOST'];
 }
 function get_template_directory(){
-	return '.';
+	return dirname(__FILE__);
 }
 
 require_once 'lib/assets.php';
@@ -22,5 +22,5 @@ function template( $name ){
 }
 
 function image_path( $name = '' ){
-	return './dist/images/' . $name;
+	return "//" . $_SERVER['HTTP_HOST'] . '/dist/images/' . $name;
 }

@@ -15,8 +15,11 @@
 	}
 	&__title{
 		height: 110px;
-		text-align: center;
 		@include duotitle('small','center');
+	}
+	&__subtitle{
+		text-align: center;
+		margin-bottom: 30px;
 	}
 	&__intro{
 		@include css(font--light);
@@ -331,4 +334,38 @@
 	}
 	&__start{}
 	&__close{}
+}
+
+.tw-postal{
+	margin-bottom: 25px;
+	&__image{
+		border: 3px solid color(border);
+		border-radius: 5px;
+		overflow: hidden;
+		margin-bottom: 7px;
+		a{
+			display: block;
+		}
+		img{
+
+		}
+	}
+	&__share{
+		text-align: right;
+		a{
+			margin-left: 5px;
+			margin-right: 5px;
+			border-radius: 50%;
+			border: 2px solid color(border);
+			color: color(border);
+			width: 30px;
+			line-height: 32px;
+			height: 30px;
+			display: inline-block;
+			text-align: center;
+		}
+	}
+	&__body{
+		padding-top: 30px;
+	}
 }

@@ -21,6 +21,7 @@ class CreateSharesTable extends Migration
             $table->foreign('postal_id')->references('id')->on('postales');
             $table->integer('participante_id')->unsigned();
             $table->foreign('participante_id')->references('id')->on('participantes');
+            $table->unique(['fb_post_id', 'postal_id', 'participante_id']);
             $table->timestamps();
         });
     }

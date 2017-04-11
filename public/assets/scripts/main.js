@@ -48,8 +48,12 @@
           $('.tw-message').fadeOut();
         });
         window.message = function( text ){
-          $('.tw-message__text').text(text);
+          $('.tw-message__text').html(text);
           $('.tw-message').fadeIn();
+        };
+
+        window.score = function( score ){
+          $('.profile-photo__score').text( score );
         };
 
         function closePopup( event ){
@@ -62,6 +66,10 @@
           window.loader(true);
           $( ".tw-popup__main" ).load( $(this).attr("href") + " .tw-page", function(){
             window.loader(false);
+            var body_classes = $( ".tw-popup__main" ).find(".tw-page").data("body-classes");
+            if(body_classes){
+              UTIL.fireClasses(body_classes);
+            }
             $( ".tw-popup__main .tw-page__return, .tw-popup__main .tw-page__logo" ).click(closePopup);
             $( ".tw-popup" ).fadeIn();
           });
@@ -112,6 +120,8 @@
             $score.find('.dy-score_time').text(data.score_time);
             $score.find('.dy-score_dynamic').text(data.score_dynamic);
             $score.find('.dy-score_new').text(data.score_new);
+            $score.find('.tw-dynamic__score__message').html(data.message ? data.message : '');
+            window.score(data.score_new);
             $('.profile-photo__score').text(data.score_new);
             $score.fadeIn();
           });
@@ -185,13 +195,29 @@
       }
 
     },
-    'find': {
+    'postal_page': {
       init: function() {
-        var TransformElement = window.transformelement,
-            $element = $('.transform-element'),
-            $bounds = $('.transform-element-bounds'),
-            panel = new TransformElement( $element, $bounds );
-        $element.find('img').on('dragstart', function(event) { event.preventDefault(); });
+        window.requiereFB( window.config.appid );
+        $(".tw-postal__share a.fb:not(.shinit)").addClass(".shinit").click(function(){
+          var id = $(this).data("id");
+          FB.ui({
+            app_id: window.config.appid,
+            method: 'share',
+            href: $(this).attr("href"),
+            hashtag: window.config.hashtag,
+          }, function(response){
+            console.log(response);
+            window.loader(true);
+            $.post(window.config.postal, {data:{post_id:response.post_id,postal_id:id}}, function( json ) {
+              window.loader(false);
+              if(json.status === 'success'){
+                window.score(json.data.points_new);
+              } else {
+                window.message(json.message);
+              }
+            }, "json"); 
+          });
+        }); 
       }
     }
   };
@@ -208,7 +234,7 @@
       fire = fire && typeof namespace[func][funcname] === 'function';
 
       if (fire) {
-        //console.log('UTIL.fire', 'Sage.' + func + '.' + funcname);
+        console.log('UTIL.fire', 'Sage.' + func + '.' + funcname);
         namespace[func][funcname](args);
       }
     },

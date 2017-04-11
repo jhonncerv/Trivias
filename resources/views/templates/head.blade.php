@@ -7,8 +7,16 @@
     <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
     <link rel="icon" href="/favicon.ico" type="image/x-icon">
     <title>Twinings</title>
-    <link rel='stylesheet' href='/<?=main_css()?>' type='text/css' media='all' />
+    <link rel='stylesheet' href='<?=main_css()?>' type='text/css' media='all' />
     <script type='text/javascript' src='https://code.jquery.com/jquery-1.12.4.min.js'></script>
+    
+    @if(isset($postal))
+    <meta property="og:title" content="Postales Twinings" />
+    <meta property="og:url" content="{{route('postal',$postal[0]->name)}}" />
+    <meta property="og:image" content="http:<?=get_template_directory_uri()?>{{ $postal[0]->url }}" />
+    <meta property="og:description" content="{{ $postal[0]->meta }}" />
+    @endif
+
     <script>
         window.config = {
             login:'login/participante',
@@ -16,7 +24,9 @@
             scope:'',//'user_posts,user_friends',
             dynamic:'dynamic',
             start:'start',
-            save:'save'
+            save:'save',
+            hashtag:'#TéDeAltura',
+            postal:'share'
         };
     </script>
 </head>

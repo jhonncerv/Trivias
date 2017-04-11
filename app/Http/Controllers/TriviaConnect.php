@@ -8,6 +8,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Ciudad;
 use App\Intento;
 use App\Puntaje;
 use App\Trivia;
@@ -68,7 +69,7 @@ class TriviaConnect
             return $response;
         }
 
-        $response['message'] = 'Ya no quedan juegos disponibles.';
+        $response['message'] = 'Ya no quedan juegos disponibles para esta ciudad.';
         return $response;
     }
 
@@ -219,7 +220,6 @@ class TriviaConnect
                     }
                 }
 
-
             }
         }
 
@@ -231,10 +231,36 @@ class TriviaConnect
         $participa->save();
         $puntaje->save();
 
+
+        $puntajeStatus = Puntaje::where('available', 1)
+            ->where('participante_id', $participa->id)->where('ciudad_id', $puntaje->ciudad_id)->get();
+
+        /* Todo: desHardcodear el numero de ciudades restantes */
+
+        if($puntajeStatus->isEmpty() && $puntaje->ciudad_id < 5){
+
+            $mensaje = '¡Felicidades! Has logrado terminar esta ruta, ';
+
+            $ciudad = Ciudad::where('name', $puntaje->ciudad_id + 1 )->first();
+            if($ciudad->is_publish == 1){
+                $mensaje .= 'Avanza a la siguiente ruta.';
+            } else {
+                $mensaje .= 'Esta ciudad estará disponible en ';
+                $mensaje .= $this->messageNextCity($ciudad->publish);
+            }
+
+        } elseif( $puntajeStatus->isEmpty() && $puntaje->ciudad_id == 5){
+            $mensaje = "¡Felicidades! Inglaterra es la ruta que elegimos para que hagas el viaje de tus sueños.";
+
+        } else {
+            $mensaje = 'No te desesperes, el siguiente juego estará disponible en 15 minutos.';
+        }
+
         return array(
             'code' => 200,
             'status' => 'success',
             'data' => array(
+                'message' => $mensaje,
                 'score_dynamic' => $puntaje->query_score,
                 'score_time' => $puntaje->punish_factor,
                 'score_new' => $participa->points
@@ -309,13 +335,29 @@ class TriviaConnect
                 $pre_data['pregunta'] = 'data:image/png;base64,'.$base64;
             }
 
-
             $data = array_add( $data, $t, $pre_data);
-
-
 
         }
         return $data;
+    }
+
+    public function messageNextCity($fecha_publica)
+    {
+        $ahora = Carbon::now('America/Mexico_City');
+
+        $message = '';
+        $dias = $ahora->diffInDays($fecha_publica);
+        $sindias = $fecha_publica->subDays($dias);
+        $horas = $ahora->diffInHours($sindias);
+        $sinhoras  = $sindias->subHours($horas);
+        $minutos = $ahora->diffInMinutes($sinhoras);
+
+        /* todo: Mensaje más amigable */
+
+        $message .= ($dias > 0) ? $dias.($dias == 1 ? ' día, ' :' días, ') : '';
+        $message .= ($horas > 0) ? $horas.' hora'. ( $horas === 1 ? '':'s') .', ' : '';
+        $message .= ($minutos > 0) ? $minutos.' minuto'.( $minutos == 1 ? '': 's') : '';
+        return $message.'.';
     }
 
 }

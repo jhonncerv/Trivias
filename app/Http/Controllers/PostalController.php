@@ -11,7 +11,9 @@ class PostalController extends Controller
 {
     public function index()
     {
-        $postales = Postal::all();
+        $postales = Postal::with('ciudad')->get()->reject(function ($postal) {
+            return $postal->ciudad->is_publish == 0;
+        });
         return view('postales', compact('postales'));
     }
 
@@ -37,10 +39,21 @@ class PostalController extends Controller
             }
         }
 
-
         $postal = Postal::findOrFail($request->postal_id);
+        $share_exist = Share::where('fb_post_id', $request->post_id)
+            ->where('postal_id', $postal->id)
+            ->where('participante_id', $participante->id)->get();
 
-        Share::firstOrCreate([
+        if($share_exist->isNotEmpty()){
+
+            return array(
+                'code' => 401,
+                'status' => 'error',
+                'message' => 'Ya has compartido esta ciudad.'
+            );
+        }
+
+        Share::Create([
             'fb_post_id'=> $request->post_id,
             'postal_id' => $postal->id,
             'participante_id' => $participante->id,

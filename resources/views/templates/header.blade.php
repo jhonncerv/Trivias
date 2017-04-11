@@ -12,8 +12,12 @@
 		    </div>
 		    <div class="profile-menu__links">
 		    	<div class="profile-menu__links__item">
+		    		<a class="tw-popup-trigger" href="postales" target="_blank">Postales</a>
+		    	</div>
+		    	<div class="profile-menu__links__item">
 		    		<a class="tw-popup-trigger" href="mecanica" target="_blank">Mecánica</a>
-		    	</div><div class="profile-menu__links__item">
+		    	</div>
+		    	<div class="profile-menu__links__item">
 		    		<a class="tw-popup-trigger" href="tyco" target="_blank">Términos y condiciones</a>
 		    	</div>
 		    	<div class="profile-menu__links__item profile-menu__links__item--social">

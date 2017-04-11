@@ -15,6 +15,11 @@ class Postal extends Model
      * @var array
      */
     protected $hidden = [
-        'points', 'created_at', 'updated_at', 'ciudad_id'
+        'points', 'created_at', 'updated_at', 'ciudad_id', 'id'
     ];
+
+
+    public function ciudad(){
+        return $this->belongsTo('App\Ciudad');
+    }
 }
