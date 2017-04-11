@@ -33,6 +33,7 @@ class TriviaConnect
             'status' => 'error'
         );
 
+
         foreach ($trivias as $trivia){
 
             $tiempo_puntaje = Puntaje::firstOrCreate([
@@ -183,6 +184,7 @@ class TriviaConnect
 
     public function stopMeTrivia($participa, $puntaje, $data)
     {
+
         $datenow = Carbon::now('America/Mexico_City');
 
         $puntaje->time_finish = $datenow->toDateTimeString();
@@ -231,37 +233,37 @@ class TriviaConnect
         $participa->save();
         $puntaje->save();
 
-        /*
-                $puntajeStatus = Puntaje::where('available', 1)
-                    ->where('participante_id', $participa->id)->where('ciudad_id', $puntaje->ciudad_id)->();
 
-                /* Todo: desHardcodear el numero de ciudades restantes
+        $puntajeStatus = Puntaje::where('available', 1)
+            ->where('participante_id', $participa->id)->where('ciudad_id', $puntaje->ciudad_id)->get();
 
-                if($puntajeStatus->isEmpty() && $puntaje->ciudad_id < 5){
+        /* Todo: desHardcodear el numero de ciudades restantes */
 
-                    $mensaje = '¡Felicidades! Has logrado terminar esta ruta, ';
+        if($puntajeStatus->isEmpty() && $puntaje->ciudad_id < 5){
 
-                    $ciudad = Ciudad::where('name', $puntaje->ciudad_id + 1 )->first();
+            $mensaje = '¡Felicidades! Has logrado terminar esta ruta, ';
 
-                    if($ciudad->is_publish == 1){
-                        $mensaje .= 'Avanza a la siguiente ruta.';
-                    } else {
-                        $mensaje .= 'Esta ciudad estará disponible en ';
-                        $mensaje .= $this->messageNextCity($ciudad->publish);
-                    }
+            $ciudad = Ciudad::find($puntaje->ciudad_id + 1 );
 
-                } elseif( $puntajeStatus->isEmpty() && $puntaje->ciudad_id == 5){
-                    $mensaje = "¡Felicidades! Inglaterra es la ruta que elegimos para que hagas el viaje de tus sueños.";
+            if($ciudad->is_publish == 1){
+                $mensaje .= 'Avanza a la siguiente ruta.';
+            } else {
+                $mensaje .= 'La siguiente ciudad estará disponible en ';
+                $mensaje .= $this->messageNextCity(new Carbon($ciudad->publish));
+            }
 
-                } else {
-                    $mensaje = 'No te desesperes, el siguiente juego estará disponible en 15 minutos.';
-                } */
+        } elseif( $puntajeStatus->isEmpty() && $puntaje->ciudad_id == 5){
+            $mensaje = "¡Felicidades! Inglaterra es la ruta que elegimos para que hagas el viaje de tus sueños.";
+
+        } else {
+            $mensaje = 'No te desesperes, el siguiente juego estará disponible en 15 minutos.';
+        }
 
         return array(
             'code' => 200,
             'status' => 'success',
             'data' => array(
-                'message' => 'No te desesperes, el siguiente juego estará disponible en 15 minutos.',
+                'message' => $mensaje,
                 'score_dynamic' => $puntaje->query_score,
                 'score_time' => $puntaje->punish_factor,
                 'score_new' => $participa->points
