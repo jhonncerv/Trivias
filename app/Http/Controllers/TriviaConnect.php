@@ -45,8 +45,8 @@ class TriviaConnect
                 $diff = new Carbon($tiempo_puntaje, 'America/Mexico_City');
                 $tim = $diff->diffInMinutes(Carbon::now('America/Mexico_City'));
 
-                if( $tim < 5){
-                    $response['message'] = 'No te desesperes, el siguiente juego estará disponible en ' . (5 -$tim) . ' minuto'.($tim == 4 ? '':'s').'.';
+                if( $tim < 15){
+                    $response['message'] = 'No te desesperes, el siguiente juego estará disponible en ' . (15 -$tim) . ' minuto'.($tim == 4 ? '':'s').'.';
                     return $response;
                 }
             }
@@ -229,7 +229,6 @@ class TriviaConnect
 
         $participa->points = floor($participa->points + $puntaje->total_score);
         $participa->save();
-
         $puntaje->save();
 
         return array(
