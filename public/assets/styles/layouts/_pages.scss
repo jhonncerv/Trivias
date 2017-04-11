@@ -26,7 +26,6 @@
 		margin-bottom: $padding-unit;
 		a{
 			text-decoration: underline;
-			display: inline-block;
 		}
 		h1{
 			font-size: 1.8em;
@@ -76,8 +75,6 @@
 		margin-top: 45px;
 		a{
 			text-decoration: underline;
-			display: inline-block;
-    		cursor: pointer;
 		}
 	}
 	&__button{
