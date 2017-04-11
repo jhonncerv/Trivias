@@ -7,7 +7,7 @@
     <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
     <link rel="icon" href="/favicon.ico" type="image/x-icon">
     <title>Twinings</title>
-    <link rel='stylesheet' href='<?=main_css()?>' type='text/css' media='all' />
+    <link rel='stylesheet' href='/<?=main_css()?>' type='text/css' media='all' />
     <script type='text/javascript' src='https://code.jquery.com/jquery-1.12.4.min.js'></script>
     <script>
         window.config = {

@@ -39,12 +39,18 @@ class PostalesTableSeeder extends Seeder
             'postales/Japon05.png',
         );
 
-        for($i = 1; $i < count($var); $i++){
-            $postal = new \App\Postal();
-            $postal->name = 'Postal';
-            $postal->url = $var[$i];
-            $postal->points = 10;
-            $postal->ciudad_id = ($i > 5) ? ($i > 10 ? ($i > 15 ? ($i > 20 ? 5 : 4) : 3) : 2) : 1;
+
+        $pre = '/postal/';
+        $ciudad = array('Marruecos', 'Argentina', 'India', 'Inglaterra', 'Japon');
+        for ($i = 1; $i <= 5; $i++ ){
+            for ($j = 1; $j <= 5; $j++ ){
+                $postal = new \App\Postal();
+                $postal->name = $ciudad[$i-1].'0'.$j;
+                $postal->url = $pre.$ciudad[$i-1].'0'.$j.'.png';
+                $postal->points = 20;
+                $postal->ciudad_id = $i;
+                $postal->save();
+            }
         }
     }
 }

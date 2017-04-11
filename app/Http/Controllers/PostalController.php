@@ -10,7 +10,7 @@ class PostalController extends Controller
     public function index()
     {
         $postales = Postal::all();
-        return $postales;
+        return view('postales', compact('postales'));
     }
 
     public function postal()
