@@ -23,12 +23,6 @@ Route::get('login/social/callback', 'SocialiteController@handleProviderCallback'
 Auth::routes();
 // rutas para la api
 //Route::get('/home', 'HomeController@index');
-/*
-Route::get('ciudades', 'CiudadController@ciudades');
-Route::get('trivias', 'TriviaController@index');
-Route::get('preguntas', 'PreguntaController@index');
-Route::get('respuestas', 'RespuestaController@index');
-Route::get('participantes', 'ParticipanteController@index');*/
 
 Route::group(['middleware' => 'auth'], function () {
     Route::post('start', 'TriviaController@startGame');

@@ -26,10 +26,10 @@ class RespuestasTableSeeder extends Seeder
         }
 
         $rep = array(
-            ['Mezquita Hassan','Al Hikmah','La Torre Eiffel'],
-            ['Marruecos','El Rabat','Estonia'],
             ['Desierto del Sahara','Desierto de Erg Chebbi','Duna de Pyla'],
             ['Ave Ibis Eremita','Cocodrilo','Garza Cocol '],
+            ['Mezquita Hassan','Al Hikmah','La Torre Eiffel'],
+            ['Marruecos','El Rabat','Estonia'],
             ['Tagine','Plato de cerámica','Arte orbe'],
         );
 
@@ -74,9 +74,9 @@ class RespuestasTableSeeder extends Seeder
         }
 
         $res = array(
-            '800,200',
-            '70,1260',
-            '1240,1290'
+            '410,105',
+            '35,630',
+            '625,645'
         );
         $preg = 56;
 
