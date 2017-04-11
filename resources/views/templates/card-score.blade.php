@@ -15,8 +15,6 @@
     <div class="tw-dynamic__score__new dy-score_new">
         88888
     </div>
-    <div class="tw-dynamic__score__message">
-        En 5min estará disponible un nuevo juego.
-    </div>
+    <div class="tw-dynamic__score__message"></div>
     <button class="tw-form__button tw-dynamic__close">Aceptar</button>
 </div>

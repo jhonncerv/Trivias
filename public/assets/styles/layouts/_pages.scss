@@ -15,8 +15,11 @@
 	}
 	&__title{
 		height: 110px;
-		text-align: center;
 		@include duotitle('small','center');
+	}
+	&__subtitle{
+		text-align: center;
+		margin-bottom: 30px;
 	}
 	&__intro{
 		@include css(font--light);
@@ -340,6 +343,9 @@
 		border-radius: 5px;
 		overflow: hidden;
 		margin-bottom: 7px;
+		a{
+			display: block;
+		}
 		img{
 
 		}
@@ -358,5 +364,8 @@
 			display: inline-block;
 			text-align: center;
 		}
+	}
+	&__body{
+		padding-top: 30px;
 	}
 }
