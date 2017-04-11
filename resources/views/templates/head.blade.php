@@ -19,14 +19,14 @@
 
     <script>
         window.config = {
-            login:'login/participante',
+            login:'/login/participante',
             appid:'120356661840963',
             scope:'',//'user_posts,user_friends',
-            dynamic:'dynamic',
-            start:'start',
-            save:'save',
+            dynamic:'/dynamic',
+            start:'/start',
+            save:'/save',
             hashtag:'#TéDeAltura',
-            postal:'share'
+            postal:'/postales/share'
         };
     </script>
 </head>
