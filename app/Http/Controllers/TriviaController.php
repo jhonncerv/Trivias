@@ -60,13 +60,16 @@ class TriviaController extends Controller
 
         $fecha_publica = new Carbon($ciudad[0]->publish, 'America/Mexico_City');
         $ahora = Carbon::now('America/Mexico_City');
+
+        $message = 'Esta ciudad estará disponible en ';
         $dias = $ahora->diffInDays($fecha_publica);
+
         $horas = $ahora->subDays($dias)->diffInHours($fecha_publica);
+
         $minutos = $ahora->subHours($horas)->subDays($dias)->diffInMinutes($fecha_publica);
 
         /* todo: Mensaje más amigable */
 
-        $message = 'Esta ciudad estará disponible en ';
         $message .= ($dias > 0) ? $dias.($dias == 1 ? ' día, ' :' días, ') : '';
         $message .= ($horas > 0) ? $horas.' hora'. ( $horas === 1 ? '':'s') .', ' : '';
         $message .= ($minutos > 0) ? $minutos.' minuto'.( $minutos == 1 ? '': 's') : '';
