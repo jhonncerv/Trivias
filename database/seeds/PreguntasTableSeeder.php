@@ -36,12 +36,13 @@ class PreguntasTableSeeder extends Seeder
 
             } else if($ii == 3) {
 
+
                 $preguntas = array(
-                    'Oficialmente cómo es conocido Marruecos:',
-                    'El ritual del té están descritos en los diarios y libros de este importante escritor: ',
-                    'Como es un país musulman, Marruecos representa sus hospitales con una:',
-                    '¿Cómo se llaman los gorros típicos rojos que usan los marroquis? ',
-                    'En Marruecos besarse y otros tipos de actos de amor están prohibidos al publico, se receban para la intimidad del hogar:',
+                    'EL nombre oficial de Marruecos:',
+                    'El ritual del té está descrito en los diarios y libros de este importante escritor:',
+                    'Como es un país con mayoría musulmán, Marruecos representa sus hospitales con una:',
+                    '¿Cómo se llaman los gorros rojos típicos que usan los marroquíes?',
+                    'En Marruecos besarse y otros actos de amor en público, están prohibidos; se reservan para la intimidad del hogar:',
                 );
 
                 for($i=0;$i<5;$i++){
