@@ -26,7 +26,7 @@
             start:'start',
             save:'save',
             hashtag:'#TéDeAltura',
-            postal:'share'
+            postal:'/postales/share'
         };
     </script>
 </head>
