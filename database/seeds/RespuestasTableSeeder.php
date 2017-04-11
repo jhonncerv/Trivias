@@ -12,12 +12,24 @@ class RespuestasTableSeeder extends Seeder
     public function run()
     {
 
+        for($preg = 1; $preg <= 45; $preg++){
+
+            for ($i = 0; $i < 2 ; $i++) {
+
+                $respuesta = new \App\Respuesta();
+                $respuesta->option =  $i < 1 ? 'left' : 'right';
+                $respuesta->correct = ($preg > 20 ) ?  (( $i < 1) ? 0:1) : (($i > 0)?0:1);
+                $respuesta->pregunta_id = $preg;
+                $respuesta->save();
+
+            }
+        }
 
         $rep = array(
-            ['Mezquita Hassan','Al Hikmah','La Torre Eiffel'],
-            ['Marruecos','El Rabat','Estonia'],
             ['Desierto del Sahara','Desierto de Erg Chebbi','Duna de Pyla'],
             ['Ave Ibis Eremita','Cocodrilo','Garza Cocol '],
+            ['Mezquita Hassan','Al Hikmah','La Torre Eiffel'],
+            ['Marruecos','El Rabat','Estonia'],
             ['Tagine','Plato de cerámica','Arte orbe'],
         );
 
@@ -61,19 +73,21 @@ class RespuestasTableSeeder extends Seeder
             }
         }
 
+        $res = array(
+            '410,105',
+            '35,630',
+            '625,645'
+        );
+        $preg = 56;
 
+        for ($i = 0; $i < 3 ; $i++) {
 
-        for($preg = 1; $preg <= 45; $preg++){
+            $respuesta = new \App\Respuesta();
+            $respuesta->option = $res[$i];
+            $respuesta->correct = 1;
+            $respuesta->pregunta_id = $preg;
+            $respuesta->save();
 
-            for ($i = 0; $i < 2 ; $i++) {
-
-                $respuesta = new \App\Respuesta();
-                $respuesta->option =  $i < 1 ? 'left' : 'right';
-                $respuesta->correct = ($preg > 20 ) ?  (( $i < 1) ? 0:1) : (($i > 0)?0:1);
-                $respuesta->pregunta_id = $preg;
-                $respuesta->save();
-
-            }
         }
 
     }

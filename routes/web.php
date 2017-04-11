@@ -13,7 +13,7 @@
 
 Route::get('/', 'CiudadController@index')->name('home');
 Route::get('/tyco', 'CiudadController@tyco')->name('tyco');
-Route::get('/mecanica', 'CiudadController@mecanica')->name('mecanica');
+Route::get('/mecanica', 'CiudadController@tyco')->name('mecanica');
 
 Route::get('/logout', 'SocialiteController@logout');
 Route::post('login/participante', 'SocialiteController@login');
@@ -23,12 +23,6 @@ Route::get('login/social/callback', 'SocialiteController@handleProviderCallback'
 Auth::routes();
 // rutas para la api
 //Route::get('/home', 'HomeController@index');
-/*
-Route::get('ciudades', 'CiudadController@ciudades');
-Route::get('trivias', 'TriviaController@index');
-Route::get('preguntas', 'PreguntaController@index');
-Route::get('respuestas', 'RespuestaController@index');
-Route::get('participantes', 'ParticipanteController@index');*/
 
 Route::group(['middleware' => 'auth'], function () {
     Route::post('start', 'TriviaController@startGame');

@@ -5,7 +5,7 @@
         "scripts/fblogin.class.js",
         "scripts/timer.class.js",
         "scripts/swipecards.class.js",
-        "scripts/transformelement.class.js",
+        "scripts/zoompanel.class.js",
         "scripts/dynamics.class.js",
         "scripts/main.js"
       ],

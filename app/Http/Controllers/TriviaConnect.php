@@ -24,13 +24,13 @@ class TriviaConnect
 
     public function giveMeTrivia($id)
     {
+
         $trivias = Trivia::where('available', 1)->get();
         $participa= Auth::user()->participante[0];
         $response = array(
             'code' => 401,
             'status' => 'error'
         );
-
 
         foreach ($trivias as $trivia){
 
@@ -46,7 +46,7 @@ class TriviaConnect
                 $tim = $diff->diffInMinutes(Carbon::now('America/Mexico_City'));
 
                 if( $tim < 5){
-                    $response['message'] = 'No te desesperes, el siguiente juego estará disponible en ' . (5 -$tim) . ' minutos.';
+                    $response['message'] = 'No te desesperes, el siguiente juego estará disponible en ' . (5 -$tim) . ' minuto'.($tim == 4 ? '':'s').'.';
                     return $response;
                 }
 
@@ -94,29 +94,47 @@ class TriviaConnect
             $id_preg = str_random(9);
             $resp = [];
             $t = -1;
-            $intento = new Intento([
-                'query_ord' => $id_preg,
-                'pregunta_id' => $preguntas[$numbers[$i] - 1]->id,
-                'puntaje_id' => $puntaje->id,
-            ]);
 
-            foreach ($preguntas[$numbers[$i] - 1]->respuestas as $respuesta){
-                $t++;
-                $id_res = str_random(9);
+            if($puntaje->trivia->id == 4){
 
-                $resp[$t] = array('id' => $id_res, 'option' => $respuesta->option);
+                foreach ($preguntas[$numbers[$i] - 1]->respuestas as $respuesta){
 
-                if($respuesta->correct == 1){
-                    $intento->respuesta_id = $respuesta->id;
-                    $intento->correct_str = $id_res;
+                    $intento = new Intento([
+                        'query_ord' => $id_preg,
+                        'pregunta_id' => $preguntas[$numbers[$i] - 1]->id,
+                        'puntaje_id' => $puntaje->id,
+                    ]);
+
+                    $t++;
+                    $id_res = str_random(9);
+                    $resp[$t] = array('id' => $id_res);
+                    if($respuesta->correct == 1){
+                        $intento->respuesta_id = $respuesta->id;
+                        $intento->correct_str = $respuesta->option;
+                    }
+                    $intento->save();
+
                 }
-            }
+            } else {
+                $intento = new Intento([
+                    'query_ord' => $id_preg,
+                    'pregunta_id' => $preguntas[$numbers[$i] - 1]->id,
+                    'puntaje_id' => $puntaje->id,
+                ]);
 
-            if($intento->correct_str == null){
-                return $intento;
-            }
+                foreach ($preguntas[$numbers[$i] - 1]->respuestas as $respuesta){
+                    $t++;
+                    $id_res = str_random(9);
+                    $resp[$t] = array('id' => $id_res, 'option' => $respuesta->option);
 
-            $intento->save();
+                    if($respuesta->correct == 1){
+                        $intento->respuesta_id = $respuesta->id;
+                        $intento->correct_str = $id_res;
+                    }
+                }
+
+                $intento->save();
+            }
 
 
             $pre_data = [
@@ -130,29 +148,34 @@ class TriviaConnect
                 $contents = Storage::get($preguntas[$numbers[$i] - 1]->question);
                 //$imagedata = file_get_contents($file);
                 $base64 = base64_encode($contents);
-                $pre_data['pregunta'] = 'data:image/gif;base64,'.$base64;
-            }
-            if($puntaje->trivia->id == 2)
+                $pre_data['pregunta'] = 'data:image/png;base64,'.$base64;
+            } else if($puntaje->trivia->id == 2)
             {
                 $contents = Storage::get($preguntas[$numbers[$i] - 1]->question);
                 $base64 = base64_encode($contents);
                 $pre_data['pregunta'] = 'data:image/gif;base64,'.$base64;
                 $pre_data['caption'] = $preguntas[$numbers[$i] - 1]->caption;
+            } else if($puntaje->trivia->id == 4){
+
+                $contents = Storage::get($preguntas[$numbers[$i] - 1]->question);
+                $base64 = base64_encode($contents);
+                $pre_data['pregunta'] = 'data:image/png;base64,'.$base64;
             }
 
             $data = array_add( $data, $i, $pre_data);
 
         }
 
-        $puntaje->time_start = Carbon::now('America/Mexico_City');
+        $vartimenow = Carbon::now('America/Mexico_City');
+        $puntaje->time_start = $vartimenow;
         $puntaje->save();
 
         return array(
             'code' => 200,
             'status' => 'success',
             'data' => array(
-                'servertime' => round( microtime(true) * 1000 ),
-                'endtime' => round( microtime(true) * 1000 ) + 2 * 60 * 1000,
+                'servertime' => $vartimenow->timestamp,
+                'endtime' => $vartimenow->addSeconds($puntaje->trivia->time_limit)->timestamp,
                 'preguntas' => $data
             ));
     }
@@ -160,11 +183,15 @@ class TriviaConnect
     public function stopMeTrivia($participa, $puntaje, $data)
     {
         $datenow = Carbon::now('America/Mexico_City');
+
         $puntaje->time_finish = $datenow->toDateTimeString();
+
         $inicio = new Carbon($puntaje->time_start, 'America/Mexico_City');
 
         $valor_pregunta = $puntaje->trivia->points_per_anwser;
+
         $factor = $puntaje->trivia->time_limit - $inicio->diffInSeconds($datenow);
+
         $porfac = $factor > 0 ? ($factor / $puntaje->trivia->time_limit) : 0;
 
 
@@ -172,33 +199,48 @@ class TriviaConnect
         $puntos = 0;
         foreach ($intentos as $intento) {
             foreach ($data as $dat){
-                if($intento->query_ord == $dat['id']){
-                    $intento->attempt_str = $dat['option'];
-                    if($intento->correct_str == $dat['option']){
+
+                if($puntaje->trivia->id == 4) {
+                    $intento->attempt_str = $dat['x'].','.$dat['y'];
+                    $arr = explode(',', $intento->correct_str);
+                    if(abs($arr[0]-$dat['x'])< 30 && 30 > abs($dat['y'] - $arr[1])){
                         $puntos++;
                     }
                     $intento->save();
+
+                } else {
+
+                    if($intento->query_ord == $dat['id']){
+                        $intento->attempt_str = $dat['option'];
+                        if($intento->correct_str == $dat['option']){
+                            $puntos++;
+                        }
+                        $intento->save();
+                    }
                 }
+
+
             }
         }
 
         $puntaje->query_score = $puntos * $valor_pregunta;
-        $puntaje->punish_factor = $porfac;
-        $puntaje->total_score = floor($puntos * $valor_pregunta * $porfac);
+        $puntaje->punish_factor = floor($puntos * $valor_pregunta * $porfac);
+        $puntaje->total_score = $puntaje->query_score + $puntaje->punish_factor;
 
         $participa->points = floor($participa->points + $puntaje->total_score);
         $participa->save();
 
         $puntaje->save();
+
         return array(
             'code' => 200,
             'status' => 'success',
             'data' => array(
                 'score_dynamic' => $puntaje->query_score,
-                'score_time' => $puntaje->total_score,
+                'score_time' => $puntaje->punish_factor,
                 'score_new' => $participa->points
-            )
-        );
+            ));
+
     }
 
     public function continuMeTrivia($intentos, $trivia_id)
@@ -213,24 +255,34 @@ class TriviaConnect
             $resp = [];
             $r = -1;
 
-            foreach ($intento->pregunta->respuestas as $respuesta) {
+            if($trivia_id == 4){
 
-                $r++;
-                $id_res = str_random(9);
-                $resp[$r] = array('id' => $id_res, 'option' => $respuesta->option);
-                if($respuesta->correct == 1){
-                    $intento->correct_str = $id_res;
+                foreach ($intento->pregunta->respuestas as $respuesta){
+
+                    $r++;
+                    $id_res = str_random(9);
+                    $resp[$r] = array('id' => $id_res);
+                    if($respuesta->correct == 1){
+                        $intento->correct_str = $respuesta->option;
+                    }
+                    $intento->save();
+
                 }
+
+            } else {
+
+                foreach ($intento->pregunta->respuestas as $respuesta) {
+
+                    $r++;
+                    $id_res = str_random(9);
+                    $resp[$r] = array('id' => $id_res, 'option' => $respuesta->option);
+                    if($respuesta->correct == 1){
+                        $intento->correct_str = $id_res;
+                    }
+                }
+
+                $intento->save();
             }
-
-            $data = array_add( $data, $t, [
-                'id' => $intento->query_ord,
-                'pregunta' => $intento->pregunta->question,
-                'respuestas' => $resp
-            ]);
-
-            $intento->save();
-
 
 
             $pre_data = [
@@ -239,16 +291,29 @@ class TriviaConnect
                 'respuestas' => $resp
             ];
 
-            if($trivia_id == 2)
+            if($trivia_id == 1)
             {
                 $contents = Storage::get($intento->pregunta->question);
                 //$imagedata = file_get_contents($file);
                 $base64 = base64_encode($contents);
+                $pre_data['pregunta'] = 'data:image/png;base64,'.$base64;
+            } else if($trivia_id == 2)
+            {
+                $contents = Storage::get($intento->pregunta->question);
+                $base64 = base64_encode($contents);
                 $pre_data['pregunta'] = 'data:image/gif;base64,'.$base64;
                 $pre_data['caption'] = $intento->pregunta->caption;
+            } else if($trivia_id == 4){
+
+                $contents = Storage::get($intento->pregunta->question);
+                $base64 = base64_encode($contents);
+                $pre_data['pregunta'] = 'data:image/png;base64,'.$base64;
             }
 
+
             $data = array_add( $data, $t, $pre_data);
+
+
 
         }
         return $data;

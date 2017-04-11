@@ -13,17 +13,28 @@ class TriviasTableSeeder extends Seeder
     public function run()
     {
         $faker = Faker\Factory::create();
-        $trivias = array('twinder', 'siluetas','trivia', 'findings');
+        $trivias = array('twinder', 'siluetas','trivia', 'finding');
+        $puntos = array(40, 30, 20, 50);
         $Cnow = Carbon::now();
         Carbon::setTestNow($Cnow);
 
         for ($i = 0; $i < 4; $i++) {
             $trivia = new \App\Trivia();
             $trivia->game = $trivias[$i];
-            $trivia->points_per_anwser = $faker->numberBetween($min = 1, $max = 10) * 10;
-            $trivia->available = $i == 3 ? 0 : 1;
-            $trivia->time_limit = ( 20 * 60 );
-            $trivia->query_size = 5;
+            $trivia->points_per_anwser = $puntos[$i];
+            $trivia->available = 1;
+            if( $i == 0 ){
+                $time = 5;
+            } else if( $i == 1) {
+                $time = 4;
+            } else if( $i == 2) {
+                $time = 2;
+            } else {
+                $time = 10;
+            }
+
+            $trivia->time_limit = ( $time * 60 );
+            $trivia->query_size = $i == 3 ? 1 : 5;
             $trivia->publish = new Carbon('yesterday');
             $trivia->save();
         }
