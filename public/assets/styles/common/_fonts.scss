@@ -1,10 +1,12 @@
 @font-face {
 	font-family: 'AvenirRoman';
-	src: url('#{$font-path}AvenirLT-Roman.eot');
-	src: url('#{$font-path}AvenirLT-Roman.eot?#iefix') format('embedded-opentype'),
-		url('#{$font-path}AvenirLT-Roman.woff') format('woff'),
-		url('#{$font-path}AvenirLT-Roman.ttf') format('truetype');
-	font-weight: normal;
+	src: url('#{$font-path}AvenirLTPro-Roman.eot');
+	src: url('#{$font-path}AvenirLTPro-Roman.eot?#iefix') format('embedded-opentype'),
+		url('#{$font-path}AvenirLTPro-Roman.woff2') format('woff2'),
+		url('#{$font-path}AvenirLTPro-Roman.woff') format('woff'),
+		url('#{$font-path}AvenirLTPro-Roman.ttf') format('truetype'),
+		url('#{$font-path}AvenirLTPro-Roman.svg#AvenirLTPro-Roman') format('svg');
+	font-weight: 400;
 	font-style: normal;
 }
 @font-face {
