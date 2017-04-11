@@ -16,12 +16,12 @@ class CreateSharesTable extends Migration
         Schema::create('shares', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('points');
-            $table->string('fb_post_id');
+            $table->string('fb_post_id')->nullable();
             $table->integer('postal_id')->unsigned();
             $table->foreign('postal_id')->references('id')->on('postales');
             $table->integer('participante_id')->unsigned();
             $table->foreign('participante_id')->references('id')->on('participantes');
-            $table->unique(['fb_post_id', 'postal_id', 'participante_id']);
+            $table->unique(['postal_id', 'participante_id']);
             $table->timestamps();
         });
     }
