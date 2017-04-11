@@ -31,7 +31,7 @@ class PostalController extends Controller
             return array(
                 'code' => 401,
                 'status' => 'error',
-                'message' => 'Hacker es malo :('
+                'message' => 'Regístrate <a href="/">aquí</a> y comienza a acumular puntos.'
             );
         }
 
