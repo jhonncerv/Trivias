@@ -167,6 +167,10 @@
         var finding = dynamics.initFinding( $('.tw-dynamic--finding .zoompanel'), $('.tw-dynamic--finding .finding__button'), 'zoompanel__image', 'zoompanel__lens', 'zoompanel__marks', 'zoompanel__marks__item' );
         attachTimerEvents(finding.getTimer());
 
+        $(".tw-map__dots__item--available").click(function(){
+          $(".tw-map").attr("class","tw-map tw-map--" + $(this).data("id"));
+        });
+
       }
     },
     'login': {
@@ -208,7 +212,7 @@
           }, function(response){
             console.log(response);
             window.loader(true);
-            $.post(window.config.postal, {data:{post_id:response.post_id,postal_id:id}}, function( json ) {
+            $.post(window.config.postal, {data:{post_id:response?response.post_id:undefined,postal_id:id}}, function( json ) {
               window.loader(false);
               if(json.status === 'success'){
                 window.score(json.data.points_new);

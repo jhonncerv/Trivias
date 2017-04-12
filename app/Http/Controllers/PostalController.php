@@ -77,4 +77,25 @@ class PostalController extends Controller
         }
         return view('postal', compact('postal'));
     }
+
+    public function sinCompartir(Request $request)
+    {
+        if(!$request->has('data')){
+            return array(
+                'code' => 401,
+                'status' => 'error',
+                'message' => 'Consulta invalida'
+            );
+        }
+        $id = $request->data['id'];
+        $shares = Auth::user()->participante->first()->shares;
+        $postales = Postal::whereHas('ciudad', function ($query) use ($id) {
+            $query->where('id', '=', $id);
+        })->get();
+        return array(
+            'code' => 200,
+            'status' => 'success',
+            'data' => $postales->diff($shares)
+        );
+    }
 }

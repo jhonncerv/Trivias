@@ -21,7 +21,7 @@ class CiudadesTableSeeder extends Seeder
             $ciudad->name = $cities[$i];
             $ciudad->available = 1;
             $ciudad->publish = $hoy->subHours(5)->addDays($e);
-            $e += ($i > 1) ? 1 : 2;
+            $e = (($i > 1) ? 1 : 2);
             $ciudad->save();
         }
     }

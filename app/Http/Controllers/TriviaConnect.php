@@ -26,38 +26,67 @@ class TriviaConnect
     public function giveMeTrivia($id)
     {
 
-        $trivias = Trivia::where('available', 1)->get();
-        $participa= Auth::user()->participante[0];
         $response = array(
             'code' => 401,
             'status' => 'error'
         );
 
-        foreach ($trivias as $trivia){
+        $participa= Auth::user()->participante[0];
 
-            $tiempo_puntaje = Puntaje::firstOrCreate([
-                'trivia_id' => $trivia->id,
-                'ciudad_id' => $id,
-                'participante_id' => $participa->id
-            ])->time_finish;
+        $puntaje = $participa->puntajes()->where('ciudad_id', $id)->get();
 
-            if($tiempo_puntaje !== null){
+        if($puntaje->isEmpty()){
 
-                $diff = new Carbon($tiempo_puntaje, 'America/Mexico_City');
-                $tim = $diff->diffInMinutes(Carbon::now('America/Mexico_City'));
+            $trivias = Trivia::where('available', 1)->get();
 
-                if( $tim < 15){
-                    $response['message'] = 'No te desesperes, el siguiente juego estará disponible en ' . (15 -$tim) . ' minuto'.($tim == 4 ? '':'s').'.';
-                    return $response;
+            $trivias = $trivias->filter(function ($value) use ($id) {
+                for ($i = (1 + (4 * ($id - 1))); $i <= (4 + (4 * ($id - 1)));$i++){
+                    if($value->id == $i){
+                        return true;
+                    }
                 }
-            }
+                return false;
+            });
 
+
+            foreach ($trivias as $trivia){
+                $points_pushed = Puntaje::Create([
+                    'trivia_id' => $trivia->id,
+                    'ciudad_id' => $id,
+                    'participante_id' => $participa->id
+                ]);
+                $puntaje->push($points_pushed);
+            }
         }
 
-        $puntaje = $participa->puntajes()->where('available', 1)->where('ciudad_id', $id)->get();
 
-        if($puntaje->isNotEmpty()){
-            $puntaje = $puntaje->random();
+        $sig_juego = $puntaje->reject(function ($value) {
+            return isset($value->available) ? ($value->available == 0) : false  ;
+        });
+
+
+        if($sig_juego->isNotEmpty()){
+
+           foreach($puntaje as $p){
+
+                if($p->time_finish !== null){
+                    $diff = new Carbon($p->time_finish, 'America/Mexico_City');
+                    $tim = $diff->diffInMinutes(Carbon::now('America/Mexico_City'));
+
+                    if( $tim < 15){
+                        $response['message'] = 'No te desesperes, el siguiente juego estará disponible en ';
+                        if($tim == 14) {
+                            $response['message'].= ' menos de un minuto.';
+                        } else {
+                            $response['message'].= (15 -$tim) . ' minuto'.($tim == 14 ? '':'s').'.';
+                        }
+                        return $response;
+                    }
+                }
+
+            }
+
+            $puntaje = $sig_juego->random();
             $puntaje->available = 0;
             $puntaje->save();
             $response = array(
@@ -96,7 +125,9 @@ class TriviaConnect
             $resp = [];
             $t = -1;
 
-            if($puntaje->trivia->id == 4){
+            $pre_data['id'] = $id_preg;
+
+            if($puntaje->trivia->id == 4 || $puntaje->trivia->id == 8){
 
                 foreach ($preguntas[$numbers[$i] - 1]->respuestas as $respuesta){
 
@@ -114,8 +145,12 @@ class TriviaConnect
                         $intento->correct_str = $respuesta->option;
                     }
                     $intento->save();
-
                 }
+
+                $contents = Storage::get($preguntas[$numbers[$i] - 1]->question);
+                $base64 = base64_encode($contents);
+                $pre_data['pregunta'] = 'data:image/png;base64,'.$base64;
+
             } else {
                 $intento = new Intento([
                     'query_ord' => $id_preg,
@@ -137,32 +172,24 @@ class TriviaConnect
                 $intento->save();
             }
 
+            $pre_data['respuestas'] = $resp;
 
-            $pre_data = [
-                'id' => $id_preg,
-                'pregunta' => $preguntas[$numbers[$i] - 1]->question,
-                'respuestas' => $resp
-            ];
-
-            if($puntaje->trivia->id == 1)
+            if($puntaje->trivia->id == 1 || $puntaje->trivia->id == 5)
             {
                 $contents = Storage::get($preguntas[$numbers[$i] - 1]->question);
-                //$imagedata = file_get_contents($file);
                 $base64 = base64_encode($contents);
                 $pre_data['pregunta'] = 'data:image/png;base64,'.$base64;
-            } else if($puntaje->trivia->id == 2)
+
+            } else if($puntaje->trivia->id == 2 || $puntaje->trivia->id == 6)
             {
                 $contents = Storage::get($preguntas[$numbers[$i] - 1]->question);
                 $base64 = base64_encode($contents);
                 $pre_data['pregunta'] = 'data:image/gif;base64,'.$base64;
                 $pre_data['caption'] = $preguntas[$numbers[$i] - 1]->caption;
-            } else if($puntaje->trivia->id == 4){
 
-                $contents = Storage::get($preguntas[$numbers[$i] - 1]->question);
-                $base64 = base64_encode($contents);
-                $pre_data['pregunta'] = 'data:image/png;base64,'.$base64;
+            } else if($puntaje->trivia->id == 3 || $puntaje->trivia->id == 7){
+                $pre_data['pregunta'] = $preguntas[$numbers[$i] - 1]->question;
             }
-
             $data = array_add( $data, $i, $pre_data);
 
         }
@@ -183,6 +210,7 @@ class TriviaConnect
 
     public function stopMeTrivia($participa, $puntaje, $data)
     {
+
         $datenow = Carbon::now('America/Mexico_City');
 
         $puntaje->time_finish = $datenow->toDateTimeString();
@@ -192,16 +220,14 @@ class TriviaConnect
         $valor_pregunta = $puntaje->trivia->points_per_anwser;
 
         $factor = $puntaje->trivia->time_limit - $inicio->diffInSeconds($datenow);
-
         $porfac = $factor > 0 ? ($factor / $puntaje->trivia->time_limit) : 0;
-
 
         $intentos = $puntaje->intentos;
         $puntos = 0;
         foreach ($intentos as $intento) {
             foreach ($data as $dat){
 
-                if($puntaje->trivia->id == 4) {
+                if($puntaje->trivia->id == 4  || $puntaje->trivia->id == 8) {
                     $intento->attempt_str = $dat['x'].','.$dat['y'];
                     $arr = explode(',', $intento->correct_str);
                     if(abs($arr[0]-$dat['x'])< 30 && 30 > abs($dat['y'] - $arr[1])){
@@ -231,37 +257,37 @@ class TriviaConnect
         $participa->save();
         $puntaje->save();
 
-        /*
-                $puntajeStatus = Puntaje::where('available', 1)
-                    ->where('participante_id', $participa->id)->where('ciudad_id', $puntaje->ciudad_id)->();
 
-                /* Todo: desHardcodear el numero de ciudades restantes
+        $puntajeStatus = Puntaje::where('available', 1)
+            ->where('participante_id', $participa->id)->where('ciudad_id', $puntaje->ciudad_id)->get();
 
-                if($puntajeStatus->isEmpty() && $puntaje->ciudad_id < 5){
+        /* Todo: desHardcodear el numero de ciudades restantes */
 
-                    $mensaje = '¡Felicidades! Has logrado terminar esta ruta, ';
+        if($puntajeStatus->isEmpty() && $puntaje->ciudad_id < 5){
 
-                    $ciudad = Ciudad::where('name', $puntaje->ciudad_id + 1 )->first();
+            $mensaje = '¡Felicidades! Has logrado terminar esta ruta, ';
 
-                    if($ciudad->is_publish == 1){
-                        $mensaje .= 'Avanza a la siguiente ruta.';
-                    } else {
-                        $mensaje .= 'Esta ciudad estará disponible en ';
-                        $mensaje .= $this->messageNextCity($ciudad->publish);
-                    }
+            $ciudad = Ciudad::find($puntaje->ciudad_id + 1 );
 
-                } elseif( $puntajeStatus->isEmpty() && $puntaje->ciudad_id == 5){
-                    $mensaje = "¡Felicidades! Inglaterra es la ruta que elegimos para que hagas el viaje de tus sueños.";
+            if($ciudad->is_publish == 1){
+                $mensaje .= 'Avanza a la siguiente ruta.';
+            } else {
+                $mensaje .= 'La siguiente ciudad estará disponible en ';
+                $mensaje .= $this->messageNextCity(new Carbon($ciudad->publish));
+            }
 
-                } else {
-                    $mensaje = 'No te desesperes, el siguiente juego estará disponible en 15 minutos.';
-                } */
+        } elseif( $puntajeStatus->isEmpty() && $puntaje->ciudad_id == 5){
+            $mensaje = "¡Felicidades! Inglaterra es la ruta que elegimos para que hagas el viaje de tus sueños.";
+
+        } else {
+            $mensaje = 'No te desesperes, el siguiente juego estará disponible en 15 minutos.';
+        }
 
         return array(
             'code' => 200,
             'status' => 'success',
             'data' => array(
-                'message' => 'No te desesperes, el siguiente juego estará disponible en 15 minutos.',
+                'message' => $mensaje,
                 'score_dynamic' => $puntaje->query_score,
                 'score_time' => $puntaje->punish_factor,
                 'score_new' => $participa->points
@@ -281,7 +307,9 @@ class TriviaConnect
             $resp = [];
             $r = -1;
 
-            if($trivia_id == 4){
+            $pre_data['id'] = $intento->query_ord;
+
+            if($trivia_id == 4 || $trivia_id == 8){
 
                 foreach ($intento->pregunta->respuestas as $respuesta){
 
@@ -292,8 +320,11 @@ class TriviaConnect
                         $intento->correct_str = $respuesta->option;
                     }
                     $intento->save();
-
                 }
+                $contents = Storage::get($intento->pregunta->question);
+                $base64 = base64_encode($contents);
+                $pre_data['pregunta'] = 'data:image/png;base64,'.$base64;
+
 
             } else {
 
@@ -310,30 +341,23 @@ class TriviaConnect
                 $intento->save();
             }
 
+            $pre_data['respuestas'] = $resp;
 
-            $pre_data = [
-                'id' => $intento->query_ord,
-                'pregunta' => $intento->pregunta->question,
-                'respuestas' => $resp
-            ];
-
-            if($trivia_id == 1)
+            if($trivia_id == 1 || $trivia_id == 5 )
             {
                 $contents = Storage::get($intento->pregunta->question);
-                //$imagedata = file_get_contents($file);
                 $base64 = base64_encode($contents);
                 $pre_data['pregunta'] = 'data:image/png;base64,'.$base64;
-            } else if($trivia_id == 2)
+
+            } else if($trivia_id == 2 || $trivia_id == 6 )
             {
                 $contents = Storage::get($intento->pregunta->question);
                 $base64 = base64_encode($contents);
                 $pre_data['pregunta'] = 'data:image/gif;base64,'.$base64;
                 $pre_data['caption'] = $intento->pregunta->caption;
-            } else if($trivia_id == 4){
 
-                $contents = Storage::get($intento->pregunta->question);
-                $base64 = base64_encode($contents);
-                $pre_data['pregunta'] = 'data:image/png;base64,'.$base64;
+            } else if($trivia_id == 4 || $trivia_id == 8 ){
+                $pre_data['pregunta'] = $intento->pregunta->question;
             }
 
             $data = array_add( $data, $t, $pre_data);
@@ -357,8 +381,8 @@ class TriviaConnect
 
         $message .= ($dias > 0) ? $dias.($dias == 1 ? ' día, ' :' días, ') : '';
         $message .= ($horas > 0) ? $horas.' hora'. ( $horas === 1 ? '':'s') .', ' : '';
-        $message .= ($minutos > 0) ? $minutos.' minuto'.( $minutos == 1 ? '': 's') : '';
-        return $message.'.';
+        $message .= ($minutos > 1) ? $minutos.' minutos.' : 'menos de un minuto.';
+        return $message;
     }
 
 }

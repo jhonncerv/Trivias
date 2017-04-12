@@ -9,9 +9,9 @@
         </div>
         <div class="tw-dynamic__app">
             <div class="tw-dynamic__app__title">Finding Twinings</div>
-            <div class="tw-dynamic__app__city">
+            <!-- div class="tw-dynamic__app__city">
                 <span>01</span> <span>Marruecos</span>
-            </div>
+            </div -->
             <div class="zoompanel">
                 <div class="zoompanel__marks">
                     <div class="zoompanel__marks__item"></div>

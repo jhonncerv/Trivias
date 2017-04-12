@@ -52,14 +52,14 @@ class TriviaController extends Controller
             return $response;
         }
 
-        $ciudad = Ciudad::where('name', $request->city)->get();
-        if ($ciudad[0]->is_publish == 1) {
+        $ciudad = Ciudad::where('name', $request->city)->first();
+        if ($ciudad->is_publish == 1) {
 
-            return $this->triviaConnect->giveMeTrivia($ciudad[0]->id);
+            return $this->triviaConnect->giveMeTrivia($ciudad->id);
 
         }
 
-        $fecha_publica = new Carbon($ciudad[0]->publish, 'America/Mexico_City');
+        $fecha_publica = new Carbon($ciudad->publish, 'America/Mexico_City');
         $message = 'Esta ciudad estará disponible en ';
         $response['message'] = $message.$this->triviaConnect->messageNextCity($fecha_publica);
 
@@ -72,25 +72,25 @@ class TriviaController extends Controller
         $puntaje = Puntaje::with('intentos.pregunta.respuestas', 'trivia.preguntas.respuestas')
                             ->where('available', 0)
                             ->where('participante_id', Auth::user()->participante[0]->id)
-                            ->where('time_finish', null)->get();
+                            ->where('time_finish', null)->first();
 
-        if($puntaje->isEmpty()){
+        if(empty($puntaje)){
             return array(
                 'code' => 401,
                 'status' => 'error',
-                'message' => 'Aun no has iniciado ninguna trivia.');
+                'message' => 'Aún no has iniciado ninguna trivia.');
         }
-        if($puntaje[0]->time_start !== null){
+        if($puntaje->time_start !== null){
 
             return array(
                 'code' => 200,
                 'status' => 'success',
                 'data' => array(
-                    'preguntas' => $this->triviaConnect->continuMeTrivia($puntaje[0]->intentos, $puntaje[0]->trivia->id)
+                    'preguntas' => $this->triviaConnect->continuMeTrivia($puntaje->intentos, $puntaje->trivia->id)
                 ));
         }
 
-        return $this->triviaConnect->startMeTrivia($puntaje[0]);
+        return $this->triviaConnect->startMeTrivia($puntaje);
 
     }
 
@@ -100,7 +100,7 @@ class TriviaController extends Controller
             return array(
                 'code' => 401,
                 'status' => 'error',
-                'message' => 'Aun no has iniciado ninguna trivia.');
+                'message' => 'Aún no has terminado la dinámica.');
 
         }
         $participa = Auth::user()->participante[0];
@@ -109,16 +109,16 @@ class TriviaController extends Controller
                 ->where('participante_id', $participa->id)
                 ->where('time_finish', null)
                 ->where('time_start', '<>', null)
-                ->get();
+                ->first();
 
-        if($puntaje->isEmpty()){
+        if(empty($puntaje)){
             return array(
                 'code' => 401,
                 'status' => 'error',
                 'message' => 'Aun no has iniciado ninguna trivia.');
         }
 
-        return $this->triviaConnect->stopMeTrivia($participa, $puntaje[0], $request->data);
+        return $this->triviaConnect->stopMeTrivia($participa, $puntaje, $request->data);
 
 
     }
