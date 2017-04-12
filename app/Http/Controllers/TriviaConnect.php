@@ -125,7 +125,7 @@ class TriviaConnect
             $resp = [];
             $t = -1;
 
-            if($puntaje->trivia->id == 4){
+            if($puntaje->trivia->id == 4 || $puntaje->trivia->id == 8){
 
                 foreach ($preguntas[$numbers[$i] - 1]->respuestas as $respuesta){
 
@@ -173,7 +173,7 @@ class TriviaConnect
                 'respuestas' => $resp
             ];
 
-            if($puntaje->trivia->id == 1)
+            if($puntaje->trivia->id == 1 || $puntaje->trivia->id == 5)
             {
                 $contents = Storage::get($preguntas[$numbers[$i] - 1]->question);
                 //$imagedata = file_get_contents($file);
