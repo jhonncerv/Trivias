@@ -203,12 +203,12 @@ class PreguntasTableSeeder extends Seeder
             'PuertaDeTorii.gif',
             'MonteFuji.gif',
             'TemploHoryuji.gif',
-            'TokyoSkyTree.giff'
+            'TokyoSkyTree.gif'
         );
         $caption = array(
             'Esta gran estatua se encuentra en Kamakura, ¿sabes de quién hablamos?',
             'Es un arco tradicional japonés que suele encontrarse a la entrada de los santuarios sintoístas:',
-            'Es el pico más alto de la isla de Honshu y de todo Japón: ',
+            'Es el pico más alto de la isla de Honshu y de todo Japón:',
             'Este templo también es conocido como "Templo de la Enseñanza de la Ley Floreciente":',
             'Es una torre de radiodifusión, restaurante y mirador, construida en Sumida, Tokio, Japón:'
         );
@@ -228,10 +228,10 @@ class PreguntasTableSeeder extends Seeder
 
         $preguntas = array(
                 'Más de ____ ancianos centenarios viven en Japón:',
-                'Es una costumbre bien vista en Japón. Se denomina "Inemuri" y se considera una muestra de lo trabajador que es el empleado y de las muchas fuerzas que le roba su labor: ',
+                'Es una costumbre bien vista en Japón. Se denomina "Inemuri" y se considera una muestra de lo trabajador que es el empleado y de las muchas fuerzas que le roba su labor:',
                 'En Japón hay más mascotas que niños. El país tiene una de las tasas de natalidad más bajas del mundo.',
-                'Está prohibido bailar en las discotecas y en los clubs después de... ',
-                'En Japón, los agricultores cultivan sandías de esta forma para facilitar su transporte y almacenamiento: ',
+                'Está prohibido bailar en las discotecas y en los clubs después de...',
+                'En Japón, los agricultores cultivan sandías de esta forma para facilitar su transporte y almacenamiento:',
             );
 
             for($i=0;$i<5;$i++){
@@ -247,7 +247,7 @@ class PreguntasTableSeeder extends Seeder
         $trivia = 8;
 
         $pregunta = new \App\Pregunta();
-        $pregunta->question = 'finding/FindJapan.png';
+        $pregunta->question = 'finding/FindingJapan.png';
         $pregunta->caption = null;
         $pregunta->trivia_id = $trivia;
         $pregunta->save();
