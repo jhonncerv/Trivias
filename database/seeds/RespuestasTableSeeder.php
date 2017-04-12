@@ -240,7 +240,7 @@ class RespuestasTableSeeder extends Seeder
 
 
         $res = array(
-            '520,100',
+            '520,50',
             '65,485',
             '495,580'
         );
