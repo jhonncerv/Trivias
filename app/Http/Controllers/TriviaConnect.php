@@ -75,7 +75,7 @@ class TriviaConnect
 
                     if( $tim < 15){
                         $response['message'] = 'No te desesperes, el siguiente juego estará disponible en ';
-                        if($tim == 15) {
+                        if($tim == 14) {
                             $response['message'].= ' menos de un minuto.';
                         } else {
                             $response['message'].= (15 -$tim) . ' minuto'.($tim == 14 ? '':'s').'.';
