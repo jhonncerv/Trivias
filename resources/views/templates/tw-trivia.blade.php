@@ -9,9 +9,9 @@
         </div>
         <div class="tw-dynamic__app">
             <div class="tw-dynamic__app__title">Trivia</div>
-            <div class="tw-dynamic__app__city">
+            <!-- div class="tw-dynamic__app__city">
                 <span>01</span> <span>Marruecos</span>
-            </div>
+            </div -->
             <div class="trivia">
                 <div class="trivia__item">
                     <div class="trivia__item__text">
