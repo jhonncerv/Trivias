@@ -117,6 +117,174 @@ class RespuestasTableSeeder extends Seeder
 
     public function run(){
 
+        /*
+         *
+         * Japon trivia 1 - 5
+         */
+       for($preg = 57; $preg <= 100; $preg++){
+
+            for ($i = 0; $i < 2 ; $i++) {
+
+                $respuesta = new \App\Respuesta();
+                $respuesta->option =  $i < 1 ? 'left' : 'right';
+                $respuesta->correct = ($preg > 76 ) ?  (( $i < 1) ? 0:1) : (($i > 0)?0:1);
+                $respuesta->pregunta_id = $preg;
+                $respuesta->save();
+
+            }
+        }
+
+        /*
+         *
+         * Japon triva 2 ~ 6
+         */
+
+        $rep = array(
+            [
+                'Budha',
+                'Dalí',
+                'Kamakura',
+            ],
+            [
+                'Arco Triunfal',
+                'Puera de Torii',
+                'Torana',
+            ],
+            [
+                'Machu Picchu',
+                'Monte Fuji',
+                'Volcan japonés',
+            ],
+            [
+                'Templo de Horyuji',
+                'Masaoka Shiki',
+                'Reido',
+            ],
+            [
+                'Torre de telecomunicación',
+                'Sky building',
+                'Tokyo sky tree',
+            ],
+        );
+
+        $res = array(1,2,2,1,3);
+
+
+        for($preg = 101; $preg <= 105; $preg++){
+
+            for ($i = 0; $i < 3 ; $i++) {
+
+                $respuesta = new \App\Respuesta();
+                $respuesta->option = $rep[$preg-101][$i];
+                $respuesta->correct = $i == ( $res[$preg-101] - 1 ) ? 1 : 0;
+                $respuesta->pregunta_id = $preg;
+                $respuesta->save();
+
+            }
+        }
+
+        /*
+         *
+         * Japon 3 ~ 7
+         */
+
+        $rep = array(
+            [
+                '50,000',
+                '100',
+                '174,000'
+            ],
+            [
+                'Tomar una ducha',
+                'Dormir en el trabajo',
+                'Hacer ejercicio por 20 minutoss'
+            ],
+            [
+                'Cierto',
+                'Falso',
+                'No sés'
+            ],
+            [
+                'Tomar té',
+                'Medianoche',
+                'Rezarn'
+            ],
+            [
+                'Triangulares',
+                'Redondas',
+                'Cuadradas'
+            ]
+
+        );
+
+        $res = array(1,2,1,2,3);
+
+        for($preg = 106; $preg <= 110; $preg++){
+
+            for ($i = 0; $i < 3 ; $i++) {
+
+                $respuesta = new \App\Respuesta();
+                $respuesta->option = $rep[$preg-106][$i];
+                $respuesta->correct = $i == ( $res[$preg-106] - 1 ) ? 1 : 0;
+                $respuesta->pregunta_id = $preg;
+                $respuesta->save();
+
+            }
+        }
+
+
+        /*
+         *
+         * Japon 4 ~8
+         */
+
+
+        $res = array(
+            '520,100',
+            '65,485',
+            '495,580'
+        );
+        $preg = 111;
+
+        for ($i = 0; $i < 3 ; $i++) {
+
+            $respuesta = new \App\Respuesta();
+            $respuesta->option = $res[$i];
+            $respuesta->correct = 1;
+            $respuesta->pregunta_id = $preg;
+            $respuesta->save();
+
+        }
+
+
     }
 
 }
+
+/*
+ *
+ *
+
+
+
+
+
+En Japón hay más mascotas que niños. El país tiene una de las tasas de natalidad más bajas del mundo.
+
+
+
+
+Está prohibido bailar en las discotecas y en los clubs después de...
+
+
+
+
+En Japón, los agricultores cultivan sandías de esta forma para facilitar su transporte y almacenamiento:
+
+
+
+ *
+ *
+ *
+ *
+ */
