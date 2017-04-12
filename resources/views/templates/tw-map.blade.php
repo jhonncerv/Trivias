@@ -18,7 +18,7 @@
                     @continue
                 @endif
             <div class="tw-map__titles__item tw-map__titles__item--{{ $ciudad->id }}" data-trigger-city="{{ $ciudad->name }}">
-                <span>0{{ $ciudad->id }}</span> <span>{{ $ciudad->name }}</span>
+                <span>0{{ $ciudad->id }}</span> <span>{{ $ciudad->name == 'JAPON' ? 'JAPÓN' : $ciudad->name }}</span>
             </div>
             @endforeach
         </div>
