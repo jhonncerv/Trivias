@@ -260,31 +260,3 @@ class RespuestasTableSeeder extends Seeder
     }
 
 }
-
-/*
- *
- *
-
-
-
-
-
-En Japón hay más mascotas que niños. El país tiene una de las tasas de natalidad más bajas del mundo.
-
-
-
-
-Está prohibido bailar en las discotecas y en los clubs después de...
-
-
-
-
-En Japón, los agricultores cultivan sandías de esta forma para facilitar su transporte y almacenamiento:
-
-
-
- *
- *
- *
- *
- */
