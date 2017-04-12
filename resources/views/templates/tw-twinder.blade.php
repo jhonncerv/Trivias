@@ -9,9 +9,9 @@
         </div>
         <div class="tw-dynamic__app">
             <div class="tw-dynamic__app__title">Twinder</div>
-            <div class="tw-dynamic__app__city">
+            <!-- div class="tw-dynamic__app__city">
                 <span>01</span> <span>Marruecos</span>
-            </div>
+            </div -->
             <div class="swipecards">
                 <div class="swipecards__item">
                     <div class="swipecards__item__body">
