@@ -78,7 +78,7 @@ class TriviaController extends Controller
             return array(
                 'code' => 401,
                 'status' => 'error',
-                'message' => 'Aun no has iniciado ninguna trivia.');
+                'message' => 'Aún no has iniciado ninguna trivia.');
         }
         if($puntaje[0]->time_start !== null){
 
@@ -100,7 +100,7 @@ class TriviaController extends Controller
             return array(
                 'code' => 401,
                 'status' => 'error',
-                'message' => 'Aun no has iniciado ninguna trivia.');
+                'message' => 'Aún no has terminado la dinámica.');
 
         }
         $participa = Auth::user()->participante[0];

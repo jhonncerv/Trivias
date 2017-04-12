@@ -26,39 +26,57 @@ class TriviaConnect
     public function giveMeTrivia($id)
     {
 
-        $trivias = Trivia::where('available', 1)->get();
-        $participa= Auth::user()->participante[0];
         $response = array(
             'code' => 401,
             'status' => 'error'
         );
 
+        $participa= Auth::user()->participante[0];
 
-        foreach ($trivias as $trivia){
+        $puntaje = $participa->puntajes()->where('ciudad_id', $id)->get();
 
-            $tiempo_puntaje = Puntaje::firstOrCreate([
-                'trivia_id' => $trivia->id,
-                'ciudad_id' => $id,
-                'participante_id' => $participa->id
-            ])->time_finish;
+        if($puntaje->isEmpty()){
 
-            if($tiempo_puntaje !== null){
+            $trivias = Trivia::where('available', 1)->get();
 
-                $diff = new Carbon($tiempo_puntaje, 'America/Mexico_City');
-                $tim = $diff->diffInMinutes(Carbon::now('America/Mexico_City'));
-
-                if( $tim < 15){
-                    $response['message'] = 'No te desesperes, el siguiente juego estará disponible en ' . (15 -$tim) . ' minuto'.($tim == 4 ? '':'s').'.';
-                    return $response;
-                }
+            foreach ($trivias as $trivia){
+                $points_pushed = Puntaje::Create([
+                    'trivia_id' => $trivia->id,
+                    'ciudad_id' => $id,
+                    'participante_id' => $participa->id
+                ]);
+                $puntaje->push($points_pushed);
             }
-
         }
 
-        $puntaje = $participa->puntajes()->where('available', 1)->where('ciudad_id', $id)->get();
 
-        if($puntaje->isNotEmpty()){
-            $puntaje = $puntaje->random();
+        $sig_juego = $puntaje->reject(function ($value) {
+            return isset($value->available) ? ($value->available == 0) : false  ;
+        });
+
+
+        if($sig_juego->isNotEmpty()){
+
+           foreach($puntaje as $p){
+
+                if($p->time_finish !== null){
+                    $diff = new Carbon($p->time_finish, 'America/Mexico_City');
+                    $tim = $diff->diffInMinutes(Carbon::now('America/Mexico_City'));
+
+                    if( $tim < 15){
+                        $response['message'] = 'No te desesperes, el siguiente juego estará disponible en ';
+                        if($tim == 14) {
+                            $response['message'].= ' menos de un minuto.';
+                        } else {
+                            $response['message'].= (15 -$tim) . ' minuto'.($tim == 14 ? '':'s').'.';
+                        }
+                        return $response;
+                    }
+                }
+
+            }
+
+            $puntaje = $sig_juego->random();
             $puntaje->available = 0;
             $puntaje->save();
             $response = array(
@@ -359,8 +377,8 @@ class TriviaConnect
 
         $message .= ($dias > 0) ? $dias.($dias == 1 ? ' día, ' :' días, ') : '';
         $message .= ($horas > 0) ? $horas.' hora'. ( $horas === 1 ? '':'s') .', ' : '';
-        $message .= ($minutos > 0) ? $minutos.' minuto'.( $minutos == 1 ? '': 's') : '';
-        return $message.'.';
+        $message .= ($minutos > 1) ? $minutos.' minutos.' : 'menos de un minuto.';
+        return $message;
     }
 
 }
