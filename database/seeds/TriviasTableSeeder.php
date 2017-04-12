@@ -13,7 +13,7 @@ class TriviasTableSeeder extends Seeder
     public function run()
     {
         $trivias = array('twinder', 'siluetas','trivia', 'finding');
-        $puntos = array(40, 30, 20, 50);
+      /*  $puntos = array(40, 30, 20, 50);
         $Cnow = Carbon::now();
         Carbon::setTestNow($Cnow);
 
@@ -36,7 +36,7 @@ class TriviasTableSeeder extends Seeder
             $trivia->query_size = $i == 3 ? 1 : 5;
             $trivia->publish = new Carbon('yesterday');
             $trivia->save();
-        }
+        }*/
 
     }
 }

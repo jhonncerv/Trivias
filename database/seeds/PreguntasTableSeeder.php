@@ -9,7 +9,7 @@ class PreguntasTableSeeder extends Seeder
      *
      * @return void
      */
-    public function run()
+/*    public function run()
     {
 
         for($ii = 1; $ii <= 3; $ii++){
@@ -127,4 +127,33 @@ class PreguntasTableSeeder extends Seeder
         $pregunta->trivia_id = $ii;
         $pregunta->save();
     }
+*/
+
+/*
+ *  JAPON
+ *
+ */
+    public function run(){
+
+        $trivia = 1;
+            $preguntas = array(
+                'EL nombre oficial de Marruecos:',
+                'El ritual del té está descrito en los diarios y libros de este importante escritor:',
+                'Como es un país con mayoría musulmán, Marruecos representa sus hospitales con una:',
+                '¿Cómo se llaman los gorros rojos típicos que usan los marroquíes?',
+                'En Marruecos besarse y otros actos de amor en público, están prohibidos; se reservan para la intimidad del hogar:',
+            );
+
+            for($i=0;$i<5;$i++){
+
+                $pregunta = new \App\Pregunta();
+                $pregunta->question = $preguntas[$i];
+                $pregunta->caption = null;
+                $pregunta->trivia_id = $trivia;
+                $pregunta->save();
+
+            }
+
+    }
+
 }

@@ -9,6 +9,8 @@ class RespuestasTableSeeder extends Seeder
      *
      * @return void
      */
+
+    /*
     public function run()
     {
 
@@ -111,4 +113,10 @@ class RespuestasTableSeeder extends Seeder
         }
 
     }
+    */
+
+    public function run(){
+
+    }
+
 }
