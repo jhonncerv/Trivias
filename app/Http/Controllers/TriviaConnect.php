@@ -39,6 +39,16 @@ class TriviaConnect
 
             $trivias = Trivia::where('available', 1)->get();
 
+            $trivias = $trivias->filter(function ($value) use ($id) {
+                for ($i = (1 + (4 * ($id - 1))); $i <= (4 + (4 * ($id - 1)));$i++){
+                    if($value->id == $i){
+                        return true;
+                    }
+                }
+                return false;
+            });
+
+
             foreach ($trivias as $trivia){
                 $points_pushed = Puntaje::Create([
                     'trivia_id' => $trivia->id,
