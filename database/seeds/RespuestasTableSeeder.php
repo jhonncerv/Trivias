@@ -197,17 +197,17 @@ class RespuestasTableSeeder extends Seeder
             [
                 'Tomar una ducha',
                 'Dormir en el trabajo',
-                'Hacer ejercicio por 20 minutoss'
+                'Hacer ejercicio por 20 minutos'
             ],
             [
                 'Cierto',
                 'Falso',
-                'No sés'
+                'No sé'
             ],
             [
                 'Tomar té',
                 'Medianoche',
-                'Rezarn'
+                'Rezar'
             ],
             [
                 'Triangulares',
