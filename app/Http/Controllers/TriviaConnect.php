@@ -73,12 +73,12 @@ class TriviaConnect
                     $diff = new Carbon($p->time_finish, 'America/Mexico_City');
                     $tim = $diff->diffInMinutes(Carbon::now('America/Mexico_City'));
 
-                    if( $tim < 2){
+                    if( $tim < 15){
                         $response['message'] = 'No te desesperes, el siguiente juego estará disponible en ';
-                        if($tim == 2) {
+                        if($tim == 15) {
                             $response['message'].= ' menos de un minuto.';
                         } else {
-                            $response['message'].= (2 -$tim) . ' minuto'.($tim == 1 ? '':'s').'.';
+                            $response['message'].= (15 -$tim) . ' minuto'.($tim == 14 ? '':'s').'.';
                         }
                         return $response;
                     }
