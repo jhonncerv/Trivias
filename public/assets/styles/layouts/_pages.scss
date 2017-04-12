@@ -114,9 +114,23 @@
 	position: relative;
 }
 
+@keyframes focus {
+  0% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(8px);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+%focus-animation{
+	animation: focus 800ms linear infinite;
+}
 .tw-map{
 	@extend .tw-app;
-	.tw-map__stage{
+	&__stage{
 		width: 920px;
 		position: absolute;
 		left: 50%;
@@ -130,104 +144,169 @@
 			width: 1200px;
 			margin-left: -600px;		
 		}
-		&__pins{
-			width: 100%;
-			position: relative;
-			max-height: 100%; //No funciona porque el padre no tiene altura definida
-			img{
-				display: block;
-				max-width: 100%;
-				height: auto;
-				max-height: 90%; //Lo mismo de antes
-				margin: auto;
+	}
+	&__pins{
+		width: 100%;
+		position: relative;
+		bottom: 0;
+		transition: left 400ms, top 400ms;
+		.tw-map--1 &{
+			left: 10%;
+		}
+		.tw-map--2 &{
+			left: -33%;
+		}
+		.tw-map--3 &{
+			left: -16%;
+		}
+		.tw-map--4 &{
+			left: 26%;
+			top: -140px;
+		}
+		.tw-map--5 &{
+			left: 8%;
+			top: 60px;
+		}
+		img{
+			display: block;
+			max-width: 100%;
+			height: auto;
+			max-height: 90%; //Lo mismo de antes
+			margin: auto;
+		}
+		&__item{
+			position: absolute;
+			width: 5%;
+    		height: 15%;
+			background-image: url(#{$image_path}/pin.png);
+			background-size: 100%;
+			background-repeat: no-repeat;
+			cursor: pointer;
+			&--1{
+				left: 37.1%;
+				top: 21%;
+				.tw-map--1 &{
+					@extend %focus-animation;
+				}
 			}
-			&__item{
-				position: absolute;
-				width: 5%;
-	    		height: 15%;
-				background-image: url(#{$image_path}/pin.png);
-				background-size: 100%;
-				background-repeat: no-repeat;
-				cursor: pointer;
-				&--m{
-					left: 37.1%;
-					top: 21%;
+			&--2{
+				left: 80%;
+				top: 16%;
+				.tw-map--2 &{
+					@extend %focus-animation;
+				}
+			}
+			&--3{
+				left: 63%;
+				top: 30%;
+				.tw-map--3 &{
+					@extend %focus-animation;
+				}
+			}
+			&--4{
+				left: 21%;
+				top: 70%;
+				.tw-map--4 &{
+					@extend %focus-animation;
+				}
+			}
+			&--5{
+				top: 4.5%;
+				left: 39%;
+				.tw-map--5 &{
+					@extend %focus-animation;
 				}
 			}
 		}
 	}
-	.tw-map__ctrls{
+	&__ctrls{
 		width: 100%;
 		position: absolute;
 		bottom: 0;
 		left: 0;
 		text-align: center;
 		padding-bottom: $padding-unit;
-		&__dots{
-			width: 100%;
-			&__item{
-				display: inline-block;
-				position: relative;
-				width: 16px;
-				height: 16px;
-				border-radius: 16px;
-				border: 1px solid color(border);
-				margin: 0 15px;
-				cursor: pointer;
-				&--available{
-					&:before{
-						content: '';
-						position: absolute;
-						top: 50%;
-						height: 50%;
-						width: 10px;
-						height: 10px;
-						margin-left: -5px;
-						margin-top: -5px;
-						border-radius: 10px;
-						background: color(on);
-					}
-					&:after{
-						content: "";
-						position: absolute;
-						top: 50%;
-						width: 30px;
-						height: 1px;
-						border-top: 1px dotted color(border);
-						left: 16px;
-					}
-				}
-				&:last-child{
-					&:after{
-						content: none;
-					}
-				}
-			}
-		}
-		&__titles{
-			height: 75px;
-			margin-bottom: 25px;
+	}
+	&__dots{
+		width: 100%;
+		&__item{
+			display: inline-block;
 			position: relative;
-			&__item{
-				@include duotitle('small','center',color(nero));
-				position: absolute;
-				top: 0;
-				left: 50%;
-				margin-left: -100px;
-				width: 200px;
-				height: 100%;
-				overflow: hidden;
+			width: 16px;
+			height: 16px;
+			border-radius: 16px;
+			border: 1px solid color(border);
+			margin: 0 15px;
+			cursor: pointer;
+			&--available{
+				&:before{
+					content: '';
+					position: absolute;
+					top: 50%;
+					height: 50%;
+					width: 10px;
+					height: 10px;
+					margin-left: -5px;
+					margin-top: -5px;
+					border-radius: 10px;
+					background: color(on);
+				}
 				&:after{
 					content: "";
 					position: absolute;
-					bottom: 0;
-					left: 50%;
-					margin-left: -8px;
-					width: 16px;
+					top: 50%;
+					width: 30px;
 					height: 1px;
-					border-bottom: 1px solid color(border);
+					border-top: 1px dotted color(border);
+					left: 16px;
 				}
-				
+			}
+			&:last-child{
+				&:after{
+					content: none;
+				}
+			}
+		}
+	}
+	&__titles{
+		height: 75px;
+		margin-bottom: 25px;
+		position: relative;
+		&__item{
+			@include duotitle('small','center',color(nero));
+			position: absolute;
+			top: 0;
+			left: 50%;
+			margin-left: -100px;
+			width: 200px;
+			height: 100%;
+			overflow: hidden;
+			opacity: 0;
+			transition: opacity 800ms;
+			&:after{
+				content: "";
+				position: absolute;
+				bottom: 0;
+				left: 50%;
+				margin-left: -8px;
+				width: 16px;
+				height: 1px;
+				border-bottom: 1px solid color(border);
+			}
+			.tw-map--1 &--1{
+				opacity: 1;
+			}
+			.tw-map--2 &--2{
+				opacity: 1;
+			}
+			.tw-map--3 &--3{
+				opacity: 1;
+			}
+			.tw-map--4 &--4{
+				opacity: 1;
+			}
+			.tw-map--5 &--5{
+				opacity: 1;
 			}
 		}
 	}
