@@ -72,12 +72,12 @@ class TriviaConnect
                     $diff = new Carbon($p->time_finish, 'America/Mexico_City');
                     $tim = $diff->diffInMinutes(Carbon::now('America/Mexico_City'));
 
-                    if( $tim < 15){
+                    if( $tim < 2){
                         $response['message'] = 'No te desesperes, el siguiente juego estará disponible en ';
-                        if($tim == 14) {
+                        if($tim == 1) {
                             $response['message'].= ' menos de un minuto.';
                         } else {
-                            $response['message'].= (15 -$tim) . ' minuto'.($tim == 14 ? '':'s').'.';
+                            $response['message'].= (2 -$tim) . ' minuto'.($tim == 1 ? '':'s').'.';
                         }
                         return $response;
                     }
@@ -126,7 +126,7 @@ class TriviaConnect
 
             $pre_data['id'] = $id_preg;
 
-            if($puntaje->trivia->id == 4 || $puntaje->trivia->id == 8 || $puntaje->trivia->id == 12){
+            if($puntaje->trivia->id == 4 || $puntaje->trivia->id == 8 || $puntaje->trivia->id == 12 || $puntaje->trivia->id == 16){
 
                 foreach ($preguntas[$numbers[$i] - 1]->respuestas as $respuesta){
 
@@ -173,20 +173,20 @@ class TriviaConnect
 
             $pre_data['respuestas'] = $resp;
 
-            if($puntaje->trivia->id == 1 || $puntaje->trivia->id == 5 || $puntaje->trivia->id == 9)
+            if($puntaje->trivia->id == 1 || $puntaje->trivia->id == 5 || $puntaje->trivia->id == 9 || $puntaje->trivia->id == 13)
             {
                 $contents = Storage::get($preguntas[$numbers[$i] - 1]->question);
                 $base64 = base64_encode($contents);
                 $pre_data['pregunta'] = 'data:image/png;base64,'.$base64;
 
-            } else if($puntaje->trivia->id == 2 || $puntaje->trivia->id == 6 || $puntaje->trivia->id == 10)
+            } else if($puntaje->trivia->id == 2 || $puntaje->trivia->id == 6 || $puntaje->trivia->id == 10 || $puntaje->trivia->id == 14)
             {
                 $contents = Storage::get($preguntas[$numbers[$i] - 1]->question);
                 $base64 = base64_encode($contents);
                 $pre_data['pregunta'] = 'data:image/gif;base64,'.$base64;
                 $pre_data['caption'] = $preguntas[$numbers[$i] - 1]->caption;
 
-            } else if($puntaje->trivia->id == 3 || $puntaje->trivia->id == 7 || $puntaje->trivia->id == 11){
+            } else if($puntaje->trivia->id == 3 || $puntaje->trivia->id == 7 || $puntaje->trivia->id == 11 || $puntaje->trivia->id == 15){
                 $pre_data['pregunta'] = $preguntas[$numbers[$i] - 1]->question;
             }
             $data = array_add( $data, $i, $pre_data);
@@ -230,7 +230,7 @@ class TriviaConnect
         $intentos = $puntaje->intentos;
         $puntos = 0;
 
-        if($puntaje->trivia->id == 4 || $puntaje->trivia->id == 8 || $puntaje->trivia->id == 12) {
+        if($puntaje->trivia->id == 4 || $puntaje->trivia->id == 8 || $puntaje->trivia->id == 12 || $puntaje->trivia->id == 16) {
 
             for($i = 0; $i < min(count($data),count($intentos)); $i++){
                 $intentos[$i]->attempt_str = $data[$i]['x'].','.$data[$i]['y'];
@@ -331,7 +331,7 @@ class TriviaConnect
 
             $pre_data['id'] = $intento->query_ord;
 
-            if($trivia_id == 4 || $trivia_id == 8 || $trivia_id == 12){
+            if($trivia_id == 4 || $trivia_id == 8 || $trivia_id == 12 || $trivia_id == 16){
 
                 foreach ($intento->pregunta->respuestas as $respuesta){
 
@@ -365,20 +365,20 @@ class TriviaConnect
 
             $pre_data['respuestas'] = $resp;
 
-            if($trivia_id == 1 || $trivia_id == 5 || $trivia_id == 9 )
+            if($trivia_id == 1 || $trivia_id == 5 || $trivia_id == 9 || $trivia_id == 13 )
             {
                 $contents = Storage::get($intento->pregunta->question);
                 $base64 = base64_encode($contents);
                 $pre_data['pregunta'] = 'data:image/png;base64,'.$base64;
 
-            } else if($trivia_id == 2 || $trivia_id == 6 || $trivia_id == 10 )
+            } else if($trivia_id == 2 || $trivia_id == 6 || $trivia_id == 10 || $trivia_id == 14 )
             {
                 $contents = Storage::get($intento->pregunta->question);
                 $base64 = base64_encode($contents);
                 $pre_data['pregunta'] = 'data:image/gif;base64,'.$base64;
                 $pre_data['caption'] = $intento->pregunta->caption;
 
-            } else if($trivia_id == 3 || $trivia_id == 7 || $trivia_id == 11 ){
+            } else if($trivia_id == 3 || $trivia_id == 7 || $trivia_id == 11 || $trivia_id == 15 ){
                 $pre_data['pregunta'] = $intento->pregunta->question;
             }
 
