@@ -14,8 +14,8 @@ class DatabaseSeeder extends Seeder
         //$this->call(UsersTableSeeder::class);
 //        $this->call(PostalesTableSeeder::class);
         //$this->call(CiudadesTableSeeder::class);
-        $this->call(TriviasTableSeeder::class);
-        $this->call(PreguntasTableSeeder::class);
+//        $this->call(TriviasTableSeeder::class);
+//        $this->call(PreguntasTableSeeder::class);
         $this->call(RespuestasTableSeeder::class);
     }
 }
