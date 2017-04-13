@@ -133,6 +133,7 @@ class PreguntasTableSeeder extends Seeder
  *  JAPON
  *
  */
+/*
     public function run(){
 
         $trivia = 5;
@@ -253,6 +254,382 @@ class PreguntasTableSeeder extends Seeder
         $pregunta->save();
 
     }
+*/
+
+/*
+ * 
+ *  India
+ *
+ */
+
+    public function run() {
+
+        $trivia = 9;
+
+
+        $imagenes = array(
+            'fake/india/Banana.png',
+            'fake/india/Bergamota.png',
+            'fake/india/Cardamomo.png',
+            'fake/india/Chickpea.png',
+            'fake/india/CilantroMenta.png',
+            'fake/india/Clove.png',
+            'fake/india/Coconut.png',
+            'fake/india/Coffee.png',
+            'fake/india/CorianderMint.png',
+            'fake/india/Ghee.png',
+            'fake/india/Lassi.png',
+            'fake/india/Laurel.png',
+            'fake/india/Lychee.png',
+            'fake/india/Mango.png',
+            'fake/india/Papaya.png',
+            'fake/india/Saffron.png',
+            'fake/india/Sunflower.png',
+            'fake/india/WhiteTea.png',
+            'fake/india/Yoghurt.png',
+            'fake/india/Zapota.png',
+            'reales/Blackurrant.png',
+            'reales/CamomilleHoneyVainilla.png',
+            'reales/CamomilleSpearmint.png',
+            'reales/EarlGrey.png',
+            'reales/EnglishBreakfast.png',
+            'reales/FourRedFruits.png',
+            'reales/GreenTeaCranberry.png',
+            'reales/GreenTeaEarlyGrey.png',
+            'reales/GreenTeaJasmine.png',
+            'reales/GreenTeaJasmine2.png',
+            'reales/GreenTeaLemon.png',
+            'reales/GreenTeaMint.png',
+            'reales/LadyGrey.png',
+            'reales/LemonGinger.png',
+            'reales/LemonTwist.png',
+            'reales/OrangeAndCinnamon.png',
+            'reales/PeachPassionfruit.png',
+            'reales/PureCamomille.png',
+            'reales/PureGreenTea.png',
+            'reales/PureGreenTea2.png',
+            'reales/PurePeppermint.png',
+            'reales/StrawberryMango.png',
+            'reales/SummerGarden.png',
+            'reales/VoyageIndianChai.png',
+            'reales/WildBerry.png',
+        );
+
+        for($i=0;$i<count($imagenes);$i++){
+
+            $pregunta = new \App\Pregunta();
+            $pregunta->question = $imagenes[$i];
+            $pregunta->caption = null;
+            $pregunta->trivia_id = $trivia;
+            $pregunta->save();
+        }
+
+        $trivia = 10;
+
+        $pre = 'siluetas/india/';
+
+        $imagenes = array(
+            'TajMahal.gif',
+            'Loto.gif',
+            'PuertaIndia.gif',
+            'Elefante.gif',
+            'Mandala.gif',
+        );
+
+        $caption = array(
+            'Es el símbolo más representativo de la India:',
+            'En este templo cualquier religión está invitada:',
+            'Ubicada en el llamado "camino de los reyes" Rajpath en la ciudad india de Nueva Delhi:',
+            'Estos animales son asociados a la religión hindú y la herencia cultural. Una India sin ellos es simplemente inimaginable.',
+            'Diagrama simbólico que en el budismo representa la evolución del universo respecto a un punto central:',
+        );
+
+        for($i=0;$i<5;$i++){
+
+            $pregunta = new \App\Pregunta();
+            $pregunta->question = $pre.$imagenes[$i];
+            $pregunta->caption = $caption[$i];
+            $pregunta->trivia_id = $trivia;
+            $pregunta->save();
+        }
+
+        $trivia = 11;
+
+        $preguntas = array(
+            'La India es el segundo país más poblado del mundo, con más de:',
+            'Monjes nómadas que siempre viajan en busca de la iluminación. Tienen bastantes libertades, entre ellas fumar marihuana o viajar gratis en el tren: ',
+            'Es un animal sagrado en la India, así que está prohibido sacrificarlo. Viven libremente por todo el país, incluso por las ciudades, y es frecuente encontrarles en todos los sitios, incluso en las estaciones de tren:',
+            'El ajedrez, el algebra y la trigonometría tienen su origen en la India:',
+            'Es un río considerado sagrado, y si vas a la ciudad de Varanasi verás como los hindúes queman a sus fallecidos en las orillas del río:',
+        );
+
+        for($i=0;$i<5;$i++){
+
+            $pregunta = new \App\Pregunta();
+            $pregunta->question = $preguntas[$i];
+            $pregunta->caption = null;
+            $pregunta->trivia_id = $trivia;
+            $pregunta->save();
+
+        }
+
+        $trivia = 12;
+
+        $pregunta = new \App\Pregunta();
+        $pregunta->question = 'finding/FindingIndia.png';
+        $pregunta->caption = null;
+        $pregunta->trivia_id = $trivia;
+        $pregunta->save();
+    }
+
+
+    /*
+     *  Argentina
+     *
+     */
+/*
+    public function run() {
+
+        $trivia = 13;
+
+        $imagenes = array(
+            '',
+            '',
+            '',
+            '',
+            '',
+            '',
+            '',
+            '',
+            '',
+            '',
+            '',
+            '',
+            '',
+            '',
+            '',
+            '',
+            '',
+            '',
+            '',
+            '',
+            'reales/Blackurrant.png',
+            'reales/CamomilleHoneyVainilla.png',
+            'reales/CamomilleSpearmint.png',
+            'reales/EarlGrey.png',
+            'reales/EnglishBreakfast.png',
+            'reales/FourRedFruits.png',
+            'reales/GreenTeaCranberry.png',
+            'reales/GreenTeaEarlyGrey.png',
+            'reales/GreenTeaJasmine.png',
+            'reales/GreenTeaJasmine2.png',
+            'reales/GreenTeaLemon.png',
+            'reales/GreenTeaMint.png',
+            'reales/LadyGrey.png',
+            'reales/LemonGinger.png',
+            'reales/LemonTwist.png',
+            'reales/OrangeAndCinnamon.png',
+            'reales/PeachPassionfruit.png',
+            'reales/PureCamomille.png',
+            'reales/PureGreenTea.png',
+            'reales/PureGreenTea2.png',
+            'reales/PurePeppermint.png',
+            'reales/StrawberryMango.png',
+            'reales/SummerGarden.png',
+            'reales/VoyageIndianChai.png',
+            'reales/WildBerry.png',
+        );
+
+        for($i=0;$i<count($imagenes);$i++){
+
+            $pregunta = new \App\Pregunta();
+            $pregunta->question = $imagenes[$i];
+            $pregunta->caption = null;
+            $pregunta->trivia_id = $trivia;
+            $pregunta->save();
+        }
+
+        $trivia = 14;
+
+        $pre = 'siluetas/india/';
+
+        $imagenes = array(
+            '',
+            '',
+            '',
+            '',
+            '',
+        );
+
+        $caption = array(
+            '',
+            '',
+            '',
+            '',
+            '',
+        );
+
+        for($i=0;$i<5;$i++){
+
+            $pregunta = new \App\Pregunta();
+            $pregunta->question = $pre.$imagenes[$i];
+            $pregunta->caption = $caption[$i];
+            $pregunta->trivia_id = $trivia;
+            $pregunta->save();
+        }
+
+        $trivia = 15;
+
+        $preguntas = array(
+            '',
+            '',
+            '',
+            '',
+            '',
+        );
+
+        for($i=0;$i<5;$i++){
+
+            $pregunta = new \App\Pregunta();
+            $pregunta->question = $preguntas[$i];
+            $pregunta->caption = null;
+            $pregunta->trivia_id = $trivia;
+            $pregunta->save();
+
+        }
+
+        $trivia = 16;
+
+        $pregunta = new \App\Pregunta();
+        $pregunta->question = 'finding/FindingArgentina.png';
+        $pregunta->caption = null;
+        $pregunta->trivia_id = $trivia;
+        $pregunta->save();
+    }
+*/
+    /*
+     *  Inglaterra
+     *
+     */
+/*
+    public function run() {
+
+        $trivia = 13;
+
+        $imagenes = array(
+            '',
+            '',
+            '',
+            '',
+            '',
+            '',
+            '',
+            '',
+            '',
+            '',
+            '',
+            '',
+            '',
+            '',
+            '',
+            '',
+            '',
+            '',
+            '',
+            '',
+            'reales/Blackurrant.png',
+            'reales/CamomilleHoneyVainilla.png',
+            'reales/CamomilleSpearmint.png',
+            'reales/EarlGrey.png',
+            'reales/EnglishBreakfast.png',
+            'reales/FourRedFruits.png',
+            'reales/GreenTeaCranberry.png',
+            'reales/GreenTeaEarlyGrey.png',
+            'reales/GreenTeaJasmine.png',
+            'reales/GreenTeaJasmine2.png',
+            'reales/GreenTeaLemon.png',
+            'reales/GreenTeaMint.png',
+            'reales/LadyGrey.png',
+            'reales/LemonGinger.png',
+            'reales/LemonTwist.png',
+            'reales/OrangeAndCinnamon.png',
+            'reales/PeachPassionfruit.png',
+            'reales/PureCamomille.png',
+            'reales/PureGreenTea.png',
+            'reales/PureGreenTea2.png',
+            'reales/PurePeppermint.png',
+            'reales/StrawberryMango.png',
+            'reales/SummerGarden.png',
+            'reales/VoyageIndianChai.png',
+            'reales/WildBerry.png',
+        );
+
+        for($i=0;$i<count($imagenes);$i++){
+
+            $pregunta = new \App\Pregunta();
+            $pregunta->question = $imagenes[$i];
+            $pregunta->caption = null;
+            $pregunta->trivia_id = $trivia;
+            $pregunta->save();
+        }
+
+        $trivia = 14;
+
+        $pre = 'siluetas/india/';
+
+        $imagenes = array(
+            '',
+            '',
+            '',
+            '',
+            '',
+        );
+
+        $caption = array(
+            '',
+            '',
+            '',
+            '',
+            '',
+        );
+
+        for($i=0;$i<5;$i++){
+
+            $pregunta = new \App\Pregunta();
+            $pregunta->question = $pre.$imagenes[$i];
+            $pregunta->caption = $caption[$i];
+            $pregunta->trivia_id = $trivia;
+            $pregunta->save();
+        }
+
+        $trivia = 15;
+
+        $preguntas = array(
+            '',
+            '',
+            '',
+            '',
+            '',
+        );
+
+        for($i=0;$i<5;$i++){
+
+            $pregunta = new \App\Pregunta();
+            $pregunta->question = $preguntas[$i];
+            $pregunta->caption = null;
+            $pregunta->trivia_id = $trivia;
+            $pregunta->save();
+
+        }
+        $trivia = ;
+
+        $pregunta = new \App\Pregunta();
+        $pregunta->question = 'finding/FindingInglaterra.png';
+        $pregunta->caption = null;
+        $pregunta->trivia_id = $trivia;
+        $pregunta->save();
+    }
+*/
 
 }
 

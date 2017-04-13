@@ -121,7 +121,7 @@ class RespuestasTableSeeder extends Seeder
          *
          * Japon trivia 1 - 5
          */
-       for($preg = 57; $preg <= 100; $preg++){
+       /*for($preg = 57; $preg <= 100; $preg++){
 
             for ($i = 0; $i < 2 ; $i++) {
 
@@ -132,14 +132,14 @@ class RespuestasTableSeeder extends Seeder
                 $respuesta->save();
 
             }
-        }
+        }*/
 
         /*
          *
          * Japon triva 2 ~ 6
          */
 
-        $rep = array(
+       /* $rep = array(
             [
                 'Budha',
                 'Dalí',
@@ -181,13 +181,13 @@ class RespuestasTableSeeder extends Seeder
                 $respuesta->save();
 
             }
-        }
+        }*/
 
         /*
          *
          * Japon 3 ~ 7
          */
-
+/*
         $rep = array(
             [
                 '50,000',
@@ -231,7 +231,7 @@ class RespuestasTableSeeder extends Seeder
 
             }
         }
-
+*/
 
         /*
          *
@@ -239,7 +239,7 @@ class RespuestasTableSeeder extends Seeder
          */
 
 
-        $res = array(
+   /*     $res = array(
             '520,50',
             '65,485',
             '495,580'
@@ -255,7 +255,209 @@ class RespuestasTableSeeder extends Seeder
             $respuesta->save();
 
         }
+*/
 
+        /*
+           *
+           * india trivia 1 - 9
+           */
+
+        for($preg = 112; $preg <= 156; $preg++){
+
+            for ($i = 0; $i < 2 ; $i++) {
+
+                $respuesta = new \App\Respuesta();
+                $respuesta->option =  $i < 1 ? 'left' : 'right';
+                $respuesta->correct = ($preg > 131 ) ?  (( $i < 1) ? 0:1) : (($i > 0)?0:1);
+                $respuesta->pregunta_id = $preg;
+                $respuesta->save();
+
+            }
+        }
+
+        /*
+         *
+         * India triva 2 ~ 10
+         */
+
+        $rep = array(
+            [
+                'Gandhi',
+                'Casa Blanca',
+                'Taj Mahal',
+            ],
+            [
+                'Templo de Loto',
+                'Templo de Dios',
+                'Templo de Delhi',
+            ],
+            [
+                'Puerta de Alcalá',
+                'Puerta de la India',
+                'Puerta al cielo',
+            ],
+            [
+                'Halcones',
+                'Elefantes',
+                'Leones ',
+            ],
+            [
+                'Mandala',
+                'Cruz blanca',
+                'Círculo sagrado',
+            ],
+        );
+
+        $res = array(3,1,2,2,1);
+
+
+        for($preg = 157; $preg <= 161; $preg++){
+
+            for ($i = 0; $i < 3 ; $i++) {
+
+                $respuesta = new \App\Respuesta();
+                $respuesta->option = $rep[$preg-157][$i];
+                $respuesta->correct = $i == ( $res[$preg-157] - 1 ) ? 1 : 0;
+                $respuesta->pregunta_id = $preg;
+                $respuesta->save();
+
+            }
+        }
+
+        /*
+         *
+         * india 3 ~ 11
+         */
+
+        $rep = array(
+            [
+                '1,200 millones de habitantes',
+                '150 millones de habitantes ',
+                '2,300 millones de habitantes ',
+            ],
+            [
+                'Dalai Lama',
+                'Sadhus',
+                'Monjes Iluminados',
+            ],
+            [
+                'Elefante',
+                'Gallo',
+                'Vaca',
+            ],
+            [
+                'Cierto ',
+                'Falso ',
+                'No sé',
+            ],
+            [
+                'Río Sagrado',
+                'Río Ganges',
+                'Río Rojo',
+            ]
+
+        );
+
+        $res = array(1,2,3,1,2);
+
+        for($preg = 162; $preg <= 166; $preg++){
+
+            for ($i = 0; $i < 3 ; $i++) {
+
+                $respuesta = new \App\Respuesta();
+                $respuesta->option = $rep[$preg-162][$i];
+                $respuesta->correct = $i == ( $res[$preg-162] - 1 ) ? 1 : 0;
+                $respuesta->pregunta_id = $preg;
+                $respuesta->save();
+
+            }
+        }
+
+
+        /*
+         *
+         * India 4 ~ 12
+         *  945,40
+         *  130, 320
+         *  50, 1300
+         *  750, 1400
+         */
+
+
+        $res = array(
+            '472,20',
+            '65,160',
+            '25,650',
+            '375,700',
+        );
+        $preg = 167;
+
+        for ($i = 0; $i < 4 ; $i++) {
+
+            $respuesta = new \App\Respuesta();
+            $respuesta->option = $res[$i];
+            $respuesta->correct = 1;
+            $respuesta->pregunta_id = $preg;
+            $respuesta->save();
+
+        }
+
+
+        /*
+         *
+         * Argentina 4 ~
+         *  30,1100
+         *  140,800
+         * 1210,1075
+         *
+         */
+
+/*
+        $res = array(
+            '15,550',
+            '70,400',
+            '605,536',
+        );
+        $preg = 111;
+
+        for ($i = 0; $i < 3 ; $i++) {
+
+            $respuesta = new \App\Respuesta();
+            $respuesta->option = $res[$i];
+            $respuesta->correct = 1;
+            $respuesta->pregunta_id = $preg;
+            $respuesta->save();
+
+        }
+*/
+        /*
+         *
+         * Inglatera 4 ~
+         *  260,300
+         *  920,85
+         *  1286,922
+         *  664,1434
+         */
+
+/*
+        $res = array(
+            '130,150',
+            '460,43',
+            '643,461',
+            '332,717',
+        );
+        $preg = 111;
+
+        for ($i = 0; $i < 4 ; $i++) {
+
+            $respuesta = new \App\Respuesta();
+            $respuesta->option = $res[$i];
+            $respuesta->correct = 1;
+            $respuesta->pregunta_id = $preg;
+            $respuesta->save();
+
+        }
+*/
 
     }
 
