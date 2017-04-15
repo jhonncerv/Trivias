@@ -387,7 +387,7 @@ class PreguntasTableSeeder extends Seeder
      *  Argentina
      *
      */
-/*
+
     public function run() {
 
         $trivia = 13;
@@ -505,14 +505,11 @@ class PreguntasTableSeeder extends Seeder
         $pregunta->caption = null;
         $pregunta->trivia_id = $trivia;
         $pregunta->save();
-    }
-*/
     /*
      *  Inglaterra
      *
      */
 
-    public function run() {
 
         $trivia = 17;
 

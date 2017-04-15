@@ -406,7 +406,7 @@ class RespuestasTableSeeder extends Seeder
          *
          * Argentina trivia 1 - 13
          */
-/*
+
         for($preg = 168; $preg <= 212; $preg++){
 
             for ($i = 0; $i < 2 ; $i++) {
@@ -419,106 +419,106 @@ class RespuestasTableSeeder extends Seeder
 
             }
         }
-*/
+
 
         /*
          *
          * Argentina triva 2 ~ 14
          */
-/*
-                $rep = array(
-                    [
-                        'Casa Rosa',
-                        'Obelisco ',
-                        'Maradonna  ',
-                    ],
-                    [
-                        'Faro de Oriente',
-                        'Faro en Ushuaia',
-                        'Faro de San Juan de Salvamento',
-                    ],
-                    [
-                        'Vals',
-                        'Tango ',
-                        'Soul ',
-                    ],
-                    [
-                        'Museo Histórico Nacional del Cabildo y la Revolución de Mayo',
-                        'Museo Nacional de Argentina ',
-                        'Museo de la ciudad de Buenos Aires',
-                    ],
-                    [
-                        'Torre de Jesús ',
-                        ' La Catedral de la Plata',
-                        'Catedral de Nuestra Señora de la Concepción',
-                    ],
-                );
 
-                $res = array(2,3,2,1,2);
+        $rep = array(
+            [
+                'Casa Rosa',
+                'Obelisco ',
+                'Maradonna  ',
+            ],
+            [
+                'Faro de Oriente',
+                'Faro en Ushuaia',
+                'Faro de San Juan de Salvamento',
+            ],
+            [
+                'Vals',
+                'Tango ',
+                'Soul ',
+            ],
+            [
+                'Museo Histórico Nacional del Cabildo y la Revolución de Mayo',
+                'Museo Nacional de Argentina ',
+                'Museo de la ciudad de Buenos Aires',
+            ],
+            [
+                'Torre de Jesús ',
+                ' La Catedral de la Plata',
+                'Catedral de Nuestra Señora de la Concepción',
+            ],
+        );
+
+        $res = array(2,3,2,1,2);
 
 
-                for($preg = 213; $preg <= 217; $preg++){
+        for($preg = 213; $preg <= 217; $preg++){
 
-                    for ($i = 0; $i < 3 ; $i++) {
+            for ($i = 0; $i < 3 ; $i++) {
 
-                        $respuesta = new \App\Respuesta();
-                        $respuesta->option = $rep[$preg-213][$i];
-                        $respuesta->correct = $i == ( $res[$preg-213] - 1 ) ? 1 : 0;
-                        $respuesta->pregunta_id = $preg;
-                        $respuesta->save();
+                $respuesta = new \App\Respuesta();
+                $respuesta->option = $rep[$preg-213][$i];
+                $respuesta->correct = $i == ( $res[$preg-213] - 1 ) ? 1 : 0;
+                $respuesta->pregunta_id = $preg;
+                $respuesta->save();
 
-                    }
+            }
+        }
+
+    /*
+       *
+       * Argentina 3 ~ 11
+       */
+
+        $rep = array(
+            [
+                'Física',
+                'Historia',
+                'Química',
+            ],
+            [
+                'Dulces de leche',
+                'Alfajores',
+                'Pay de manzana',
+            ],
+            [
+                'El Rio de la Plata',
+                'Rio Misisipi',
+                'Rio Amazonas',
+            ],
+            [
+                'Mario Alberto Kempes',
+                'Hernán Crespo',
+                'Gabriel Omar Batistuta',
+            ],
+            [
+                'Casa Rosa',
+                'Muro de Berlin',
+                'Las Cataratas de Iguazú',
+            ]
+
+        );
+
+            $res = array(3,2,1,3,3);
+
+            for($preg = 218; $preg <= 222; $preg++){
+
+                for ($i = 0; $i < 3 ; $i++) {
+
+                    $respuesta = new \App\Respuesta();
+                    $respuesta->option = $rep[$preg-218][$i];
+                    $respuesta->correct = $i == ( $res[$preg-218] - 1 ) ? 1 : 0;
+                    $respuesta->pregunta_id = $preg;
+                    $respuesta->save();
+
                 }
-*/
-        /*
-           *
-           * india 3 ~ 11
-           */
-/*
-            $rep = array(
-                [
-                    'Física',
-                    'Historia',
-                    'Química',
-                ],
-                [
-                    'Dulces de leche',
-                    'Alfajores',
-                    'Pay de manzana',
-                ],
-                [
-                    'El Rio de la Plata',
-                    'Rio Misisipi',
-                    'Rio Amazonas',
-                ],
-                [
-                    'Mario Alberto Kempes',
-                    'Hernán Crespo',
-                    'Gabriel Omar Batistuta',
-                ],
-                [
-                    'Casa Rosa',
-                    'Muro de Berlin',
-                    'Las Cataratas de Iguazú',
-                ]
+            }
 
-            );
-
-                $res = array(3,2,1,3,3);
-
-                for($preg = 218; $preg <= 222; $preg++){
-
-                    for ($i = 0; $i < 3 ; $i++) {
-
-                        $respuesta = new \App\Respuesta();
-                        $respuesta->option = $rep[$preg-218][$i];
-                        $respuesta->correct = $i == ( $res[$preg-218] - 1 ) ? 1 : 0;
-                        $respuesta->pregunta_id = $preg;
-                        $respuesta->save();
-
-                    }
-                }
-*/
         /*
          *
          * Argentina 4 ~ 16
@@ -528,7 +528,7 @@ class RespuestasTableSeeder extends Seeder
          *
          */
 
-/*
+
         $res = array(
             '15,550',
             '70,400',
@@ -545,7 +545,7 @@ class RespuestasTableSeeder extends Seeder
             $respuesta->save();
 
         }
-*/
+
 
     /*
      *
