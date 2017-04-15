@@ -16,6 +16,9 @@ function main_css(){
 function main_js(){
 	return Assets\asset_path('scripts/main.js');
 }
+function jquery_js(){
+	return Assets\asset_path('scripts/jquery.js');
+}
 
 function template( $name ){
 	include 'templates/' . $name . '.php';
