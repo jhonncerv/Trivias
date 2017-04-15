@@ -10,7 +10,6 @@ class RespuestasTableSeeder extends Seeder
      * @return void
      */
 
-    /*
     public function run()
     {
 
@@ -112,16 +111,12 @@ class RespuestasTableSeeder extends Seeder
 
         }
 
-    }
-    */
-
-    public function run(){
 
         /*
          *
          * Japon trivia 1 - 5
          */
-       /*for($preg = 57; $preg <= 100; $preg++){
+       for($preg = 57; $preg <= 100; $preg++){
 
             for ($i = 0; $i < 2 ; $i++) {
 
@@ -132,14 +127,14 @@ class RespuestasTableSeeder extends Seeder
                 $respuesta->save();
 
             }
-        }*/
+        }
 
         /*
          *
          * Japon triva 2 ~ 6
          */
 
-       /* $rep = array(
+        $rep = array(
             [
                 'Budha',
                 'Dalí',
@@ -181,13 +176,13 @@ class RespuestasTableSeeder extends Seeder
                 $respuesta->save();
 
             }
-        }*/
+        }
 
         /*
          *
          * Japon 3 ~ 7
          */
-/*
+
         $rep = array(
             [
                 '50,000',
@@ -231,7 +226,7 @@ class RespuestasTableSeeder extends Seeder
 
             }
         }
-*/
+
 
         /*
          *
@@ -239,7 +234,7 @@ class RespuestasTableSeeder extends Seeder
          */
 
 
-   /*     $res = array(
+       $res = array(
             '520,50',
             '65,485',
             '495,580'
@@ -255,13 +250,13 @@ class RespuestasTableSeeder extends Seeder
             $respuesta->save();
 
         }
-*/
+
 
         /*
            *
            * india trivia 1 - 9
            */
-/*
+
         for($preg = 112; $preg <= 156; $preg++){
 
             for ($i = 0; $i < 2 ; $i++) {
@@ -273,13 +268,13 @@ class RespuestasTableSeeder extends Seeder
                 $respuesta->save();
 
             }
-        }*/
+        }
 
         /*
          *
          * India triva 2 ~ 10
          */
-/*
+
         $rep = array(
             [
                 'Gandhi',
@@ -323,12 +318,12 @@ class RespuestasTableSeeder extends Seeder
 
             }
         }
-*/
+
         /*
          *
          * india 3 ~ 11
          */
-/*
+
         $rep = array(
             [
                 '1,200 millones de habitantes',
@@ -372,7 +367,7 @@ class RespuestasTableSeeder extends Seeder
 
             }
         }
-*/
+
 
         /*
          *
@@ -383,7 +378,7 @@ class RespuestasTableSeeder extends Seeder
          *  750, 1400
          */
 
-/*
+
         $res = array(
             '472,20',
             '65,160',
@@ -401,7 +396,7 @@ class RespuestasTableSeeder extends Seeder
             $respuesta->save();
 
         }
-*/
+
         /*
          *
          * Srgentina trivia 1 - 13
