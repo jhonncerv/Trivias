@@ -75,6 +75,14 @@
           });
         });
 
+        $.post(window.config.postalto, {data:{id:1}}, function( json ) {
+          if(json.status === 'success'){
+            window.score(json);
+          } else {
+            window.message(json.message);
+          }
+        }, "json"); 
+
       }
     },
     'app': {

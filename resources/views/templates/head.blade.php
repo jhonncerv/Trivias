@@ -8,7 +8,7 @@
     <link rel="icon" href="/favicon.ico" type="image/x-icon">
     <title>Twinings</title>
     <link rel='stylesheet' href='<?=main_css()?>' type='text/css' media='all' />
-    <script type='text/javascript' src='https://code.jquery.com/jquery-1.12.4.min.js'></script>
+    <script type='text/javascript' src='<?=jquery_js()?>'></script>
     
     @if(isset($postal))
     <meta property="og:title" content="Postales Twinings" />
@@ -26,7 +26,8 @@
             start:'/start',
             save:'/save',
             hashtag:'#TéDeAltura',
-            postal:'/postales/share'
+            postal:'/postales/share',
+            postalto:'/postales/toshare'
         };
     </script>
     <script>
