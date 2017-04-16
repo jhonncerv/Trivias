@@ -15,6 +15,9 @@
   var UTIL, Sage = {
     'common': {
       init: function() {
+        
+        window.requiereFB( window.config.appid );
+
         $('.main-header__menu').click(function(){
           $('body').toggleClass('menu-visible');
         });
@@ -43,19 +46,33 @@
             $(".tw-loader").stop().fadeOut("fast");
           }
         };
+        window.show_loader = function( event ){
+          window.loader(true);
+        };
+        window.hide_loader = function( event ){
+          window.loader(false);
+        };
 
         $('.tw-message__button').click(function(){
           $('.tw-message').fadeOut();
         });
-        window.message = function( text ){
-          $('.tw-message__text').html(text);
+        window.message = function( message ){
+          $('.tw-message__text').html( message );
           $('.tw-message').fadeIn();
         };
+        window.message_error = function( event, message ){
+          window.message( message );
+        };
+
+        
 
         window.score = function( score ){
           $('.profile-photo__score').text( score );
         };
-
+        window.score_data = function( event, data ){
+          window.score( data.points_new );
+        };
+        
         function closePopup( event ){
           event.preventDefault();
           $( ".tw-popup" ).fadeOut();
@@ -63,9 +80,9 @@
         $(".tw-popup__close").click(closePopup);
         $(".tw-popup-trigger").click(function( event ){
           event.preventDefault();
-          window.loader(true);
+          window.show_loader();
           $( ".tw-popup__main" ).load( $(this).attr("href") + " .tw-page", function(){
-            window.loader(false);
+            window.hide_loader();
             var body_classes = $( ".tw-popup__main" ).find(".tw-page").data("body-classes");
             if(body_classes){
               UTIL.fireClasses(body_classes);
@@ -75,30 +92,22 @@
           });
         });
 
-        $.post(window.config.postalto, {data:{id:1}}, function( json ) {
-          if(json.status === 'success'){
-            window.score(json);
-          } else {
-            window.message(json.message);
-          }
-        }, "json"); 
-
       }
     },
     'app': {
       init: function(){
 
-        var dynamics = new window.dynamics(window.config.dynamic,window.config.start,window.config.save);
+        var Dynamics = window.dynamics,
+            PinsPostals = window.pinspostals,
+            dynamics = new Dynamics(window.config.dynamic,window.config.start,window.config.save),
+            pins = new PinsPostals(window.config.postalto,$(".tw-map__pins__item"),"tw-map__pins__item--postal");
         
-        dynamics.on('request.start',function(){
-          window.loader(true);
-        });
-        dynamics.on('request.end',function(){
-          window.loader(false);
-        });
-        dynamics.on('error',function( event, message ){
-          window.message(message);
-        });
+        //pins.start(1);
+
+        dynamics.on('request.start',window.show_loader);
+        dynamics.on('request.end',window.hide_loader);
+        dynamics.on('error',window.message_error);
+
         $('[data-trigger-city]').click(function(){
           dynamics.request_dynamic({city:$(this).data('trigger-city')});
         }); 
@@ -187,10 +196,7 @@
         var FBLogin = window.fblogin,
             facebook = new FBLogin( window.config.login, window.config.appid, window.config.scope );
         
-        facebook.on('fblogin.error', function( event, error ){
-          window.message(error);
-        });
-
+        facebook.on('fblogin.error', window.message_error);
         facebook.on('fblogin.done', function( event, response ){
           window.location = response.redirect || window.location.href;
         });
@@ -209,26 +215,20 @@
     },
     'postal_page': {
       init: function() {
-        window.requiereFB( window.config.appid );
-        $(".tw-postal__share a.fb:not(.shinit)").addClass(".shinit").click(function(){
-          var id = $(this).data("id");
-          FB.ui({
-            app_id: window.config.appid,
-            method: 'share',
-            href: $(this).attr("href"),
-            hashtag: window.config.hashtag,
-          }, function(response){
-            console.log(response);
-            window.loader(true);
-            $.post(window.config.postal, {data:{post_id:response?response.post_id:undefined,postal_id:id}}, function( json ) {
-              window.loader(false);
-              if(json.status === 'success'){
-                window.score(json.data.points_new);
-              } else {
-                window.message(json.message);
-              }
-            }, "json"); 
-          });
+        var PostalShare = window.postalshare,
+            click = function( event ){
+              event.preventDefault();
+              $(this).data('postal').ui();
+            };
+        $(".tw-postal__share a.fb:not(.ps-initialized)").addClass(".ps-initialized").each(function( i, e ){
+          var $e = $(e), 
+              postal = new PostalShare(window.config.postal, window.config.appid, window.config.hashtag, $e.attr("href"), $e.data("id"));
+          postal.on('request.start',window.show_loader);
+          postal.on('request.end',window.hide_loader);
+          postal.on('error',window.message_error);
+          postal.on('success',window.score_data);
+          $e.data('postal',postal);
+          $e.click( click );
         }); 
       }
     }
@@ -246,7 +246,7 @@
       fire = fire && typeof namespace[func][funcname] === 'function';
 
       if (fire) {
-        console.log('UTIL.fire', 'Sage.' + func + '.' + funcname);
+        //console.log('UTIL.fire', 'Sage.' + func + '.' + funcname);
         namespace[func][funcname](args);
       }
     },
