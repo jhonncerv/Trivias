@@ -16,7 +16,7 @@ class TriviasTableSeeder extends Seeder
         $puntos = array(40, 30, 20, 50);
         $Cnow = Carbon::now();
         Carbon::setTestNow($Cnow);
-/*
+
         for ($i = 0; $i < 4; $i++) {
             $trivia = new \App\Trivia();
             $trivia->game = $trivias[$i];
@@ -36,7 +36,7 @@ class TriviasTableSeeder extends Seeder
             $trivia->query_size = $i == 3 ? 1 : 5;
             $trivia->publish = new Carbon('yesterday');
             $trivia->save();
-        }*/
+        }
 
         for ($i = 0; $i < 4; $i++) {
             $trivia = new \App\Trivia();

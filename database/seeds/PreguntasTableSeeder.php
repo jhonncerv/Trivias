@@ -261,7 +261,7 @@ class PreguntasTableSeeder extends Seeder
  *  India
  *
  */
-
+/*
     public function run() {
 
         $trivia = 9;
@@ -382,37 +382,37 @@ class PreguntasTableSeeder extends Seeder
         $pregunta->save();
     }
 
-
+*/
     /*
      *  Argentina
      *
      */
-/*
+
     public function run() {
 
         $trivia = 13;
 
         $imagenes = array(
-            '',
-            '',
-            '',
-            '',
-            '',
-            '',
-            '',
-            '',
-            '',
-            '',
-            '',
-            '',
-            '',
-            '',
-            '',
-            '',
-            '',
-            '',
-            '',
-            '',
+            'fake/argentina/Alfajor.png',
+            'fake/argentina/Algarrobo.png',
+            'fake/argentina/Anana.png',
+            'fake/argentina/Apple.png',
+            'fake/argentina/Barley.png',
+            'fake/argentina/Basil.png',
+            'fake/argentina/Cebada.png',
+            'fake/argentina/Centeno.png',
+            'fake/argentina/Chimichurri.png',
+            'fake/argentina/Cranberry.png',
+            'fake/argentina/Darjeeling.png',
+            'fake/argentina/DulceDeLeche.png',
+            'fake/argentina/Fig.png',
+            'fake/argentina/Mate.png',
+            'fake/argentina/Palmito.png',
+            'fake/argentina/Peach.png',
+            'fake/argentina/Pesto.png',
+            'fake/argentina/Pineapple.png',
+            'fake/argentina/Polenta.png',
+            'fake/argentina/Sugarcane.png',
             'reales/Blackurrant.png',
             'reales/CamomilleHoneyVainilla.png',
             'reales/CamomilleSpearmint.png',
@@ -451,22 +451,22 @@ class PreguntasTableSeeder extends Seeder
 
         $trivia = 14;
 
-        $pre = 'siluetas/india/';
+        $pre = 'siluetas/argentina/';
 
         $imagenes = array(
-            '',
-            '',
-            '',
-            '',
-            '',
+            'Obelisco.gif',
+            'FaroSanJuan.gif',
+            'Tango.gif',
+            'MuseoNacional.gif',
+            'CatedralPlata.gif',
         );
 
         $caption = array(
-            '',
-            '',
-            '',
-            '',
-            '',
+            'El ícono más grande de Argentina:',
+            'La novela de Julio Verne, "El faro del fin del mundo", le dio fama y su apodo:',
+            'Es un género musical y una danza características de la región del Río de la Plata y su zona de influencia:',
+            '¿Puedes adivinar cómo se llama este lugar?',
+            'Principal templo católico de la ciudad de La Plata, capital de la Provincia de Buenos Aires:',
         );
 
         for($i=0;$i<5;$i++){
@@ -481,11 +481,11 @@ class PreguntasTableSeeder extends Seeder
         $trivia = 15;
 
         $preguntas = array(
-            '',
-            '',
-            '',
-            '',
-            '',
+            'Argentina ha sido distinguida con cinco Premios Nobel: dos de la Paz, dos de Medicina y uno de: ',
+            '¿Cuál de éstos en un postre típico de Argentina? ',
+            'Es el río más ancho del mundo, en el que confluyen el río Paraná y el río Uruguay: ',
+            'El goleador más grande de todos los tiempos en Argentina ha sido: ',
+            'Patrimonio de la Humanidad y uno de los lugares más visitados en Argentina:',
         );
 
         for($i=0;$i<5;$i++){
@@ -505,38 +505,35 @@ class PreguntasTableSeeder extends Seeder
         $pregunta->caption = null;
         $pregunta->trivia_id = $trivia;
         $pregunta->save();
-    }
-*/
     /*
      *  Inglaterra
      *
      */
-/*
-    public function run() {
 
-        $trivia = 13;
+
+        $trivia = 17;
 
         $imagenes = array(
-            '',
-            '',
-            '',
-            '',
-            '',
-            '',
-            '',
-            '',
-            '',
-            '',
-            '',
-            '',
-            '',
-            '',
-            '',
-            '',
-            '',
-            '',
-            '',
-            '',
+            'fake/londres/AlmondCinnamon.png',
+            'fake/londres/AssamTea.png',
+            'fake/londres/Blackberry.png',
+            'fake/londres/BlackTea.png',
+            'fake/londres/Blueberry.png',
+            'fake/londres/Caramel.png',
+            'fake/londres/Citrics.png',
+            'fake/londres/EarlGreyRoyal.png',
+            'fake/londres/EnglishAfternoon.png',
+            'fake/londres/EnglishNights.png',
+            'fake/londres/GreenMint.png',
+            'fake/londres/Hibiscus.png',
+            'fake/londres/Juniper.png',
+            'fake/londres/Lavender.png',
+            'fake/londres/OrangeCocoa.png',
+            'fake/londres/OrangePinnaple.png',
+            'fake/londres/Raspberry.png',
+            'fake/londres/RedTea.png',
+            'fake/londres/Strawberry.png',
+            'fake/londres/Vanilla.png',
             'reales/Blackurrant.png',
             'reales/CamomilleHoneyVainilla.png',
             'reales/CamomilleSpearmint.png',
@@ -573,24 +570,24 @@ class PreguntasTableSeeder extends Seeder
             $pregunta->save();
         }
 
-        $trivia = 14;
+        $trivia = 18;
 
-        $pre = 'siluetas/india/';
+        $pre = 'siluetas/londres/';
 
         $imagenes = array(
-            '',
-            '',
-            '',
-            '',
-            '',
+            'Beatles.gif',
+            'BigBen.gif',
+            'Cabina.gif',
+            'Puente.gif',
+            'Camion.gif',
         );
 
         $caption = array(
-            '',
-            '',
-            '',
-            '',
-            '',
+            'Es la máxima representación de la música en Londres y el mundo: ',
+            'Mide 96 metros de altura y es la tercera torre del reloj más alta del mundo: ',
+            'Si viajas a Londres no te puede faltar la típica foto con esto:',
+            'Ubicado sobre el rio Támesis: ',
+            'Se crearon para poder transportar un mayor número de pasajeros para no tener que exceder los límites legales sobre la longitud de los vehículos:',
         );
 
         for($i=0;$i<5;$i++){
@@ -602,14 +599,14 @@ class PreguntasTableSeeder extends Seeder
             $pregunta->save();
         }
 
-        $trivia = 15;
+        $trivia = 19;
 
         $preguntas = array(
-            '',
-            '',
-            '',
-            '',
-            '',
+            'Todas las casas y pisos del centro de Londres son propiedad de la Corona Británica. Aunque se compren, éstos tienen una duración de 10 años, luego vuelven a pasar a manos de: ',
+            'El metro de Londres es el más antiguo del mundo, comenzó a funcionar en: ',
+            'Aunque algunos lo buscan en Liverpool, el paso de cebra que popularizaron los Beatles en Abbey Road está en el barrio de: ',
+            'En el súper, cuando la comida va a caducar, al final del día ponen los productos a mitad de precio.',
+            'Londres nunca ha sido reconocido por su gastronomía, sin embargo, encuentras platillos deliciosos. Las especialidades son el fish and chips, jacket potatoe y:',
         );
 
         for($i=0;$i<5;$i++){
@@ -621,7 +618,7 @@ class PreguntasTableSeeder extends Seeder
             $pregunta->save();
 
         }
-        $trivia = ;
+        $trivia = 20;
 
         $pregunta = new \App\Pregunta();
         $pregunta->question = 'finding/FindingInglaterra.png';
@@ -629,7 +626,6 @@ class PreguntasTableSeeder extends Seeder
         $pregunta->trivia_id = $trivia;
         $pregunta->save();
     }
-*/
 
 }
 
