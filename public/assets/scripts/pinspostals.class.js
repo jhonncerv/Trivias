@@ -2,6 +2,7 @@
 
   function PostalShare( endpoint, appid, hashtag, url, id ){ 
     this.$events = $({});
+    this.endpoint = endpoint;
     this.appid = appid;
     this.hashtag = hashtag;
     this.url = url;
