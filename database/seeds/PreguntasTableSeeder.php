@@ -9,7 +9,7 @@ class PreguntasTableSeeder extends Seeder
      *
      * @return void
      */
-/*    public function run()
+    public function run()
     {
 
         for($ii = 1; $ii <= 3; $ii++){
@@ -126,15 +126,13 @@ class PreguntasTableSeeder extends Seeder
         $pregunta->caption = null;
         $pregunta->trivia_id = $ii;
         $pregunta->save();
-    }
-*/
+
+
 
 /*
  *  JAPON
  *
  */
-/*
-    public function run(){
 
         $trivia = 5;
 
@@ -253,16 +251,12 @@ class PreguntasTableSeeder extends Seeder
         $pregunta->trivia_id = $trivia;
         $pregunta->save();
 
-    }
-*/
 
 /*
  * 
  *  India
  *
  */
-/*
-    public function run() {
 
         $trivia = 9;
 
@@ -380,15 +374,13 @@ class PreguntasTableSeeder extends Seeder
         $pregunta->caption = null;
         $pregunta->trivia_id = $trivia;
         $pregunta->save();
-    }
 
-*/
+
     /*
      *  Argentina
      *
      */
 
-    public function run() {
 
         $trivia = 13;
 

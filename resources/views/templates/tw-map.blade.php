@@ -1,4 +1,4 @@
-@if ($current = $ciudades->where('is_publish',1)->count() > 0 ? $ciudades->where('is_publish',1)[$count - 1]->id : 1) @endif
+@if ($current = $ciudades->where('is_publish',1)->count() > 0 ? $ciudades->where('is_publish',1)[$ciudades->where('is_publish',1)->count() - 1]->id : 1) @endif
 <div class="tw-map tw-map--{{$current}}">
     <div class="tw-map__stage vertical-align--xs">
         <div class="tw-map__pins">
@@ -7,13 +7,13 @@
                  @if($ciudad->available == 0)
                     @continue
                 @endif
-            <div class="tw-map__pins__item tw-map__pins__item--{{ $ciudad->id }} tw-map__pins__item--postal">
+            <div class="tw-map__pins__item tw-map__pins__item--{{ $ciudad->id }}" data-id="{{ $ciudad->id }}">
                 <div class="tw-map__pins__item__pin" data-trigger-city="{{ $ciudad->name }}"></div>
                 <div class="tw-map__pins__item__postal">
                     <a href="#" class="fb" data-id="" target="_blank"><i class="fa fa-facebook"></i></a>
                     <div class="tw-map__pins__item__postal__share"></div>
                     <figure>
-                        <img src="/postal/Marruecos01.png" />
+                        <img src="" />
                     </figure>
                     <figcaption>Comparte y suma puntos.</figcaption>
                 </div>

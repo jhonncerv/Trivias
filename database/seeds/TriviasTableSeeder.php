@@ -17,46 +17,27 @@ class TriviasTableSeeder extends Seeder
         $Cnow = Carbon::now();
         Carbon::setTestNow($Cnow);
 
-        for ($i = 0; $i < 4; $i++) {
-            $trivia = new \App\Trivia();
-            $trivia->game = $trivias[$i];
-            $trivia->points_per_anwser = $puntos[$i];
-            $trivia->available = 1;
-            if( $i == 0 ){
-                $time = 5;
-            } else if( $i == 1) {
-                $time = 4;
-            } else if( $i == 2) {
-                $time = 2;
-            } else {
-                $time = 10;
+        for( $e=0; $e<5; $e++ ){
+            for ($i = 0; $i < 4; $i++) {
+                $trivia = new \App\Trivia();
+                $trivia->game = $trivias[$i];
+                $trivia->points_per_anwser = $puntos[$i];
+                $trivia->available = 1;
+                if( $i == 0 ){
+                    $time = 5;
+                } else if( $i == 1) {
+                    $time = 4;
+                } else if( $i == 2) {
+                    $time = 2;
+                } else {
+                    $time = 10;
+                }
+
+                $trivia->time_limit = ( $time * 60 );
+                $trivia->query_size = $i == 3 ? 1 : 5;
+                $trivia->publish = new Carbon('yesterday');
+                $trivia->save();
             }
-
-            $trivia->time_limit = ( $time * 60 );
-            $trivia->query_size = $i == 3 ? 1 : 5;
-            $trivia->publish = new Carbon('yesterday');
-            $trivia->save();
-        }
-
-        for ($i = 0; $i < 4; $i++) {
-            $trivia = new \App\Trivia();
-            $trivia->game = $trivias[$i];
-            $trivia->points_per_anwser = $puntos[$i];
-            $trivia->available = 1;
-            if( $i == 0 ){
-                $time = 5;
-            } else if( $i == 1) {
-                $time = 4;
-            } else if( $i == 2) {
-                $time = 2;
-            } else {
-                $time = 10;
-            }
-
-            $trivia->time_limit = ( $time * 60 );
-            $trivia->query_size = $i == 3 ? 1 : 5;
-            $trivia->publish = new Carbon('yesterday');
-            $trivia->save();
         }
     }
 }
