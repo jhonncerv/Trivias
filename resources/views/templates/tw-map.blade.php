@@ -37,7 +37,7 @@
                 @if($ciudad->available == 0)
                     @continue
                 @endif
-            <div class="tw-map__dots__item tw-map__dots__item--{{$ciudad->id}} {{ $ciudad->is_publish || true ? 'tw-map__dots__item--available':'' }}" data-id="{{$ciudad->id}}" {!! $ciudad->is_publish || true ? '':'data-trigger-city="'. $ciudad->name .'"' !!}></div>
+            <div class="tw-map__dots__item tw-map__dots__item--{{$ciudad->id}} {{ $ciudad->is_publish ? 'tw-map__dots__item--available':'' }}" data-id="{{$ciudad->id}}" {!! $ciudad->is_publish ? '':'data-trigger-city="'. $ciudad->name .'"' !!}></div>
             @endforeach
         </div>
     </div>
