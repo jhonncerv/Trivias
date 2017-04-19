@@ -40,4 +40,9 @@ class CiudadController extends Controller
         return view('mecanica');
     }
 
+    public function despedida()
+    {
+        return view('despedida');
+    }
+
 }

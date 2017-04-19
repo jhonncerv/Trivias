@@ -14,6 +14,7 @@
 Route::get('/', 'CiudadController@index')->name('home');
 Route::get('/tyco', 'CiudadController@tyco')->name('tyco');
 Route::get('/mecanica', 'CiudadController@mecanica')->name('mecanica');
+Route::get('/despedida', 'CiudadController@despedida')->name('despedida');
 Route::get('/postales', 'PostalController@index')->name('postales');
 Route::get('/postales/{id}', 'PostalController@postal')->name('postal');
 Route::post('/postales/share', 'PostalController@postea');
