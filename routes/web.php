@@ -15,8 +15,6 @@ Route::group(['middleware' => 'vigencia'], function () {
     Route::get('/', 'CiudadController@index')->name('home');
     Route::get('/tyco', 'CiudadController@tyco')->name('tyco');
     Route::get('/mecanica', 'CiudadController@mecanica')->name('mecanica');
-    Route::get('/postales', 'PostalController@index')->name('postales');
-    Route::get('/postales/{id}', 'PostalController@postal')->name('postal');
     Route::post('/postales/share', 'PostalController@postea');
 
     Route::get('/logout', 'SocialiteController@logout');
@@ -24,6 +22,8 @@ Route::group(['middleware' => 'vigencia'], function () {
     Route::get('login/social', 'SocialiteController@redirectToProvider');
     Route::get('login/social/callback', 'SocialiteController@handleProviderCallback');
 });
+Route::get('/postales', 'PostalController@index')->name('postales');
+Route::get('/postales/{id}', 'PostalController@postal')->name('postal');
 
 //Auth::routes();
 Route::get('/despedida', 'CiudadController@despedida')->name('despedida');

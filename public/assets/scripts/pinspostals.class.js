@@ -84,7 +84,7 @@
       this.data = [];
       for (var i = 0; i < data.length; i++) {
         this.data.push({
-          'url': '/postales/' + data[i].name,
+          'url': 'https://twinings.mx/postales/' + data[i].name,
           'img': data[i].url
         });
       }
