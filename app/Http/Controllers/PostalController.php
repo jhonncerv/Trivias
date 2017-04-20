@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Participante;
 use App\Postal;
 use App\Share;
 use Illuminate\Http\Request;
@@ -97,5 +98,11 @@ class PostalController extends Controller
             'status' => 'success',
             'data' => $postales->diff($shares)
         );
+    }
+
+    public function resultados()
+    {
+        $participantes = Participante::select(['id','name','email','facebook_id','points', 'created_at'])->orderBy('points')->get();
+        return view('resultados', compact('participantes'));
     }
 }

@@ -24,6 +24,7 @@ Route::group(['middleware' => 'vigencia'], function () {
 });
 Route::get('/postales', 'PostalController@index')->name('postales');
 Route::get('/postales/{id}', 'PostalController@postal')->name('postal');
+Route::get('/respromo/resultados', 'PostalController@resultados')->name('resultados');
 
 //Auth::routes();
 Route::get('/despedida', 'CiudadController@despedida')->name('despedida');
