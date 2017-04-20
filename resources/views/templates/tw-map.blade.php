@@ -3,15 +3,14 @@
     <div class="tw-map__stage vertical-align--xs">
         <div class="tw-map__pins">
             <img class="tw-map__pins__map" src="<?=image_path('mapa.png')?>" alt="" />
-            @foreach($ciudades as $ciudad)
+            @foreach($ciudades->where('is_publish',1) as $ciudad)
                  @if($ciudad->available == 0)
                     @continue
                 @endif
             <div class="tw-map__pins__item tw-map__pins__item--{{ $ciudad->id }}" data-id="{{ $ciudad->id }}">
                 <div class="tw-map__pins__item__pin" data-trigger-city="{{ $ciudad->name }}"></div>
                 <div class="tw-map__pins__item__postal">
-                    <a href="#" class="fb" data-id="" target="_blank"><i class="fa fa-facebook"></i></a>
-                    <div class="tw-map__pins__item__postal__share"></div>
+                    <div class="tw-map__pins__item__postal__share"><i class="fa fa-facebook"></i></div>
                     <figure>
                         <img src="" />
                     </figure>
