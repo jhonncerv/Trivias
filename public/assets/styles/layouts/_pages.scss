@@ -251,7 +251,7 @@
 				background: color(corn);
 				background: linear-gradient(to bottom, color(gold) 0%,color(corn) 100%);
 				padding: 8px;
-				a{
+				&__share{
 				    display: block;
 				    position: absolute;
 				    width: 40px;
@@ -262,6 +262,7 @@
 				    text-align: center;
 				    background-color: color(corn);
 				    color: color(light);
+				    cursor: pointer;
 				}
 				figure{
 					margin: 0 0 5px 0;
