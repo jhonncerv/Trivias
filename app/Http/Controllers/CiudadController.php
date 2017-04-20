@@ -13,7 +13,6 @@ class CiudadController extends Controller
 
     public function index()
     {
-        //Session::flush();
         $participante = array();
         $ciudades = array();
 
@@ -38,6 +37,11 @@ class CiudadController extends Controller
     public function mecanica()
     {
         return view('mecanica');
+    }
+
+    public function despedida()
+    {
+        return view('despedida');
     }
 
 }

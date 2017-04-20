@@ -11,23 +11,27 @@
 |
 */
 
-Route::get('/', 'CiudadController@index')->name('home');
-Route::get('/tyco', 'CiudadController@tyco')->name('tyco');
-Route::get('/mecanica', 'CiudadController@mecanica')->name('mecanica');
-Route::get('/postales', 'PostalController@index')->name('postales');
-Route::get('/postales/{id}', 'PostalController@postal')->name('postal');
-Route::post('/postales/share', 'PostalController@postea');
+Route::group(['middleware' => 'vigencia'], function () {
+    Route::get('/', 'CiudadController@index')->name('home');
+    Route::get('/tyco', 'CiudadController@tyco')->name('tyco');
+    Route::get('/mecanica', 'CiudadController@mecanica')->name('mecanica');
+    Route::get('/postales', 'PostalController@index')->name('postales');
+    Route::get('/postales/{id}', 'PostalController@postal')->name('postal');
+    Route::post('/postales/share', 'PostalController@postea');
 
-Route::get('/logout', 'SocialiteController@logout');
-Route::post('login/participante', 'SocialiteController@login');
-Route::get('login/social', 'SocialiteController@redirectToProvider');
-Route::get('login/social/callback', 'SocialiteController@handleProviderCallback');
+    Route::get('/logout', 'SocialiteController@logout');
+    Route::post('login/participante', 'SocialiteController@login');
+    Route::get('login/social', 'SocialiteController@redirectToProvider');
+    Route::get('login/social/callback', 'SocialiteController@handleProviderCallback');
+});
 
-Auth::routes();
+//Auth::routes();
+Route::get('/despedida', 'CiudadController@despedida')->name('despedida');
+
 // rutas para la api
 //Route::get('/home', 'HomeController@index');
 
-Route::group(['middleware' => 'auth'], function () {
+Route::group(['middleware' => ['auth', 'vigencia']], function () {
     Route::post('start', 'TriviaController@startGame');
     Route::post('save', 'TriviaController@stopGame');
     Route::post('dynamic', 'TriviaController@todayGame');

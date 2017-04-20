@@ -592,7 +592,7 @@ class RespuestasTableSeeder extends Seeder
             ],
         );
 
-        $res = array(2,3,2,1,2);
+        $res = array(3,1,2,1,2);
 
 
         for($preg = 269; $preg <= 273; $preg++){

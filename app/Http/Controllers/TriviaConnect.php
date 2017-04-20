@@ -72,12 +72,12 @@ class TriviaConnect
                     $diff = new Carbon($p->time_finish, 'America/Mexico_City');
                     $tim = $diff->diffInMinutes(Carbon::now('America/Mexico_City'));
 
-                    if( $tim < 2){
+                    if( $tim < 15){
                         $response['message'] = 'No te desesperes, el siguiente juego estará disponible en ';
-                        if($tim == 1) {
+                        if($tim == 14) {
                             $response['message'].= ' menos de un minuto.';
                         } else {
-                            $response['message'].= (2 -$tim) . ' minuto'.($tim == 1 ? '':'s').'.';
+                            $response['message'].= (15 -$tim) . ' minuto'.($tim == 14 ? '':'s').'.';
                         }
                         return $response;
                     }
@@ -170,7 +170,7 @@ class TriviaConnect
 
                 $intento->save();
             }
-
+            shuffle($resp);
             $pre_data['respuestas'] = $resp;
 
             if($puntaje->trivia->id == 1 || $puntaje->trivia->id == 5 || $puntaje->trivia->id == 9 || $puntaje->trivia->id == 13 || $puntaje->trivia->id == 17)
@@ -363,6 +363,7 @@ class TriviaConnect
                 $intento->save();
             }
 
+            shuffle($resp);
             $pre_data['respuestas'] = $resp;
 
             if($trivia_id == 1 || $trivia_id == 5 || $trivia_id == 9 || $trivia_id == 13 || $trivia_id == 17 )

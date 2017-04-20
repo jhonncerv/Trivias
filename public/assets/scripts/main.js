@@ -46,10 +46,10 @@
             $(".tw-loader").stop().fadeOut("fast");
           }
         };
-        window.show_loader = function( event ){
+        window.loader_start = function( event ){
           window.loader(true);
         };
-        window.hide_loader = function( event ){
+        window.loader_end = function( event ){
           window.loader(false);
         };
 
@@ -60,38 +60,35 @@
           $('.tw-message__text').html( message );
           $('.tw-message').fadeIn();
         };
-        window.message_error = function( event, message ){
+        window.onerror_message = function( event, message ){
           window.message( message );
         };
-
-        
 
         window.score = function( score ){
           $('.profile-photo__score').text( score );
         };
-        window.score_data = function( event, data ){
+        window.onsuccess_score = function( event, data ){
           window.score( data.points_new );
         };
         
-        function closePopup( event ){
+        function onclick_close_popup( event ){
           event.preventDefault();
           $( ".tw-popup" ).fadeOut();
         }
-        $(".tw-popup__close").click(closePopup);
+        $(".tw-popup__close").click(onclick_close_popup);
         $(".tw-popup-trigger").click(function( event ){
           event.preventDefault();
-          window.show_loader();
+          window.loader_start();
           $( ".tw-popup__main" ).load( $(this).attr("href") + " .tw-page", function(){
-            window.hide_loader();
+            window.loader_end();
             var body_classes = $( ".tw-popup__main" ).find(".tw-page").data("body-classes");
             if(body_classes){
               UTIL.fireClasses(body_classes);
             }
-            $( ".tw-popup__main .tw-page__return, .tw-popup__main .tw-page__logo" ).click(closePopup);
+            $( ".tw-popup__main .tw-page__return, .tw-popup__main .tw-page__logo" ).click(onclick_close_popup);
             $( ".tw-popup" ).fadeIn();
           });
         });
-
       }
     },
     'app': {
@@ -99,14 +96,25 @@
 
         var Dynamics = window.dynamics,
             PinsPostals = window.pinspostals,
-            dynamics = new Dynamics(window.config.dynamic,window.config.start,window.config.save),
-            pins = new PinsPostals(window.config.postalto,$(".tw-map__pins__item"),"tw-map__pins__item--postal");
+            dynamics = new Dynamics(window.config.dynamic, window.config.start, window.config.save),
+            pins = new PinsPostals(window.config.postalto, $(".tw-map__pins__item"), "tw-map__pins__item--postal", "tw-map__pins__item__postal__share", window.config.postal, window.config.appid, window.config.hashtag);
         
-        //pins.start(1);
+        pins.postalEvents({
+          'request.start':window.loader_start,
+          'request.end':window.loader_end,
+          'error':window.onerror_message,
+          'success':window.onsuccess_score
+        });
 
-        dynamics.on('request.start',window.show_loader);
-        dynamics.on('request.end',window.hide_loader);
-        dynamics.on('error',window.message_error);
+        pins.start(1);
+        pins.start(2);
+        pins.start(3);
+        pins.start(4);
+        pins.start(5);
+
+        dynamics.on('request.start',window.loader_start);
+        dynamics.on('request.end',window.loader_end);
+        dynamics.on('error',window.onerror_message);
 
         $('[data-trigger-city]').click(function(){
           dynamics.request_dynamic({city:$(this).data('trigger-city')});
@@ -196,7 +204,7 @@
         var FBLogin = window.fblogin,
             facebook = new FBLogin( window.config.login, window.config.appid, window.config.scope );
         
-        facebook.on('fblogin.error', window.message_error);
+        facebook.on('fblogin.error', window.onerror_message);
         facebook.on('fblogin.done', function( event, response ){
           window.location = response.redirect || window.location.href;
         });
@@ -220,13 +228,13 @@
               event.preventDefault();
               $(this).data('postal').ui();
             };
-        $(".tw-postal__share a.fb:not(.ps-initialized)").addClass(".ps-initialized").each(function( i, e ){
-          var $e = $(e), 
+        $(".tw-postal__share a.fb:not(.ps-initialized)").addClass("ps-initialized").each(function( i, e ){
+          var $e = $(e),
               postal = new PostalShare(window.config.postal, window.config.appid, window.config.hashtag, $e.attr("href"), $e.data("id"));
-          postal.on('request.start',window.show_loader);
-          postal.on('request.end',window.hide_loader);
-          postal.on('error',window.message_error);
-          postal.on('success',window.score_data);
+          postal.on('request.start',window.loader_start);
+          postal.on('request.end',window.loader_end);
+          postal.on('error',window.onerror_message);
+          postal.on('success',window.onsuccess_score);
           $e.data('postal',postal);
           $e.click( click );
         }); 

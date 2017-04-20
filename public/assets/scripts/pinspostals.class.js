@@ -17,6 +17,12 @@
   PostalShare.prototype.off = function( event ){
     this.$events.off(event);
   };
+  PostalShare.prototype.setURL = function( url ){
+    this.url = url;
+  };
+  PostalShare.prototype.getURL = function(){
+    return this.url;
+  };
   PostalShare.prototype.ui = function(){
     var _this = this;
     if(window.FB){
@@ -41,15 +47,27 @@
 
   window.postalshare = PostalShare;
 
-  function PinPostal( endpoint, $element, class_has ){
+  function PinPostal( endpoint, $element, class_has, class_share, postal_endpoint, postal_appid, postal_hashtag ){
     this.$element = $element;
     this.endpoint = endpoint;
     this.id = this.$element.data("id");
     this.class_has = class_has;
     this.data = false;
+    this.postal = new PostalShare(postal_endpoint, postal_appid, postal_hashtag, '', this.id);
+    var _this = this;
+    this.postal.on("success error",function(){
+      _this.hidePostal();
+    });
+    this.$element.find("." + class_share).click(function( event ){
+      event.preventDefault();
+      _this.postal.ui();
+    });
   }
   PinPostal.prototype.getId = function(){
     return this.id;
+  };
+  PinPostal.prototype.getPostal = function(){
+    return this.postal;
   };
   PinPostal.prototype.start = function() {
     if(this.data === false){
@@ -75,32 +93,40 @@
   };
   PinPostal.prototype.setPostal = function() {
     if(this.data.length){
-      this.$element.find('a').attr("href",this.data[0].url);
+      this.postal.setURL(this.data[0].url);
       this.$element.find('img').attr("src",this.data[0].img);
       this.$element.addClass(this.class_has);
     } else {
       this.$element.removeClass(this.class_has);
     }
   };
+  PinPostal.prototype.hidePostal = function() {
+    this.$element.removeClass(this.class_has);
+  };
 
-  function PinsPostals( endpoint, $pins, class_has ){ 
-    this.$events = $({});
+  function PinsPostals( endpoint, $pins, class_has, class_share, postal_endpoint, postal_appid, postal_hashtag, events ){ 
     this.$pins = $pins;
-    this.pins = [];
-    var _this = this;
+    events = events || {};
+    var pins = [], postal, _this = this;
     this.$pins.each(function(i,e){
-      var pin = new PinPostal( endpoint, $(e), class_has );
-      _this.pins.push( pin );
+      postal = new PinPostal( endpoint, $(e), class_has, class_share, postal_endpoint, postal_appid, postal_hashtag );
+      pins.push( postal );
+      _this._attachPostalEvents(postal, events);
     });
+    this.pins = pins;
   }
-  PinsPostals.prototype.on = function( event, fn ){
-    this.$events.on(event, fn);
+  PinsPostals.prototype._attachPostalEvents = function( postal, events ){
+    for(var event in events){
+      postal.on(event,events[event]);
+    }
   };
-  PinsPostals.prototype.one = function( event, fn ){
-    this.$events.one(event, fn);
-  };
-  PinsPostals.prototype.off = function( event ){
-    this.$events.off(event);
+  PinsPostals.prototype.postalEvents = function( events ){
+    for (var i = this.pins.length - 1, postal; i >= 0; i--) {
+      postal = this.pins[i].getPostal();
+      for(var event in events){
+        postal.on(event,events[event]);
+      }
+    }
   };
   PinsPostals.prototype.getPin = function( id ){
     for (var i = this.pins.length - 1; i >= 0; i--) {
@@ -115,6 +141,7 @@
     if(pin){
       pin.start();
     }
+    return pin;
   };
   
   window.pinspostals = PinsPostals;
