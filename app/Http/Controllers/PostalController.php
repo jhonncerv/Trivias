@@ -102,7 +102,7 @@ class PostalController extends Controller
 
     public function resultados()
     {
-        $participantes = Participante::select(['id','name','email','facebook_id','points', 'created_at'])->orderBy('points')->get();
+        $participantes = Participante::select(['name','email','facebook_id','points', 'created_at'])->orderBy('points', 'des')->get();
         return view('resultados', compact('participantes'));
     }
 }

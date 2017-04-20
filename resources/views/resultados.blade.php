@@ -19,13 +19,13 @@
                                     <td>ID</td>
                                     <td>Nombre</td>
                                     <td>email</td>
-                                    <td>Facebook ID</td>
+                                    <td style="min-width: 220px">Facebook ID</td>
                                     <td>Registro</td>
                                     <td>Puntaje</td>
                                 </tr>
                                 @foreach($participantes as $participante)
                                     <tr>
-                                        <td>{{ $participante->id  }}</td>
+                                        <td>{{ $loop->iteration  }}</td>
                                         <td>{{ $participante->name  }}</td>
                                         <td>{{ $participante->email  }}</td>
                                         <td>{{ $participante->facebook_id  }}</td>
