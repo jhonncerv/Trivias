@@ -170,7 +170,7 @@ class TriviaConnect
 
                 $intento->save();
             }
-
+            shuffle($resp);
             $pre_data['respuestas'] = $resp;
 
             if($puntaje->trivia->id == 1 || $puntaje->trivia->id == 5 || $puntaje->trivia->id == 9 || $puntaje->trivia->id == 13 || $puntaje->trivia->id == 17)
@@ -363,6 +363,7 @@ class TriviaConnect
                 $intento->save();
             }
 
+            shuffle($resp);
             $pre_data['respuestas'] = $resp;
 
             if($trivia_id == 1 || $trivia_id == 5 || $trivia_id == 9 || $trivia_id == 13 || $trivia_id == 17 )
